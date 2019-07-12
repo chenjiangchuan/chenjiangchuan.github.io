@@ -1,0 +1,330 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+    
+  CocoaPods私有库 - 陈江川
+  
+  </title>
+ <meta name="description" content="陈江川的技术累计">
+ <link href="atom.xml" rel="alternate" title="陈江川" type="application/atom+xml">
+    <link rel="stylesheet" href="asset/css/foundation.min.css" />
+    <link rel="stylesheet" href="asset/css/docs.css" />
+
+    <script src="asset/js/vendor/modernizr.js"></script>
+    <script src="asset/js/vendor/jquery.js"></script>
+    <script src="asset/highlightjs/highlight.pack.js"></script>
+    <link href="asset/highlightjs/styles/github.css" media="screen, projection" rel="stylesheet" type="text/css">
+    <script>hljs.initHighlightingOnLoad();</script>
+    
+  </head>
+  <body class="antialiased hide-extras">
+    
+    <div class="marketing off-canvas-wrap" data-offcanvas>
+      <div class="inner-wrap">
+
+
+<nav class="top-bar docs-bar hide-for-small" data-topbar>
+
+<div id="header">
+    <h1><a href="index.html">陈江川</a></h1>
+</div>
+
+</nav>
+        <nav class="tab-bar show-for-small">
+  <a href="javascript:void(0)" class="left-off-canvas-toggle menu-icon">
+    <span> &nbsp; 陈江川</span>
+  </a>
+</nav>
+
+<aside class="left-off-canvas-menu">
+      <ul class="off-canvas-list">
+      <li><a href="index.html">Home</a></li>
+      
+        <li class="divider"></li>
+        <li><label>组件化</label></li>
+
+          
+            <li><a title="CocoaPods私有库" href="ios-pods-create.html">CocoaPods私有库</a></li>
+          
+            <li><a title="podspec开发介绍" href="ios-podsepc.html">podspec开发介绍</a></li>
+          
+            <li><a title="iOS项目开发中组件化的应用" href="ios-module-use.html">iOS项目开发中组件化的应用</a></li>
+          
+
+      
+        <li class="divider"></li>
+        <li><label>设计模式</label></li>
+
+          
+            <li><a title="工厂方法模式和抽象工厂方法模式的区别" href="design-pattern-factory.html">工厂方法模式和抽象工厂方法模式的区别</a></li>
+          
+            <li><a title="桥接模式" href="design-pattern-bridge.html">桥接模式</a></li>
+          
+
+      
+        <li class="divider"></li>
+        <li><label>iOS</label></li>
+
+          
+            <li><a title="isa指针" href="ios-isa.html">isa指针</a></li>
+          
+            <li><a title="objc_msgSend分析" href="ios-objc-msgsend.html">objc_msgSend分析</a></li>
+          
+            <li><a title="block的思考" href="ios-block-think.html">block的思考</a></li>
+          
+            <li><a title="ARC模式下的block" href="ios-block-arc.html">ARC模式下的block</a></li>
+          
+            <li><a title="Block_copy原理" href="ios-block-copy.html">Block_copy原理</a></li>
+          
+            <li><a title="block内修改变量的值" href="ios-block-changevar.html">block内修改变量的值</a></li>
+          
+            <li><a title="block的类型" href="ios-block-type.html">block的类型</a></li>
+          
+
+      
+      </ul>
+    </aside>
+
+<a class="exit-off-canvas" href="#"></a>
+
+        <section id="main-content" role="main" class="scroll-container">
+
+          <div class="row">
+            <div class="large-3 medium-3 columns">
+              <div class="hide-for-small">
+                <div class="sidebar">
+                <nav>
+                  <ul id="side-nav" class="side-nav">
+
+                    
+                      <li class="side-title"><span>组件化</span></li>
+                        
+                          <li><a title="CocoaPods私有库" href="ios-pods-create.html">CocoaPods私有库</a></li>
+                        
+                          <li><a title="podspec开发介绍" href="ios-podsepc.html">podspec开发介绍</a></li>
+                        
+                          <li><a title="iOS项目开发中组件化的应用" href="ios-module-use.html">iOS项目开发中组件化的应用</a></li>
+                        
+
+                    
+                      <li class="side-title"><span>设计模式</span></li>
+                        
+                          <li><a title="工厂方法模式和抽象工厂方法模式的区别" href="design-pattern-factory.html">工厂方法模式和抽象工厂方法模式的区别</a></li>
+                        
+                          <li><a title="桥接模式" href="design-pattern-bridge.html">桥接模式</a></li>
+                        
+
+                    
+                      <li class="side-title"><span>iOS</span></li>
+                        
+                          <li><a title="isa指针" href="ios-isa.html">isa指针</a></li>
+                        
+                          <li><a title="objc_msgSend分析" href="ios-objc-msgsend.html">objc_msgSend分析</a></li>
+                        
+                          <li><a title="block的思考" href="ios-block-think.html">block的思考</a></li>
+                        
+                          <li><a title="ARC模式下的block" href="ios-block-arc.html">ARC模式下的block</a></li>
+                        
+                          <li><a title="Block_copy原理" href="ios-block-copy.html">Block_copy原理</a></li>
+                        
+                          <li><a title="block内修改变量的值" href="ios-block-changevar.html">block内修改变量的值</a></li>
+                        
+                          <li><a title="block的类型" href="ios-block-type.html">block的类型</a></li>
+                        
+
+                    
+                  </ul>
+                </nav>
+                </div>
+              </div>
+            </div>
+            <div class="large-9 medium-9 columns">
+
+ <div class="markdown-body">
+<h1>CocoaPods私有库</h1>
+
+<h3 id="toc_0">私有库的创建</h3>
+
+<p>前提：需要创建一个仓库作为私有的Spec Repo，可以在gitLab上创建一个私有的Spec Repo。</p>
+
+<p>1、在gitlab上创建完项目后，执行下面命令，把自己的Spec Repo添加到~/.cocoapods/repos目录下</p>
+
+<pre><code class="language-text">pod repo add 本地仓库名称 gitlab仓库https地址
+// 如下
+pod repo add gitlab-specs https://chenjiangchuan@gitlab.com/chenjiangchuan/YLBSpecs.git
+</code></pre>
+
+<p>2、创建Pod项目</p>
+
+<pre><code class="language-text">pod lib create 项目名称   // 之后会有4步让你选，根据实际需要选择
+</code></pre>
+
+<p>3、修改Pod项目</p>
+
+<ul>
+<li>Assets：存放资源</li>
+<li><p>Classes：存放源码，把代码都放在这个文件夹中</p>
+<p>修改完后，再Example目录中执行：pod update，就会更新修改的文件。</p></li>
+</ul>
+
+<p>4、修改.podspec文件</p>
+
+<pre><code class="language-text">Pod::Spec.new do |s|
+s.name             = &#39;HoriFindModule&#39;
+s.version          = &#39;0.1.0&#39; #每次更新模块版本后，这里也要修改成对应的版本号
+s.summary          = &#39;A short description of HoriFindModule.&#39; #这里需要修改
+s.homepage         = &#39;https://github.com/chenjiangchuan/HoriFindModule&#39;
+
+// 剩下的就不贴出来了...
+</code></pre>
+
+<p>修改完后，执行：pod lib lint，如果成功如下所示：</p>
+
+<pre><code class="language-text">-&gt; HoriFindModule (0.1.0)
+
+HoriFindModule passed validation.
+</code></pre>
+
+<p>如果报错，根据对应的提示进行修改。</p>
+
+<p>5、确定达到自己需求后，我们就把项目上传到仓库，这里也需要在创建一个仓库：</p>
+
+<pre><code class="language-text">1. git add .
+2. git commit -m &quot;提交版本描述&quot;
+3. git remote add origin 项目仓库地址 // 注意，这不是Spec Repo私有库的仓库地址！！
+4. git push origin master
+5. git tag -m &quot;标签描述&quot; 标签名
+6. git push --tags
+7. pod repo push 本地仓库名称 xxx.podspec
+</code></pre>
+
+<p>6、测试，新建一个项目后执行：</p>
+
+<pre><code class="language-text">pod init
+</code></pre>
+
+<p>再修改Podfile文件，这里要注意，需要在Podfile文件的最前面添加：</p>
+
+<pre><code class="language-text">source &#39;https://github.com/CocoaPods/Specs.git&#39; #官方仓库地址       
+source &#39;https://chenjiangchuan@gitlab.com/chenjiangchuan/YLBSpecs.git&#39; #自己的仓库地址
+
+pod &#39;HoriFindModule&#39;
+</code></pre>
+
+<p>最后执行：pod install</p>
+
+<h3 id="toc_1">私有库的更新</h3>
+
+<p>1、在Classes文件夹修改代码：</p>
+
+<p><img src="media/15629247680057/15629250740393.jpg" alt=""/></p>
+
+<p>2、修改完后，在对.podspec文件里面的版本进行修改</p>
+
+<p><img src="media/15629247680057/15629250861981.jpg" alt=""/></p>
+
+<p><img src="media/15629247680057/15629250905751.jpg" alt=""/></p>
+
+<p>3、执行命令</p>
+
+<pre><code class="language-text">pod lib lint
+</code></pre>
+
+<p>4、在Example目录下执行：</p>
+
+<pre><code class="language-text">pod update
+</code></pre>
+
+<p>5、回到上一级目录执行：</p>
+
+<pre><code class="language-text">git add 修改的文件
+git commit -m &quot;本次提交的描述&quot;
+git push origin master
+git tag -m &quot;标签描述&quot; 标签名
+git push --tags
+</code></pre>
+
+<p>6、把本地的Sepc更新到远程仓库</p>
+
+<pre><code class="language-text">pod repo push 本地Spec xxx.podspec
+</code></pre>
+
+<p>7、在对应的项目中使用：pod install进行更新，如果还是下载之前的版本，删除Podfile.lock文件后，再执行pod install。</p>
+
+
+</div>
+
+<br /><br />
+<hr />
+
+<div class="row clearfix">
+  <div class="large-6 columns">
+	<div class="text-left" style="padding:15px 0px;">
+		
+	        <a href="ios-block-copy.html"  title="Previous Post: Block_copy原理">&laquo; Block_copy原理</a>
+	    
+	</div>
+  </div>
+  <div class="large-6 columns">
+	<div class="text-right" style="padding:15px 0px;">
+		
+	        <a href="design-pattern-factory.html" 
+	        title="Next Post: 工厂方法模式和抽象工厂方法模式的区别">工厂方法模式和抽象工厂方法模式的区别 &raquo;</a>
+	    
+	</div>
+  </div>
+</div>
+
+<div class="row">
+<div style="padding:0px 0.93em;" class="share-comments">
+
+</div>
+</div>
+<script type="text/javascript">
+	$(function(){
+		var currentURL = 'ios-pods-create.html';
+		$('#side-nav a').each(function(){
+			if($(this).attr('href') == currentURL){
+				$(this).parent().addClass('active');
+			}
+		});
+	});
+</script>  
+</div></div>
+
+
+<div class="page-bottom">
+  <div class="row">
+  <hr />
+  <div class="small-9 columns">
+  <p class="copyright">Copyright &copy; 2015
+Powered by <a target="_blank" href="http://www.mweb.im">MWeb</a>,&nbsp; 
+Theme used <a target="_blank" href="http://github.com">GitHub CSS</a>.</p>
+  </div>
+  <div class="small-3 columns">
+  <p class="copyright text-right"><a href="#header">TOP</a></p>
+  </div>
+   
+  </div>
+</div>
+
+        </section>
+      </div>
+    </div>
+    
+    
+    <script src="asset/js/foundation.min.js"></script>
+    <script src="asset/js/foundation/foundation.offcanvas.js"></script>
+    <script>
+      $(document).foundation();
+
+     
+    </script>
+    
+
+
+  </body>
+</html>

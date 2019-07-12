@@ -1,0 +1,426 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+    
+  工厂方法模式和抽象工厂方法模式的区别 - 陈江川
+  
+  </title>
+ <meta name="description" content="陈江川的技术累计">
+ <link href="atom.xml" rel="alternate" title="陈江川" type="application/atom+xml">
+    <link rel="stylesheet" href="asset/css/foundation.min.css" />
+    <link rel="stylesheet" href="asset/css/docs.css" />
+
+    <script src="asset/js/vendor/modernizr.js"></script>
+    <script src="asset/js/vendor/jquery.js"></script>
+    <script src="asset/highlightjs/highlight.pack.js"></script>
+    <link href="asset/highlightjs/styles/github.css" media="screen, projection" rel="stylesheet" type="text/css">
+    <script>hljs.initHighlightingOnLoad();</script>
+    
+  </head>
+  <body class="antialiased hide-extras">
+    
+    <div class="marketing off-canvas-wrap" data-offcanvas>
+      <div class="inner-wrap">
+
+
+<nav class="top-bar docs-bar hide-for-small" data-topbar>
+
+<div id="header">
+    <h1><a href="index.html">陈江川</a></h1>
+</div>
+
+</nav>
+        <nav class="tab-bar show-for-small">
+  <a href="javascript:void(0)" class="left-off-canvas-toggle menu-icon">
+    <span> &nbsp; 陈江川</span>
+  </a>
+</nav>
+
+<aside class="left-off-canvas-menu">
+      <ul class="off-canvas-list">
+      <li><a href="index.html">Home</a></li>
+      
+        <li class="divider"></li>
+        <li><label>组件化</label></li>
+
+          
+            <li><a title="CocoaPods私有库" href="ios-pods-create.html">CocoaPods私有库</a></li>
+          
+            <li><a title="podspec开发介绍" href="ios-podsepc.html">podspec开发介绍</a></li>
+          
+            <li><a title="iOS项目开发中组件化的应用" href="ios-module-use.html">iOS项目开发中组件化的应用</a></li>
+          
+
+      
+        <li class="divider"></li>
+        <li><label>设计模式</label></li>
+
+          
+            <li><a title="工厂方法模式和抽象工厂方法模式的区别" href="design-pattern-factory.html">工厂方法模式和抽象工厂方法模式的区别</a></li>
+          
+            <li><a title="桥接模式" href="design-pattern-bridge.html">桥接模式</a></li>
+          
+
+      
+        <li class="divider"></li>
+        <li><label>iOS</label></li>
+
+          
+            <li><a title="isa指针" href="ios-isa.html">isa指针</a></li>
+          
+            <li><a title="objc_msgSend分析" href="ios-objc-msgsend.html">objc_msgSend分析</a></li>
+          
+            <li><a title="block的思考" href="ios-block-think.html">block的思考</a></li>
+          
+            <li><a title="ARC模式下的block" href="ios-block-arc.html">ARC模式下的block</a></li>
+          
+            <li><a title="Block_copy原理" href="ios-block-copy.html">Block_copy原理</a></li>
+          
+            <li><a title="block内修改变量的值" href="ios-block-changevar.html">block内修改变量的值</a></li>
+          
+            <li><a title="block的类型" href="ios-block-type.html">block的类型</a></li>
+          
+
+      
+      </ul>
+    </aside>
+
+<a class="exit-off-canvas" href="#"></a>
+
+        <section id="main-content" role="main" class="scroll-container">
+
+          <div class="row">
+            <div class="large-3 medium-3 columns">
+              <div class="hide-for-small">
+                <div class="sidebar">
+                <nav>
+                  <ul id="side-nav" class="side-nav">
+
+                    
+                      <li class="side-title"><span>组件化</span></li>
+                        
+                          <li><a title="CocoaPods私有库" href="ios-pods-create.html">CocoaPods私有库</a></li>
+                        
+                          <li><a title="podspec开发介绍" href="ios-podsepc.html">podspec开发介绍</a></li>
+                        
+                          <li><a title="iOS项目开发中组件化的应用" href="ios-module-use.html">iOS项目开发中组件化的应用</a></li>
+                        
+
+                    
+                      <li class="side-title"><span>设计模式</span></li>
+                        
+                          <li><a title="工厂方法模式和抽象工厂方法模式的区别" href="design-pattern-factory.html">工厂方法模式和抽象工厂方法模式的区别</a></li>
+                        
+                          <li><a title="桥接模式" href="design-pattern-bridge.html">桥接模式</a></li>
+                        
+
+                    
+                      <li class="side-title"><span>iOS</span></li>
+                        
+                          <li><a title="isa指针" href="ios-isa.html">isa指针</a></li>
+                        
+                          <li><a title="objc_msgSend分析" href="ios-objc-msgsend.html">objc_msgSend分析</a></li>
+                        
+                          <li><a title="block的思考" href="ios-block-think.html">block的思考</a></li>
+                        
+                          <li><a title="ARC模式下的block" href="ios-block-arc.html">ARC模式下的block</a></li>
+                        
+                          <li><a title="Block_copy原理" href="ios-block-copy.html">Block_copy原理</a></li>
+                        
+                          <li><a title="block内修改变量的值" href="ios-block-changevar.html">block内修改变量的值</a></li>
+                        
+                          <li><a title="block的类型" href="ios-block-type.html">block的类型</a></li>
+                        
+
+                    
+                  </ul>
+                </nav>
+                </div>
+              </div>
+            </div>
+            <div class="large-9 medium-9 columns">
+
+ <div class="markdown-body">
+<h1>工厂方法模式和抽象工厂方法模式的区别</h1>
+
+<table>
+<thead>
+<tr>
+<th style="text-align: center">工厂方法</th>
+<th style="text-align: center">抽象工厂方法</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td style="text-align: center">通过类继承创建抽象产品</td>
+<td style="text-align: center">通过组合对象创建抽象产品</td>
+</tr>
+<tr>
+<td style="text-align: center">生产单一的产品</td>
+<td style="text-align: center">生产多个系列的产品</td>
+</tr>
+<tr>
+<td style="text-align: center">通过子类化Creator，并且重载父的工厂方法创建产品</td>
+<td style="text-align: center">子类化Creator，不重载父类的工厂方法，但是通过修改父类的多个接口，达到创建多个产品</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="toc_0">应用场景</h2>
+
+<h3 id="toc_1">工厂方法</h3>
+
+<ol>
+<li>我想要一部手机（这个手机是抽象，因为没有具体说要什么品牌的手机）：Phone</li>
+<li>需要一个工厂生产手机（这个工厂也是抽象，因为并没具体让哪家工厂生产手机）：PhoneCreator</li>
+<li>工厂要有生产线（生产产品的接口）：- (Phone *)createPhone;</li>
+</ol>
+
+<pre><code class="language-objectivec">// Phone.h
+@interface Phone : UIView
+@end
+
+// Phone.m
+@implementation Phone
+@end
+</code></pre>
+
+<pre><code class="language-objectivec">// PhoneCreator.h
+@interface PhoneCreator : NSObject
+- (Phone *)createPhone;
+@end
+
+// PhoneCreator.m
+@implementation PhoneCreator
+
+- (Phone *)createPhone {
+    return [[Phone alloc] init];
+}
+
+@end
+</code></pre>
+
+<p>现在，我想让富士康帮我生产iPhone：</p>
+
+<ol>
+<li>iPone属于手机的一类，继承Phone；</li>
+<li>富士康属于工厂，继承PhoneCreator；</li>
+</ol>
+
+<pre><code class="language-objectivec">// iPhone.h
+@interface iPhone : Phone
+@end
+
+// iPhone.m
+@implementation iPhone
+
+- (instance)init {
+    self = [super init];
+    if (self) {
+        NSLog(@&quot;可以在iPhone内部添加一个特有的东西&quot;);
+    }
+    return self;
+}
+
+@end
+</code></pre>
+
+<pre><code class="language-objectivec">// Foxconn.h
+@interface Foxconn : PhoneCreator
+@end
+
+// Foxconn.m
+@implementation Foxconn
+
+// 通过重载父类的工厂方法创建单一产品 
+- (iPhone *)createPhone {
+    // iPhone是通过继承Phone来创建产品的
+    return [[iPhone alloc] init];
+}
+@end
+</code></pre>
+
+<p>最后我通过以下步骤就能得到iPhone了：</p>
+
+<pre><code class="language-objectivec">Foxconn *foxconn = [[Foxconn alloc] init];
+Phone *phone = [foxconn createPhone];
+</code></pre>
+
+<h3 id="toc_2">抽象工厂</h3>
+
+<p>现在生产了一部手机，但是要贴两个不同公司(Apple，Mi)的牌子，所以在每个有公司logo的的地方我们都得改。假设手机的背部logo：backLogoView，home键：homeButton。</p>
+
+<ol>
+<li>我们要有一个工厂Factory；</li>
+<li>Factory有一个生产线（工厂方法）：+ (instance)factory; 这个方法决定了把该生产线变成生产Apple手机的生产线还是Mi手机的生产线；</li>
+<li>Factory中还有其它的接口返回对应品牌的东西，比如backLogoView、homeButton。</li>
+</ol>
+
+<pre><code class="language-objectivec">// Factory.h
+@interface Factory : NSObject
++ (instance)factory;
+- (UIView *)backLogoView;
+- (UIbutton *)homeButton;
+@end
+
+// Factory.m
+@implemetation Factory 
+
++ (instance)factory {
+#if APPLE
+    return [[AppleFactory alloc] init];
+#else if MI
+    return [[MIFactory alloc] init];
+#else
+    return nil;
+#end
+}
+
+- (UIView *)backLogoView {
+    return nil;
+}
+
+- (UIButton *)homeButton {
+    return nil;
+}
+
+@end
+</code></pre>
+
+<p>生产苹果手机</p>
+
+<pre><code class="language-objectivec">// AppleFactory.h
+
+@interface AppleFactory : Factory 
+@end
+
+// AppleFactory.m
+@implemetation AppleFactory 
+
+// 没有重载父类的工厂方法来创建产品；
+// 而是通过修改父类的接口创建多个产品。
+// 并没有通过类继承的方式创建产品，而是通过组合对象的方式
+
+- (AppleBackLogoView *)backLogoView {
+    return [[AppleBackLogoView alloc] init];
+}
+
+- (AppleHomeButton *)homeButton {
+    return [[AppleHomeButton alloc] init];
+}
+
+@end
+</code></pre>
+
+<p>生产小米手机</p>
+
+<pre><code class="language-objectivec">// MiFactory.h
+@interface MiFactory : Factory 
+@end
+
+// MiFactory.m
+@implemetation MiFactory 
+
+// 没有重载父类的工厂方法来创建产品；
+// 而是通过修改父类的接口创建多个产品。
+
+- (MiBackLogoView *)backLogoView {
+    return [[MiBackLogoView alloc] init];
+}
+
+- (MiHomeButton *)homeButton {
+    return [[MiHomeButton alloc] init];
+}
+
+@end
+
+</code></pre>
+
+<p>最后根据当前的手机品牌生产对应的手机：</p>
+
+<pre><code class="language-objectivec">// 创建工厂
+Factory *factory = [Factory factory];
+// 如果现在生产的是Apple，那么返回的backLogoView类型是：AppleBackLogoView
+UIView *backLogoView = [factory backLogoView];
+</code></pre>
+
+<p><a href="https://github.com/chenjiangchuan/FactoryMode">工厂方法模式Demo</a></p>
+
+
+</div>
+
+<br /><br />
+<hr />
+
+<div class="row clearfix">
+  <div class="large-6 columns">
+	<div class="text-left" style="padding:15px 0px;">
+		
+	        <a href="ios-pods-create.html"  title="Previous Post: CocoaPods私有库">&laquo; CocoaPods私有库</a>
+	    
+	</div>
+  </div>
+  <div class="large-6 columns">
+	<div class="text-right" style="padding:15px 0px;">
+		
+	        <a href="ios-block-changevar.html" 
+	        title="Next Post: block内修改变量的值">block内修改变量的值 &raquo;</a>
+	    
+	</div>
+  </div>
+</div>
+
+<div class="row">
+<div style="padding:0px 0.93em;" class="share-comments">
+
+</div>
+</div>
+<script type="text/javascript">
+	$(function(){
+		var currentURL = 'design-pattern-factory.html';
+		$('#side-nav a').each(function(){
+			if($(this).attr('href') == currentURL){
+				$(this).parent().addClass('active');
+			}
+		});
+	});
+</script>  
+</div></div>
+
+
+<div class="page-bottom">
+  <div class="row">
+  <hr />
+  <div class="small-9 columns">
+  <p class="copyright">Copyright &copy; 2015
+Powered by <a target="_blank" href="http://www.mweb.im">MWeb</a>,&nbsp; 
+Theme used <a target="_blank" href="http://github.com">GitHub CSS</a>.</p>
+  </div>
+  <div class="small-3 columns">
+  <p class="copyright text-right"><a href="#header">TOP</a></p>
+  </div>
+   
+  </div>
+</div>
+
+        </section>
+      </div>
+    </div>
+    
+    
+    <script src="asset/js/foundation.min.js"></script>
+    <script src="asset/js/foundation/foundation.offcanvas.js"></script>
+    <script>
+      $(document).foundation();
+
+     
+    </script>
+    
+
+
+  </body>
+</html>

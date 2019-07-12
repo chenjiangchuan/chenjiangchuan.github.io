@@ -1,0 +1,445 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+    
+  Block_copy原理 - 陈江川
+  
+  </title>
+ <meta name="description" content="陈江川的技术累计">
+ <link href="atom.xml" rel="alternate" title="陈江川" type="application/atom+xml">
+    <link rel="stylesheet" href="asset/css/foundation.min.css" />
+    <link rel="stylesheet" href="asset/css/docs.css" />
+
+    <script src="asset/js/vendor/modernizr.js"></script>
+    <script src="asset/js/vendor/jquery.js"></script>
+    <script src="asset/highlightjs/highlight.pack.js"></script>
+    <link href="asset/highlightjs/styles/github.css" media="screen, projection" rel="stylesheet" type="text/css">
+    <script>hljs.initHighlightingOnLoad();</script>
+    
+  </head>
+  <body class="antialiased hide-extras">
+    
+    <div class="marketing off-canvas-wrap" data-offcanvas>
+      <div class="inner-wrap">
+
+
+<nav class="top-bar docs-bar hide-for-small" data-topbar>
+
+<div id="header">
+    <h1><a href="index.html">陈江川</a></h1>
+</div>
+
+</nav>
+        <nav class="tab-bar show-for-small">
+  <a href="javascript:void(0)" class="left-off-canvas-toggle menu-icon">
+    <span> &nbsp; 陈江川</span>
+  </a>
+</nav>
+
+<aside class="left-off-canvas-menu">
+      <ul class="off-canvas-list">
+      <li><a href="index.html">Home</a></li>
+      
+        <li class="divider"></li>
+        <li><label>组件化</label></li>
+
+          
+            <li><a title="CocoaPods私有库" href="ios-pods-create.html">CocoaPods私有库</a></li>
+          
+            <li><a title="podspec开发介绍" href="ios-podsepc.html">podspec开发介绍</a></li>
+          
+            <li><a title="iOS项目开发中组件化的应用" href="ios-module-use.html">iOS项目开发中组件化的应用</a></li>
+          
+
+      
+        <li class="divider"></li>
+        <li><label>设计模式</label></li>
+
+          
+            <li><a title="工厂方法模式和抽象工厂方法模式的区别" href="design-pattern-factory.html">工厂方法模式和抽象工厂方法模式的区别</a></li>
+          
+            <li><a title="桥接模式" href="design-pattern-bridge.html">桥接模式</a></li>
+          
+
+      
+        <li class="divider"></li>
+        <li><label>iOS</label></li>
+
+          
+            <li><a title="isa指针" href="ios-isa.html">isa指针</a></li>
+          
+            <li><a title="objc_msgSend分析" href="ios-objc-msgsend.html">objc_msgSend分析</a></li>
+          
+            <li><a title="block的思考" href="ios-block-think.html">block的思考</a></li>
+          
+            <li><a title="ARC模式下的block" href="ios-block-arc.html">ARC模式下的block</a></li>
+          
+            <li><a title="Block_copy原理" href="ios-block-copy.html">Block_copy原理</a></li>
+          
+            <li><a title="block内修改变量的值" href="ios-block-changevar.html">block内修改变量的值</a></li>
+          
+            <li><a title="block的类型" href="ios-block-type.html">block的类型</a></li>
+          
+
+      
+      </ul>
+    </aside>
+
+<a class="exit-off-canvas" href="#"></a>
+
+        <section id="main-content" role="main" class="scroll-container">
+
+          <div class="row">
+            <div class="large-3 medium-3 columns">
+              <div class="hide-for-small">
+                <div class="sidebar">
+                <nav>
+                  <ul id="side-nav" class="side-nav">
+
+                    
+                      <li class="side-title"><span>组件化</span></li>
+                        
+                          <li><a title="CocoaPods私有库" href="ios-pods-create.html">CocoaPods私有库</a></li>
+                        
+                          <li><a title="podspec开发介绍" href="ios-podsepc.html">podspec开发介绍</a></li>
+                        
+                          <li><a title="iOS项目开发中组件化的应用" href="ios-module-use.html">iOS项目开发中组件化的应用</a></li>
+                        
+
+                    
+                      <li class="side-title"><span>设计模式</span></li>
+                        
+                          <li><a title="工厂方法模式和抽象工厂方法模式的区别" href="design-pattern-factory.html">工厂方法模式和抽象工厂方法模式的区别</a></li>
+                        
+                          <li><a title="桥接模式" href="design-pattern-bridge.html">桥接模式</a></li>
+                        
+
+                    
+                      <li class="side-title"><span>iOS</span></li>
+                        
+                          <li><a title="isa指针" href="ios-isa.html">isa指针</a></li>
+                        
+                          <li><a title="objc_msgSend分析" href="ios-objc-msgsend.html">objc_msgSend分析</a></li>
+                        
+                          <li><a title="block的思考" href="ios-block-think.html">block的思考</a></li>
+                        
+                          <li><a title="ARC模式下的block" href="ios-block-arc.html">ARC模式下的block</a></li>
+                        
+                          <li><a title="Block_copy原理" href="ios-block-copy.html">Block_copy原理</a></li>
+                        
+                          <li><a title="block内修改变量的值" href="ios-block-changevar.html">block内修改变量的值</a></li>
+                        
+                          <li><a title="block的类型" href="ios-block-type.html">block的类型</a></li>
+                        
+
+                    
+                  </ul>
+                </nav>
+                </div>
+              </div>
+            </div>
+            <div class="large-9 medium-9 columns">
+
+ <div class="markdown-body">
+<h1>Block_copy原理</h1>
+
+<p>当我们在代码中使用:</p>
+
+<pre><code class="language-objectivec">int main(int argc, const char * argv[]) {
+    @autoreleasepool {
+        __block int var = 10;
+        void (^block)(void) = Block_copy(^{
+            printf(&quot;var = %d,&lt;%p&gt;\n&quot;, var++, &amp;var);
+        });
+        block();
+    }
+    return 0;
+}
+</code></pre>
+
+<p>使用命令：clang -rewrite-objc main.m</p>
+
+<pre><code class="language-objectivec">// 和前一章节一样，只是在main中多了_Block_copy函数
+struct __Block_byref_var_0 {
+    void *__isa;
+    __Block_byref_var_0 *__forwarding;
+    int __flags;
+    int __size;
+    int var;
+};
+
+struct __main_block_impl_0 {
+    struct __block_impl impl;
+    struct __main_block_desc_0* Desc;
+    __Block_byref_var_0 *var; // by ref
+    __main_block_impl_0(void *fp, struct __main_block_desc_0 *desc, __Block_byref_var_0 *_var, int flags=0) : var(_var-&gt;__forwarding) {
+        impl.isa = &amp;_NSConcreteStackBlock;
+        impl.Flags = flags;
+        impl.FuncPtr = fp;
+        Desc = desc;
+    }
+};
+
+static void __main_block_func_0(struct __main_block_impl_0 *__cself) {
+    __Block_byref_var_0 *var = __cself-&gt;var; // bound by ref
+    printf(&quot;var = %d,&lt;%p&gt;\n&quot;, (var-&gt;__forwarding-&gt;var)++, &amp;(var-&gt;__forwarding-&gt;var));
+}
+
+static void __main_block_copy_0(struct __main_block_impl_0*dst, struct __main_block_impl_0*src) {
+    _Block_object_assign((void*)&amp;dst-&gt;var, (void*)src-&gt;var, 8/*BLOCK_FIELD_IS_BYREF*/);
+}
+
+static void __main_block_dispose_0(struct __main_block_impl_0*src) {
+    _Block_object_dispose((void*)src-&gt;var, 8/*BLOCK_FIELD_IS_BYREF*/);
+}
+
+static struct __main_block_desc_0 {
+    size_t reserved;
+    size_t Block_size;
+    void (*copy)(struct __main_block_impl_0*, struct __main_block_impl_0*);
+    void (*dispose)(struct __main_block_impl_0*);
+} __main_block_desc_0_DATA = { 0, sizeof(struct __main_block_impl_0), __main_block_copy_0, __main_block_dispose_0};
+
+int main(int argc, const char * argv[]) {
+    /* @autoreleasepool */ 
+    { __AtAutoreleasePool __autoreleasepool; 
+        __attribute__((__blocks__(byref))) __Block_byref_var_0 var = {(void*)0,(__Block_byref_var_0 *)&amp;var, 0, sizeof(__Block_byref_var_0), 10};
+
+        // 这里多了_Block_copy函数
+        void (*block)(void) = ((void (*)())_Block_copy((const void *)(((void (*)())&amp;__main_block_impl_0((void *)__main_block_func_0, &amp;__main_block_desc_0_DATA, (__Block_byref_var_0 *)&amp;var, 570425344)))));
+
+
+        ((void (*)(__block_impl *))((__block_impl *)block)-&gt;FuncPtr)((__block_impl *)block);
+    }
+    return 0;
+}
+</code></pre>
+
+<p>在c++代码中，多了_Block_copy()函数，而这个函数在runtime.c中（已开源）。</p>
+
+<h2 id="toc_0">runtime.m</h2>
+
+<p><mark>_Block_copy()</mark>函数</p>
+
+<pre><code class="language-objectivec">void *_Block_copy(const void *arg) {
+    // Block_layout结构体就是block对应的原型
+    struct Block_layout *aBlock;
+    // 参数为nil，直接return
+    if (!arg) return NULL;
+
+    // 把参数结构体指针赋给局部变量
+    aBlock = (struct Block_layout *)arg;
+    // 如果该Block已经在堆上，refcount+1，然后return
+    if (aBlock-&gt;flags &amp; BLOCK_NEEDS_FREE) {
+        // latches on high
+        latching_incr_int(&amp;aBlock-&gt;flags);
+        return aBlock;
+    }
+    // 如果该Block在Data区，直接return，
+    // 第一章我们讲到global类型的block使用copy类型不会改变
+    else if (aBlock-&gt;flags &amp; BLOCK_IS_GLOBAL) {
+        return aBlock;
+    }
+    else {
+        // 如果是栈区的block，先使用malloc在堆区分配内存空间
+        struct Block_layout *result = malloc(aBlock-&gt;descriptor-&gt;size);
+        // 分配失败，return
+        if (!result) return NULL;
+        // 把参数Block中成员按位复制到新开辟的堆里
+        memmove(result, aBlock, aBlock-&gt;descriptor-&gt;size); // bitcopy first
+        // 计数复位
+        result-&gt;flags &amp;= ~(BLOCK_REFCOUNT_MASK|BLOCK_DEALLOCATING);    // XXX not needed
+        // 逻辑或0x01，refcount复位1
+        result-&gt;flags |= BLOCK_NEEDS_FREE | 2;  // logical refcount 1
+        // 调用了另一个函数，等会我们来看
+        _Block_call_copy_helper(result, aBlock);
+        // Set isa last so memory analysis tools see a fully-initialized object.
+        // 把isa类型指向为堆类型Block
+        result-&gt;isa = _NSConcreteMallocBlock;
+        return result;
+    }
+}
+
+// 在_Block_copy()中调用了该函数
+static void _Block_call_copy_helper(void *result, struct Block_layout *aBlock)
+{
+    /**
+        这个Block_descriptor_2结构体就是文章开头c++代码中的__main_block_desc_0_DATA结构体，
+        开头__main_block_desc_0_DATA结构体中是不是实现了copy的函数？
+        对应的函数是：__main_block_copy_0()
+     */
+    struct Block_descriptor_2 *desc = _Block_descriptor_2(aBlock);
+    if (!desc) return;
+
+    // 这里就调用了__main_block_desc_0_DATA结构体中成员函数copy()
+    (*desc-&gt;copy)(result, aBlock); // do fixup
+}
+</code></pre>
+
+<p>现在捋一捋调用的顺序：<br/>
+Block_copy() -&gt; _Block_copy() -&gt; _Block_call_copy_helper() -&gt; *desc-&gt;copy()</p>
+
+<p>在_Block_copy()函数中在堆区开辟一个内存空间，并把原来在栈区的Block按位逐个复制到堆区，最后还会调用定义Block描述结构体中的copy函数。</p>
+
+<h4 id="toc_1">_Block_object_assign</h4>
+
+<p>回到文章开头，copy函数指向了__main_block_copy_0函数，在该函数中调用_Block_object_assign函数，我们继续看代码：</p>
+
+<pre><code class="language-objectivec">// _Block_object_assign((void*)&amp;dst-&gt;var, (void*)src-&gt;var, 8/*BLOCK_FIELD_IS_BYREF*/);
+// 这里destArg和object都是指向var，而var是一个结构体，第三个参数为：BLOCK_FIELD_IS_BYREF
+void _Block_object_assign(void *destArg, const void *object, const int flags) {
+    const void **dest = (const void **)destArg;
+    switch (os_assumes(flags &amp; BLOCK_ALL_COPY_DISPOSE_FLAGS)) {
+        case BLOCK_FIELD_IS_OBJECT:
+            /*******
+             id object = ...;
+             [^{ object; } copy];
+             ********/
+            // 如果源参数是一个对象，那么引用计数+1
+            _Block_retain_object(object);
+            // 把现在指向堆区的指针重新指向原来该数据的内存地址
+            *dest = object;
+            break;
+
+        case BLOCK_FIELD_IS_BLOCK:
+            /*******
+             void (^object)(void) = ...;
+             [^{ object; } copy];
+             ********/
+            /**
+                如果源参数是一个Block，则调用_Block_copy
+                还是和前面一样：
+                1. 该源Block在栈区，则会被复制到堆区；
+                2. 该源Block在堆区，引用计数+1；
+                3. 该源Block在Data，不会发生任何改变
+            */ 
+            *dest = _Block_copy(object);
+            break;
+
+        case BLOCK_FIELD_IS_BYREF | BLOCK_FIELD_IS_WEAK:
+        case BLOCK_FIELD_IS_BYREF:
+            /*******
+             // copy the onstack __block container to the heap
+             // Note this __weak is old GC-weak/MRC-unretained.
+             // ARC-style __weak is handled by the copy helper directly.
+             __block ... x;
+             __weak __block ... x;
+             [^{ x; } copy];
+             ********/
+            // 如果在栈区的变量被__block修饰，那么它将被复制到堆区
+            *dest = _Block_byref_copy(object);
+            break;
+
+        case BLOCK_BYREF_CALLER | BLOCK_FIELD_IS_OBJECT:
+        case BLOCK_BYREF_CALLER | BLOCK_FIELD_IS_BLOCK:
+            /*******
+             // copy the actual field held in the __block container
+             // Note this is MRC unretained __block only.
+             // ARC retained __block is handled by the copy helper directly.
+             __block id object;
+             __block void (^object)(void);
+             [^{ object; } copy];
+             ********/
+            // MRC模式下，使用__block的修饰对象引用计数不会发生任何变化，这样可以避免循环引用
+            // 把现在指向堆区的指针重新指向原来该数据的内存地址
+            *dest = object;
+            break;
+
+        case BLOCK_BYREF_CALLER | BLOCK_FIELD_IS_OBJECT | BLOCK_FIELD_IS_WEAK:
+        case BLOCK_BYREF_CALLER | BLOCK_FIELD_IS_BLOCK  | BLOCK_FIELD_IS_WEAK:
+            /*******
+             // copy the actual field held in the __block container
+             // Note this __weak is old GC-weak/MRC-unretained.
+             // ARC-style __weak is handled by the copy helper directly.
+             __weak __block id object;
+             __weak __block void (^object)(void);
+             [^{ object; } copy];
+             ********/
+            // Block中引用了用__weak修饰的对象和Block，
+            // 把现在指向堆区的指针重新指向原来该数据的内存地址
+            *dest = object;
+            break;
+
+        default:
+            break;
+    }
+}
+</code></pre>
+
+
+</div>
+
+<br /><br />
+<hr />
+
+<div class="row clearfix">
+  <div class="large-6 columns">
+	<div class="text-left" style="padding:15px 0px;">
+		
+	        <a href="ios-block-arc.html"  title="Previous Post: ARC模式下的block">&laquo; ARC模式下的block</a>
+	    
+	</div>
+  </div>
+  <div class="large-6 columns">
+	<div class="text-right" style="padding:15px 0px;">
+		
+	        <a href="ios-pods-create.html" 
+	        title="Next Post: CocoaPods私有库">CocoaPods私有库 &raquo;</a>
+	    
+	</div>
+  </div>
+</div>
+
+<div class="row">
+<div style="padding:0px 0.93em;" class="share-comments">
+
+</div>
+</div>
+<script type="text/javascript">
+	$(function(){
+		var currentURL = 'ios-block-copy.html';
+		$('#side-nav a').each(function(){
+			if($(this).attr('href') == currentURL){
+				$(this).parent().addClass('active');
+			}
+		});
+	});
+</script>  
+</div></div>
+
+
+<div class="page-bottom">
+  <div class="row">
+  <hr />
+  <div class="small-9 columns">
+  <p class="copyright">Copyright &copy; 2015
+Powered by <a target="_blank" href="http://www.mweb.im">MWeb</a>,&nbsp; 
+Theme used <a target="_blank" href="http://github.com">GitHub CSS</a>.</p>
+  </div>
+  <div class="small-3 columns">
+  <p class="copyright text-right"><a href="#header">TOP</a></p>
+  </div>
+   
+  </div>
+</div>
+
+        </section>
+      </div>
+    </div>
+    
+    
+    <script src="asset/js/foundation.min.js"></script>
+    <script src="asset/js/foundation/foundation.offcanvas.js"></script>
+    <script>
+      $(document).foundation();
+
+     
+    </script>
+    
+
+
+  </body>
+</html>

@@ -1,0 +1,505 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+    
+  陈江川
+  
+  </title>
+ <meta name="description" content="陈江川的技术累计">
+ <link href="atom.xml" rel="alternate" title="陈江川" type="application/atom+xml">
+    <link rel="stylesheet" href="asset/css/foundation.min.css" />
+    <link rel="stylesheet" href="asset/css/docs.css" />
+
+    <script src="asset/js/vendor/modernizr.js"></script>
+    <script src="asset/js/vendor/jquery.js"></script>
+    <script src="asset/highlightjs/highlight.pack.js"></script>
+    <link href="asset/highlightjs/styles/github.css" media="screen, projection" rel="stylesheet" type="text/css">
+    <script>hljs.initHighlightingOnLoad();</script>
+    
+  </head>
+  <body class="antialiased hide-extras">
+    
+    <div class="marketing off-canvas-wrap" data-offcanvas>
+      <div class="inner-wrap">
+
+
+<nav class="top-bar docs-bar hide-for-small" data-topbar>
+
+<div id="header">
+    <h1><a href="index.html">陈江川</a></h1>
+</div>
+
+</nav>
+        <nav class="tab-bar show-for-small">
+  <a href="javascript:void(0)" class="left-off-canvas-toggle menu-icon">
+    <span> &nbsp; 陈江川</span>
+  </a>
+</nav>
+
+<aside class="left-off-canvas-menu">
+      <ul class="off-canvas-list">
+      <li><a href="index.html">Home</a></li>
+      
+        <li class="divider"></li>
+        <li><label>组件化</label></li>
+
+          
+            <li><a title="CocoaPods私有库" href="ios-pods-create.html">CocoaPods私有库</a></li>
+          
+            <li><a title="podspec开发介绍" href="ios-podsepc.html">podspec开发介绍</a></li>
+          
+            <li><a title="iOS项目开发中组件化的应用" href="ios-module-use.html">iOS项目开发中组件化的应用</a></li>
+          
+
+      
+        <li class="divider"></li>
+        <li><label>设计模式</label></li>
+
+          
+            <li><a title="工厂方法模式和抽象工厂方法模式的区别" href="design-pattern-factory.html">工厂方法模式和抽象工厂方法模式的区别</a></li>
+          
+            <li><a title="桥接模式" href="design-pattern-bridge.html">桥接模式</a></li>
+          
+
+      
+        <li class="divider"></li>
+        <li><label>iOS</label></li>
+
+          
+            <li><a title="isa指针" href="ios-isa.html">isa指针</a></li>
+          
+            <li><a title="objc_msgSend分析" href="ios-objc-msgsend.html">objc_msgSend分析</a></li>
+          
+            <li><a title="block的思考" href="ios-block-think.html">block的思考</a></li>
+          
+            <li><a title="ARC模式下的block" href="ios-block-arc.html">ARC模式下的block</a></li>
+          
+            <li><a title="Block_copy原理" href="ios-block-copy.html">Block_copy原理</a></li>
+          
+            <li><a title="block内修改变量的值" href="ios-block-changevar.html">block内修改变量的值</a></li>
+          
+            <li><a title="block的类型" href="ios-block-type.html">block的类型</a></li>
+          
+
+      
+      </ul>
+    </aside>
+
+<a class="exit-off-canvas" href="#"></a>
+
+        <section id="main-content" role="main" class="scroll-container">
+
+          <div class="row">
+            <div class="large-3 medium-3 columns">
+              <div class="hide-for-small">
+                <div class="sidebar">
+                <nav>
+                  <ul id="side-nav" class="side-nav">
+
+                    
+                      <li class="side-title"><span>组件化</span></li>
+                        
+                          <li><a title="CocoaPods私有库" href="ios-pods-create.html">CocoaPods私有库</a></li>
+                        
+                          <li><a title="podspec开发介绍" href="ios-podsepc.html">podspec开发介绍</a></li>
+                        
+                          <li><a title="iOS项目开发中组件化的应用" href="ios-module-use.html">iOS项目开发中组件化的应用</a></li>
+                        
+
+                    
+                      <li class="side-title"><span>设计模式</span></li>
+                        
+                          <li><a title="工厂方法模式和抽象工厂方法模式的区别" href="design-pattern-factory.html">工厂方法模式和抽象工厂方法模式的区别</a></li>
+                        
+                          <li><a title="桥接模式" href="design-pattern-bridge.html">桥接模式</a></li>
+                        
+
+                    
+                      <li class="side-title"><span>iOS</span></li>
+                        
+                          <li><a title="isa指针" href="ios-isa.html">isa指针</a></li>
+                        
+                          <li><a title="objc_msgSend分析" href="ios-objc-msgsend.html">objc_msgSend分析</a></li>
+                        
+                          <li><a title="block的思考" href="ios-block-think.html">block的思考</a></li>
+                        
+                          <li><a title="ARC模式下的block" href="ios-block-arc.html">ARC模式下的block</a></li>
+                        
+                          <li><a title="Block_copy原理" href="ios-block-copy.html">Block_copy原理</a></li>
+                        
+                          <li><a title="block内修改变量的值" href="ios-block-changevar.html">block内修改变量的值</a></li>
+                        
+                          <li><a title="block的类型" href="ios-block-type.html">block的类型</a></li>
+                        
+
+                    
+                  </ul>
+                </nav>
+                </div>
+              </div>
+            </div>
+            <div class="large-9 medium-9 columns">
+
+ 
+
+
+	
+		<div class="markdown-body">
+		<h1>isa指针</h1>
+
+		<h3 id="toc_0">isa</h3>
+
+<p>我们知道，在NSObject中有一个isa成员变量：</p>
+
+<pre><code class="language-objectivec">@interface NSObject &lt;NSObject&gt; {
+    Class isa  OBJC_ISA_AVAILABILITY;
+}
+</code></pre>
+
+<p>但这个isa具体又是什么东西？我们一步步来分析：</p>
+
+<h3 id="toc_1">Class</h3>
+
+<p>在objc-private.h中，我们能看到Class的定义：</p>
+
+<pre><code class="language-objectivec">typedef struct objc_class *Class;
+</code></pre>
+
+<p>也就是说isa其实就是一个objc_class的结构体指针，而objc_class代表着OC中的一个类：</p>
+
+<pre><code class="language-objectivec">struct objc_class : objc_object {
+    Class superclass;
+    cache_t cache;
+    class_data_bits_t bits;
+    // ....
+}
+</code></pre>
+
+<h3 id="toc_2">Object</h3>
+
+<p>从上面可以看出，objc_class继承了objc_object，而objc_object在OC中代表着一个对象：</p>
+
+<pre><code class="language-objectivec">struct objc_object {
+private:
+    isa_t isa;
+    // ...
+}
+</code></pre>
+
+<p>objc_object中有一个私有成员：isa，它是isa_t类型，继续跟下去会发现isa_t是一个union(联合体)</p>
+
+<pre><code class="language-c">union isa_t
+{
+    isa_t() { }
+    isa_t(uintptr_t value) : bits(value) { }
+
+    Class cls;
+    uintptr_t bits;
+    
+# elif __x86_64__
+#   define ISA_MASK        0x00007ffffffffff8ULL
+#   define ISA_MAGIC_MASK  0x001f800000000001ULL
+#   define ISA_MAGIC_VALUE 0x001d800000000001ULL
+    struct {
+        uintptr_t indexed           : 1;
+        uintptr_t has_assoc         : 1;
+        uintptr_t has_cxx_dtor      : 1;
+        uintptr_t shiftcls          : 44; // MACH_VM_MAX_ADDRESS 0x7fffffe00000
+        uintptr_t magic             : 6;
+        uintptr_t weakly_referenced : 1;
+        uintptr_t deallocating      : 1;
+        uintptr_t has_sidetable_rc  : 1;
+        uintptr_t extra_rc          : 8;
+#       define RC_ONE   (1ULL&lt;&lt;56)
+#       define RC_HALF  (1ULL&lt;&lt;7)
+    };
+}
+</code></pre>
+
+<p>上面可以看出在x86_64下，isa占64个字节。这里我们主要把关注点放在indexed：</p>
+
+<pre><code class="language-objectivec">inline void 
+objc_object::initIsa(Class cls, bool indexed, bool hasCxxDtor) 
+{ 
+    assert(!isTaggedPointer()); 
+    
+    if (!indexed) {
+        isa.cls = cls;
+    } else {
+        assert(!DisableIndexedIsa);
+        isa.bits = ISA_MAGIC_VALUE;
+        // isa.magic is part of ISA_MAGIC_VALUE
+        // isa.indexed is part of ISA_MAGIC_VALUE
+        isa.has_cxx_dtor = hasCxxDtor;
+        isa.shiftcls = (uintptr_t)cls &gt;&gt; 3;
+    }
+}
+</code></pre>
+
+<p>从上面可以看出：<br/>
+indexed为0：表示访问对象的isa指针会直接返回指向cls的指针；<br/>
+indexed为1：表示当前isa包含了更多信息，但是里面也包含了cls信息，只是其中关于类的信息放在了shiftcls中。</p>
+
+<p>回头再看看NSObject中的isa成员变量：</p>
+
+<pre><code class="language-objectivec">@interface NSObject &lt;NSObject&gt; {
+    struct objc_class *isa;
+}
+
+// 继续替换
+@interface NSObject &lt;NSObject&gt; {
+    struct objc_class : objc_object {
+        Class superclass;
+        cache_t cache;
+        class_data_bits_t bits;
+        ....
+    } *isa;
+}
+
+// 最后结构
+@interface NSObject &lt;NSObject&gt; {
+    struct objc_class : objc_object {
+        isa_t isa;
+        Class superclass;
+        cache_t cache;
+        class_data_bits_t bits;
+        ....
+    } *isa;
+}
+</code></pre>
+
+<h3 id="toc_3">对象中的isa如何与类关联</h3>
+
+<p>从上面我们知道，每个对象中都有一个isa，那么这个isa是怎么和对应的类关联起来的呢？<br/>
+我们从alloc中进行分析：</p>
+
+<p><img src="media/15629213844550/15629217608358.jpg" alt=""/></p>
+
+<p>alloc最终会调用initIsa，在这个函数中对对象的isa进行赋值，把它指向所属的类：</p>
+
+<pre><code class="language-objectivec">isa.shiftcls = (uintptr_t)cls &gt;&gt; 3;
+</code></pre>
+
+<h3 id="toc_4">类中isa如何与元类关联</h3>
+
+<p>对于类中isa怎么关联上meta class的，我没有找到相应的代码，只能通过clang编译。<br/>
+定义了一个Person类，继承NSObject：</p>
+
+<pre><code class="language-objectivec">static void OBJC_CLASS_SETUP_$_Person(void ) {
+    OBJC_METACLASS_$_Person.isa = &amp;OBJC_METACLASS_$_NSObject;
+    OBJC_METACLASS_$_Person.superclass = &amp;OBJC_METACLASS_$_NSObject;
+    OBJC_METACLASS_$_Person.cache = &amp;_objc_empty_cache;
+    OBJC_CLASS_$_Person.isa = &amp;OBJC_METACLASS_$_Person;
+    OBJC_CLASS_$_Person.superclass = &amp;OBJC_CLASS_$_NSObject;
+    OBJC_CLASS_$_Person.cache = &amp;_objc_empty_cache;
+}
+</code></pre>
+
+<p>可以得出：</p>
+
+<ol>
+<li>Person类的isa指向了Person的元类；</li>
+<li>Person的superclass指向了NSObject；</li>
+<li>cache这个是方法的缓存列表，因为没有调用方法，所以这个缓存列表为空；</li>
+<li>Person元类的isa指向了NSObject的元类；</li>
+<li>Person元类的父类指向了NSObject的元类。</li>
+</ol>
+
+<p>现在又定义了一个类Man，继承Person：</p>
+
+<pre><code class="language-objectivec">static void OBJC_CLASS_SETUP_$_Man(void ) {
+    OBJC_METACLASS_$_Man.isa = &amp;OBJC_METACLASS_$_NSObject;
+    OBJC_METACLASS_$_Man.superclass = &amp;OBJC_METACLASS_$_Person;
+    OBJC_METACLASS_$_Man.cache = &amp;_objc_empty_cache;
+    OBJC_CLASS_$_Man.isa = &amp;OBJC_METACLASS_$_Man;
+    OBJC_CLASS_$_Man.superclass = &amp;OBJC_CLASS_$_Person;
+    OBJC_CLASS_$_Man.cache = &amp;_objc_empty_cache;
+}
+</code></pre>
+
+<p>可以得出：</p>
+
+<ol>
+<li>Man类的isa指向了Man的元类；</li>
+<li>Man的父类指向了Person类；</li>
+<li>Man元类的isa指向了NSObject的元类；</li>
+<li>Man元类的父类指向了Person的元类。</li>
+</ol>
+
+<p>那么我们得出的结论为：</p>
+
+<p><img src="media/15629213844550/15629218437818.jpg" alt=""/></p>
+
+<p>但是NSObject中的isa、superclass指向谁？NSObject元类的isa和superclass又指向了谁？<br/>
+按照网上的说法：</p>
+
+<ol>
+<li>NSObject Class的superclass指向nil；</li>
+<li>NSObject Class的isa指向NSObject metaClass；</li>
+<li>NSObject metaClass的superclass指向NSObject Class；</li>
+<li>NSObject metaClass的isa指向NSObject metaClass本身。</li>
+</ol>
+
+<p>那么我们一步一步验证：</p>
+
+<pre><code class="language-objectivec">int main(int argc, const char * argv[]) {
+    
+    NSLog(@&quot;===============================================================&quot;);
+
+    NSLog(@&quot;NSObject address    = %p&quot;, [NSObject class]);
+    NSLog(@&quot;NSObject superclass = %p&quot;, [NSObject superclass]);
+    NSLog(@&quot;NSObject metaClass  = %p&quot;, objc_getMetaClass(&quot;NSObject&quot;));
+    NSLog(@&quot;NSObject metaClass superclass    = %p&quot;, [objc_getMetaClass(&quot;NSObject&quot;) superclass]);
+
+    NSLog(@&quot;===============================================================&quot;);
+
+    NSLog(@&quot;Person address      = %p&quot;, objc_getClass(&quot;Person&quot;));
+    NSLog(@&quot;Person superclass   = %p&quot;, [Person superclass]);
+    NSLog(@&quot;Person metaClass    = %p&quot;, objc_getMetaClass(&quot;Person&quot;));
+    NSLog(@&quot;Person metaClass superclass    = %p&quot;, [objc_getMetaClass(&quot;Person&quot;) superclass]);
+
+    NSLog(@&quot;================================================================&quot;);
+
+    NSLog(@&quot;Man address      = %p&quot;, objc_getClass(&quot;Man&quot;));
+    NSLog(@&quot;Man superclass   = %p&quot;, [Man superclass]);
+    NSLog(@&quot;Man metaClass    = %p&quot;, objc_getMetaClass(&quot;Man&quot;));
+    NSLog(@&quot;Man metaClass superclass    = %p&quot;, [objc_getMetaClass(&quot;Man&quot;) superclass]);
+
+    NSLog(@&quot;===============================================================&quot;);
+
+    return 0;
+}
+</code></pre>
+
+<p>然后我在objc_getMetaClass函数中添加了两行打印信息：</p>
+
+<pre><code class="language-objectivec">Class objc_getMetaClass(const char *aClassName)
+{
+    Class cls;
+
+    if (!aClassName) return Nil;
+
+    cls = objc_getClass (aClassName);
+    if (!cls)
+    {
+        _objc_inform (&quot;class `%s&#39; not linked into application&quot;, aClassName);
+        return Nil;
+    }
+
+    // 这两行代码自己添加
+    _objc_inform(&quot;%s isa           = %p&quot;, aClassName, cls-&gt;getIsa());
+    _objc_inform(&quot;%s metaClass isa = %p&quot;, aClassName, cls-&gt;ISA()-&gt;getIsa());
+
+    return cls-&gt;ISA();
+}
+</code></pre>
+
+<p>objc_getMetaClass函数是获取名为aClassName类的元类，看内部实现非常的清楚，就是获取名为aClassName类中isa指向的东西。<br/>
+而添加的两行打印代码中，第一行是打印名为aClassName类的isa指针内容；第二行打印的是名为aClassName元类的isa指针内容。</p>
+
+<pre><code class="language-text">log简化版：
+Man address = 0x1000024c0
+Man superclass = 0x1000024e8 -&gt; Person address
+Man isa = 0x100002498 -&gt; Man metaClass
+Man metaClass = 0x100002498
+Man metaClass superclass = 0x100002510 -&gt; Person metaClass
+Man metaClass isa = 0x1003b0120 -&gt; NSObject metaClass
+
+Person address = 0x1000024e8
+Person superclass = 0x1003b00f8 -&gt; NSObject address 
+Person isa = 0x100002510 -&gt; Person metaClass
+Person metaClass = 0x100002510
+Person metaClass superclass = 0x1003b0120 -&gt; NSObject metaClass
+Person metaClass isa = 0x1003b0120 -&gt; NSObject metaClass
+
+NSObject address = 0x1003b00f8
+NSObject superclass = 0x0 -&gt; nil
+NSObject isa = 0x1003b0120 -&gt; NSObject metaClass
+NSObject metaClass = 0x1003b0120
+NSObject metaClass superclass = 0x1003b00f8 -&gt; NSObject address
+NSObject metaClass isa = 0x1003b0120 -&gt; NSObject metaClass
+</code></pre>
+
+<p>最后得出的最终最终结论为：</p>
+
+<p><img src="media/15629213844550/15629219578501.jpg" alt=""/></p>
+
+<p><a href="https://github.com/chenjiangchuan/runtime">Demo点我</a></p>
+
+
+		</div>
+	
+
+ 
+	
+
+ 
+	
+
+ 
+	
+
+ 
+	
+
+ 
+	
+
+ 
+	
+
+ 
+	
+
+ 
+	
+
+ 
+	
+
+ 
+	
+
+ 
+	
+
+  
+  
+</div></div>
+
+
+<div class="page-bottom">
+  <div class="row">
+  <hr />
+  <div class="small-9 columns">
+  <p class="copyright">Copyright &copy; 2015
+Powered by <a target="_blank" href="http://www.mweb.im">MWeb</a>,&nbsp; 
+Theme used <a target="_blank" href="http://github.com">GitHub CSS</a>.</p>
+  </div>
+  <div class="small-3 columns">
+  <p class="copyright text-right"><a href="#header">TOP</a></p>
+  </div>
+   
+  </div>
+</div>
+
+        </section>
+      </div>
+    </div>
+    
+    
+    <script src="asset/js/foundation.min.js"></script>
+    <script src="asset/js/foundation/foundation.offcanvas.js"></script>
+    <script>
+      $(document).foundation();
+
+     
+    </script>
+    
+
+
+  </body>
+</html>
