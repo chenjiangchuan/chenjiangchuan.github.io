@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[陈江川]]></title>
+  <title><![CDATA[陈江川 ONEZ]]></title>
   <link href="http://riverschan.com/atom.xml" rel="self"/>
   <link href="http://riverschan.com/"/>
-  <updated>2019-07-12T18:23:09+08:00</updated>
+  <updated>2019-07-31T16:40:37+08:00</updated>
   <id>http://riverschan.com/</id>
   <author>
     <name><![CDATA[]]></name>
@@ -12,6 +12,315 @@
   </author>
   <generator uri="http://www.mweb.im">MWeb</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[License的应用]]></title>
+    <link href="http://riverschan.com/license.html"/>
+    <updated>2019-07-31T13:54:29+08:00</updated>
+    <id>http://riverschan.com/license.html</id>
+    <content type="html"><![CDATA[
+<p>解决的场景：APP被逆向修改后，用XCode安装到其他非越狱机器上，这时是需要修改bundle id的，license通过服务器验证APP的bundle id是否被修改（流程见下）。</p>
+
+<p><img src="media/15645524698794/91564478050_.pic_hd.jpg" alt="91564478050_.pic_hd"/></p>
+
+<h2 id="toc_0">使用Docker搭建Ngnix+PHP环境</h2>
+
+<p>跑得都是本地环境，所以使用Docker最方便（硬件环境Macbook）。</p>
+
+<h3 id="toc_1">docker安装</h3>
+
+<p>1、 安装docker</p>
+
+<pre><code class="language-text">brew cash install docker
+</code></pre>
+
+<p>2、镜像加速，修改镜像为：<a href="https://docker.mirrors.ustc.edu.cn">https://docker.mirrors.ustc.edu.cn</a><br/>
+<img src="media/15645524698794/changemirror.png" alt="changemirro"/></p>
+
+<h3 id="toc_2">Nginx安装</h3>
+
+<p>打开终端</p>
+
+<p>1、拉取Nginx镜像</p>
+
+<pre><code class="language-text">docker pull nginx
+</code></pre>
+
+<p>2、查看镜像是否安装成功</p>
+
+<pre><code class="language-text">docker images
+</code></pre>
+
+<h3 id="toc_3">PHP安装</h3>
+
+<p>打开终端</p>
+
+<p>1、拉取5.6-fpm镜像</p>
+
+<pre><code class="language-text">docker pull php:5.6-fpm
+</code></pre>
+
+<p>2、查看镜像是否安装成功</p>
+
+<pre><code class="language-text">docker images
+</code></pre>
+
+<h3 id="toc_4">运行Nginx、PHP容器</h3>
+
+<p>1、在宿主机器上（Macbook）创建如下文件夹或文件（打开终端）：</p>
+
+<pre><code class="language-text">mkdir -p ~/Documents/docker/nginx/conf
+mkdir ~/Documents/docker/nginx/conf.d
+mkdir ~/Documents/docker/nginx/data
+mkdir ~/Documents/docker/nginx/html
+mkdir ~/Documents/docker/nginx/logs
+mkdir ~/Documents/docker/nginx/www
+touch ~/Documents/docker/nginx/nginx.conf
+</code></pre>
+
+<p>2、运行Nginx容器（打开终端）</p>
+
+<pre><code class="language-text">docker run -d -p 8080:80 --name mynginx -v /Users/你自己电脑的用户名/Documents/docker/nginx/www:/www -v /Users/你自己电脑的用户名/Documents/docker/nginx/nginx.conf:/etc/nginx/nginx.conf -v /Users/你自己电脑的用户名/Documents/docker/nginx/logs:/wwwlogs -d nginx
+</code></pre>
+
+<p>3、运行PHP容器（打开终端）</p>
+
+<pre><code class="language-text">docker run -p 9000:9000 --name  myphp-fpm -v  /Users/你自己电脑的用户名/Documents/docker/nginx/www:/www -v /Users/你自己电脑的用户名/Documents/docker/nginx/conf:/usr/local/etc/php -v /Users/你自己电脑的用户名/Documents/docker/nginx/logs:/phplogs -d php
+</code></pre>
+
+<p>4、查看容器状态</p>
+
+<pre><code class="language-text">docker ps
+</code></pre>
+
+<p>6、参看PHP容器被分配的IP</p>
+
+<pre><code class="language-text">docker inspect myphp-fpm | grep &#39;&quot;IPAddress&quot;&#39;
+</code></pre>
+
+<p>我这边被分配的IP是：172.17.0.3</p>
+
+<p>5、配置Nginx参数，打开<code>~/Documents/docker/nginx/nginx.conf</code></p>
+
+<pre><code class="language-text">user  nginx;
+worker_processes  1;
+
+error_log  /var/log/nginx/error.log warn;
+pid        /var/run/nginx.pid;
+
+
+events {
+    worker_connections  1024;
+}
+
+
+http {
+    include       /etc/nginx/mime.types;
+    default_type  application/octet-stream;
+
+    log_format  main  &#39;$remote_addr - $remote_user [$time_local] &quot;$request&quot; &#39;
+                      &#39;$status $body_bytes_sent &quot;$http_referer&quot; &#39;
+                      &#39;&quot;$http_user_agent&quot; &quot;$http_x_forwarded_for&quot;&#39;;
+
+    access_log  /var/log/nginx/access.log  main;
+
+    sendfile        on;
+    #tcp_nopush     on;
+
+    keepalive_timeout  65;
+
+    #gzip  on;
+
+    server {
+        listen       80;
+        server_name  localhost;
+
+        #charset koi8-r;
+        #access_log  /var/log/nginx/host.access.log  main;
+
+        location / {
+            root    /www;
+            index  index.php index.html index.htm;
+
+            if (!-e $request_filename) { 
+                rewrite  ^(.*)$  /index.php?s=/$1  last; 
+                break;   
+            }
+        }
+
+        #error_page  404              /404.html;
+
+        # redirect server error pages to the static page /50x.html
+        #
+        error_page   500 502 503 504  /50x.html;
+        location = /50x.html {
+            root   /usr/share/nginx/html;
+        }
+
+        # proxy the PHP scripts to Apache listening on 127.0.0.1:80
+        #
+        #location ~ \.php$ {
+        #    proxy_pass   http://127.0.0.1;
+        #}
+
+        # pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000
+        #
+        location ~ \.php$ {
+            #root           /www;
+            # PHP容器IP
+            fastcgi_pass   172.17.0.3:9000;
+            fastcgi_index  index.php;
+            fastcgi_param  SCRIPT_FILENAME  /www$fastcgi_script_name;
+            include        fastcgi_params;
+        }
+
+        # deny access to .htaccess files, if Apache&#39;s document root
+        # concurs with nginx&#39;s one
+        #
+        location ~ /\.ht {
+            deny  all;
+        }
+    }
+}
+</code></pre>
+
+<p>6、在<code>~/Documents/docker/nginx/www</code>创建index.php文件，打开编辑：</p>
+
+<pre><code class="language-text">&lt;?php 
+    echo phpinfo();
+?&gt;
+</code></pre>
+
+<p>7、打开浏览器访问：127.0.0.1:8080/index.php<br/>
+<img src="media/15645524698794/indexphp.jpg" alt="indexphp"/></p>
+
+<h3 id="toc_5">License接口开发</h3>
+
+<p>1、在<code>~/Documents/docker/nginx/www</code>创建license.sign文件，打开编辑：</p>
+
+<pre><code class="language-text">com.onez-gz.www
+</code></pre>
+
+<p>2、在<code>~/Documents/docker/nginx/www</code>创建verify.php，打开编辑：</p>
+
+<pre><code class="language-text">&lt;?php   
+    $response;
+    $bundle = $_GET[&quot;bundle&quot;];
+    $filename = &quot;/www/license.sign&quot;;
+    $handle = fopen($filename, &quot;r&quot;);
+    $contents = fread($handle, filesize ($filename));
+    fclose($handle);
+    
+    if(strpos($contents, $bundle) !== false){ 
+        $response = array(&#39;code&#39;  =&gt; 200,&#39;message&#39; =&gt; &#39;Bundle id verification passed&#39;,&#39;vertify&#39;  =&gt; 1,); 
+    }else{
+        $response = array(&#39;code&#39;  =&gt; 200,&#39;message&#39; =&gt; &#39;Bundle id verification failed&#39;,&#39;vertify&#39;  =&gt; 0,); 
+    }
+    echo json_encode($response);
+?&gt;  
+</code></pre>
+
+<p>3、打开浏览器输入：</p>
+
+<pre><code class="language-text">http://127.0.0.1:8080/verify.php?bundle=&quot;hello&quot;
+
+// 浏览器输出
+{&quot;code&quot;:200,&quot;message&quot;:&quot;Bundle id verification failed&quot;,&quot;vertify&quot;:0}
+</code></pre>
+
+<pre><code class="language-text">http://127.0.0.1:8080/verify.php?bundle=&quot;com.onez-gz.www&quot;
+
+// 浏览器输出
+{&quot;code&quot;:200,&quot;message&quot;:&quot;Bundle id verification passed&quot;,&quot;vertify&quot;:1}
+</code></pre>
+
+<h3 id="toc_6">客户端开发</h3>
+
+<p>打开XCode创建macOS -&gt; App工程</p>
+
+<p>1、修改项目的bundle id为<code>com.onez-gz.www</code></p>
+
+<p>2、创建<code>license.sign</code>文件，拖入到项目中，打开编辑：</p>
+
+<pre><code class="language-text">com.onez-gz.www
+</code></pre>
+
+<p>3、在Main.storyboard中添加一个button，代码如下</p>
+
+<pre><code class="language-text">#import &quot;ViewController.h&quot;
+
+typedef void (^CompletioBlock)(NSDictionary *dic, NSURLResponse *response, NSError *error);
+typedef void (^SuccessBlock)(NSDictionary *data);
+typedef void (^FailureBlock)(NSError *error);
+
+@implementation ViewController
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+
+    // Do any additional setup after loading the view.
+}
+
+
+- (void)setRepresentedObject:(id)representedObject {
+    [super setRepresentedObject:representedObject];
+
+    // Update the view, if already loaded.
+}
+
+#pragma mark -
+#pragma mark - Event Response
+- (IBAction)loginButtonAction:(id)sender {
+    // 1、获取当前APP的bundle id
+    NSString *bundleId = [[NSBundle mainBundle] bundleIdentifier];
+    
+    // 2、读取main bundle中的license.sign文件
+    NSString *signPath = [[NSBundle mainBundle] pathForResource:@&quot;license&quot; ofType:@&quot;sign&quot;];
+    NSString *bundleIdString = [NSString stringWithContentsOfFile:signPath encoding:NSUTF8StringEncoding error:nil];
+    
+    // 3、bundle是否在license.sign中
+    if (![bundleIdString containsString:bundleId]) return;
+    
+    // 4、给服务器发送验证bundle id的请求
+    [self getWithUrlString:@&quot;http://127.0.0.1:8080/verify.php&quot; parameters:@{@&quot;bundle&quot; : bundleId} success:^(NSDictionary *data) {
+        NSLog(@&quot;%@&quot;, data);
+    } failure:^(NSError *error) {
+        NSLog(@&quot;%@&quot;, error);
+    }];
+}
+
+#pragma mark -
+#pragma mark - Private Methods
+- (void)getWithUrlString:(NSString *)url parameters:(id)parameters success:(SuccessBlock)successBlock failure:(FailureBlock)failureBlock {
+    NSMutableString *mutableUrl = [[NSMutableString alloc] initWithString:url];
+    if ([parameters allKeys]) {
+        [mutableUrl appendString:@&quot;?&quot;];
+        for (id key in parameters) {
+            NSString *value = [[parameters objectForKey:key] stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
+            [mutableUrl appendString:[NSString stringWithFormat:@&quot;%@=%@&amp;&quot;, key, value]];
+        }
+    }
+    NSString *urlEnCode = [[mutableUrl substringToIndex:mutableUrl.length - 1] stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
+    NSURLRequest *urlRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:urlEnCode]];
+    NSURLSession *urlSession = [NSURLSession sharedSession];
+    NSURLSessionDataTask *dataTask = [urlSession dataTaskWithRequest:urlRequest completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        if (error) {
+            failureBlock(error);
+        } else {
+            NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+            successBlock(dic);
+        }
+    }];
+    [dataTask resume];
+}
+
+@end
+</code></pre>
+
+<p>以上就是整个验证流程，有问题可以发邮箱给我，demo就不发了，很简单的。</p>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[isa指针]]></title>
@@ -464,63 +773,121 @@ recache:
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[block的思考]]></title>
-    <link href="http://riverschan.com/ios-block-think.html"/>
-    <updated>2019-07-12T17:27:49+08:00</updated>
-    <id>http://riverschan.com/ios-block-think.html</id>
+    <title type="html"><![CDATA[block的类型]]></title>
+    <link href="http://riverschan.com/ios-block-type.html"/>
+    <updated>2019-07-12T17:06:45+08:00</updated>
+    <id>http://riverschan.com/ios-block-type.html</id>
     <content type="html"><![CDATA[
-<p>第一题：</p>
+<p>在学习Block类型前，我们必须清楚内存的分布结构：<br/>
+<img src="media/15629224056096/15629224428386.jpg" alt=""/></p>
 
-<pre><code class="language-text">// MRC模式下，dispatch_async API Block内的block为什么会变成__NSMallocBlock__？
+<p>我们还需要把内存管理模式设置为MRC，在Build Phases -&gt; Compile Sources中选中需要修改的文件，双击输入：-fno-objc-arc</p>
+
+<p>Block的三种类型，分别是：</p>
+
+<ol>
+<li><strong>NSGlobalBlock</strong>：保存在Data区域；</li>
+<li><strong>NSStackBlock</strong> ：保存在Stack区域；</li>
+<li><strong>NSMallocBlock</strong>：保存在Heap区域。</li>
+</ol>
+
+<p>三种类型存在的关系，如下图：<br/>
+<img src="media/15629224056096/15629224845148.jpg" alt=""/></p>
+
+<h3 id="toc_0"><strong>NSGlobalBlock</strong></h3>
+
+<pre><code class="language-objectivec">// 1.在函数体外/方法外定义的Block
+void (^outsideFunctionGlobalBlock)(void) = ^{
+    NSLog(@&quot;outside function global block&quot;);
+};
+
 int main(int argc, const char * argv[]) {
     @autoreleasepool {
-        int a = 10;
-        void(^block) (void) = ^{
-            NSLog(@&quot;%d&quot;, a);
+        // 2. 在函数体内/方法内，不引用Block外的局部变量
+        void (^insideFunctionGlobalBlock)(void) = ^{
+            NSLog(@&quot;inside function global block&quot;);
         };
-        NSLog(@&quot;&lt;1&gt;%@&quot;, block);
-        dispatch_queue_t queue = dispatch_queue_create(&quot;queue&quot;, NULL);
-        dispatch_async(queue, ^{
-            block();
-            NSLog(@&quot;&lt;2&gt;%@&quot;, block);
-        });
+
+        NSLog(@&quot;outside = %@\ninside = %@&quot;, outsideFunctionGlobalBlock, insideFunctionGlobalBlock);
     }
     return 0;
 }
 </code></pre>
 
-<p>第二题：</p>
+<h3 id="toc_1"><strong>NSStackBlock</strong></h3>
 
-<pre><code class="language-text">// ARC模式下，在dispatch_async API Block中的block为什么还是__NSStackBlock__？
-int main(int argc, const char * argv[]) {
+<pre><code class="language-objectivec">int main(int argc, const char * argv[]) {
     @autoreleasepool {
+        // 在block内引用了外部的局部变量
         int a = 10;
-        __weak void(^block) (void) = ^{
-            NSLog(@&quot;%d&quot;, a);
+        void (^stackBlock)(void) = ^{
+            NSLog(@&quot;stack block:%d&quot;, a);
         };
-        NSLog(@&quot;&lt;1&gt;%@&quot;, block);
-        dispatch_queue_t queue = dispatch_queue_create(&quot;queue&quot;, NULL);
-        dispatch_async(queue, ^{
-            block();
-            NSLog(@&quot;&lt;2&gt;%@&quot;, block);
-        });
+
+        NSLog(@&quot;stackBlock = %@&quot;, stackBlock);
     }
     return 0;
 }
 </code></pre>
 
-<p>第三题：</p>
+<h3 id="toc_2"><strong>NSMallocBlock</strong></h3>
 
-<pre><code class="language-text">// ARC模式下，在dispatch_async API Block中的block为什么是__NSMallocBlock__？
+<pre><code class="language-objectivec">int main(int argc, const char * argv[]) {
+    @autoreleasepool {
+        // 由stack类型的block使用copy得来
+        int a = 10;
+        void (^heapBlock)(void) = [^{
+            NSLog(@&quot;stack block:%d&quot;, a);
+        } copy];
+        NSLog(@&quot;heapBlock = %@&quot;, heapBlock);
+        }
+    return 0;
+}
+</code></pre>
+
+<h3 id="toc_3">思考</h3>
+
+<p>请回答下面代码中Block的类型：</p>
+
+<pre><code class="language-objectivec">int a = 10;
+
+void (^outsideFunctionBlock1)(void) = ^{
+    NSLog(@&quot;outside function block：%d&quot;, a);
+};
+
+void (^outsideFunctionBlock2)(int x, int y) = ^(int x, int y){
+    NSLog(@&quot;outside function block：%d, (x+y = %d)&quot;, a, x+y);
+};
+
 int main(int argc, const char * argv[]) {
     @autoreleasepool {
-        int a = 10;
-        __weak void(^block) (void) = ^{
-            NSLog(@&quot;%d&quot;, a);
+
+        static int num = 20;
+
+        int var = 30;
+
+        void (^insideFunctionBlock1)(void) = ^{
+            NSLog(@&quot;inside function block：%d&quot;, a);
         };
-        NSLog(@&quot;&lt;1&gt;%@&quot;, block);
-        dispatch_queue_t queue = dispatch_queue_create(&quot;queue&quot;, NULL);
-        dispatch_async(queue, block);
+
+        void (^insideFunctionBlock2)(void) = ^{
+            NSLog(@&quot;inside function block：%d&quot;, var);
+        };
+
+        void (^insideFunctionBlock3)(void) = ^{
+            NSLog(@&quot;inside function block：%d，num = %d&quot;, a, num);
+        };  
+
+        void (^insideFunctionBlock4)(void) = ^{
+            NSLog(@&quot;inside function block：%d, num = %d, var = %d&quot;, a, num, var);
+        };        
+
+        void (^insideFunctionBlock5)(void) = [insideFunctionBlock1 copy];
+
+        void (^insideFunctionBlock6)(void) = [insideFunctionBlock2 copy];
+
+        void (^insideFunctionBlock7)(void) = [insideFunctionBlock3 copy];
+
     }
     return 0;
 }
@@ -530,65 +897,232 @@ int main(int argc, const char * argv[]) {
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[ARC模式下的block]]></title>
-    <link href="http://riverschan.com/ios-block-arc.html"/>
-    <updated>2019-07-12T17:19:52+08:00</updated>
-    <id>http://riverschan.com/ios-block-arc.html</id>
+    <title type="html"><![CDATA[block内修改变量的值]]></title>
+    <link href="http://riverschan.com/ios-block-changevar.html"/>
+    <updated>2019-07-12T17:09:58+08:00</updated>
+    <id>http://riverschan.com/ios-block-changevar.html</id>
     <content type="html"><![CDATA[
-<p>前面三章都是在MRC模式下对Block进行了一系列分析，这章将讨论ARC模式下Block有什么不一样的？</p>
+<p>进入主题之前，让我们回顾“Block的类型”中的内存分布图，看看下面这些变量保存在内存的哪块区域：</p>
 
-<pre><code class="language-text">int main(int argc, const char * argv[]) {
+<pre><code class="language-objectivec">int var;
+int var1 = 1;
+static int var2;
+static int var3 = 2;
+
+int main(int argc, const char * argv[]) {
     @autoreleasepool {
-        int a = 10;
-        void(^block) (void) = ^{
-            NSLog(@&quot;%d&quot;, a);
-        };
-        NSLog(@&quot;%@&quot;, block);
+        static int var4 = 3;
+        static int var5;
+        int var6 = 4;
+    }
+    return 0;
+}
+</code></pre>
 
-        NSLog(@&quot;%@&quot;, ^{NSLog(@&quot;%d&quot;, a);});
+<ol>
+<li>var、var2、var5保存在BSS区；</li>
+<li>var1、var3、var4保存在Data区；</li>
+<li>var6保存在Stack区。</li>
+</ol>
+
+<p>现在看下面代码：</p>
+
+<pre><code class="language-objectivec">typedef void(^Block)(void);
+
+// 全局初始化变量，保存在内存的Data区
+int globalVar = 10;
+
+// 静态初始化变量，保存在内存的Data区
+static int outsideStaticVar = 20;
+
+int main(int argc, const char * argv[]) {
+    @autoreleasepool {
+        // 静态初始化变量，保存在内存的Data区
+        static int insideStaticVar = 30;
+
+        // 局部变量，保存在内存的Stack区
+        int var = 40;
+
+        // 创建一个Stack区的Block
+        Block block = ^{
+            globalVar = 11;
+            outsideStaticVar = 21;
+            insideStaticVar = 31;
+//            var = 41; // 编译报错，Block内不能修改栈区的变量，只能读取
+            NSLog(@&quot;Block内&lt;globalVar = %d, outsideStaticVar = %d, insideStaticVar = %d, var = %d&gt;&quot;, globalVar, outsideStaticVar, insideStaticVar, var);
+        };
+    }
+    return 0;
+}
+</code></pre>
+
+<p>由此可见，block内部不能修改block外部Stack区的变量，也就是局部变量。那怎么才能修改呢？这就是下节要讲的。</p>
+
+<h2 id="toc_0">block的内部实现</h2>
+
+<h3 id="toc_1">没有__block修饰</h3>
+
+<p>我们都知道，经过<mark>__block</mark>修饰的局部变量，可以在Block内部被修改，那它的原理又是什么？我们可以先分析不用<mark>__block</mark>修饰的代码：</p>
+
+<pre><code class="language-objectivec">int main(int argc, const char * argv[]) {
+    @autoreleasepool {
+        int var = 10;
+        void (^block)(void) = ^{
+            printf(&quot;%d&quot;, var);
+        };
+        block();
+    }
+    return 0;
+}
+</code></pre>
+
+<p>使用命令：clang -rewrite-objc main.m得到cpp代码，简化：</p>
+
+<pre><code class="language-objectivec">struct __block_impl {
+  void *isa;
+  int Flags;
+  int Reserved;
+  void *FuncPtr;
+};
+
+struct __main_block_impl_0 {
+    struct __block_impl impl;
+    struct __main_block_desc_0* Desc;
+    int var;
+    // __main_block_impl_0结构体的构造方法，初始化impl、Des和var
+    // var = _var
+    __main_block_impl_0(void *fp, struct __main_block_desc_0 *desc, int _var, int flags=0) : var(_var) {
+        impl.isa = &amp;_NSConcreteStackBlock; // block类型，但是这里有时不准确
+        impl.Flags = flags;
+        impl.FuncPtr = fp; // 执行block()时调用的函数
+        Desc = desc; // block的描述结构体
+    }
+};
+
+// block内部执行的代码，被赋值给impl.FuncPtr
+static void __main_block_func_0(struct __main_block_impl_0 *__cself) {
+    // 取block结构体中var成员的值
+    int var = __cself-&gt;var; // bound by copy
+    printf(&quot;%d&quot;, var);
+}
+
+// block描述
+static struct __main_block_desc_0 {
+    size_t reserved; // 保留
+    size_t Block_size; // block的大小，就是__main_block_impl_0结构体的大小
+} __main_block_desc_0_DATA = { 0, sizeof(struct __main_block_impl_0)};
+
+int main(int argc, const char * argv[]) {
+    /* @autoreleasepool */ 
+    { __AtAutoreleasePool __autoreleasepool; 
+        int var = 10;
+
+        // 创建Block，本质就是创建__main_block_impl_0结构体
+        // 参数分别是：block内部执行的函数指针、block描述结构体指针、var变量的值
+        struct __main_block_impl_0 tmp = __main_block_impl_0(__main_block_func_0, &amp;__main_block_desc_0_DATA, var));
+        struct __main_block_impl_0 *block = &amp;tmp;
+
+        // 执行block()
+        *block-&gt;impl.FuncPtr(block);
     }
     return 0;
 }
 
-// 打印会发现，第一个打印的block竟然在堆区，而第二打印的block在栈区
-// &lt;__NSMallocBlock__: 0x100431750&gt;
-// &lt;__NSStackBlock__: 0x7ffeefbff4c0&gt;
-
 </code></pre>
 
-<p>为什么在MRC模式下，上面代码中的block在栈区，而到了ARC模式下却在堆区，那是因为在ARC模式下有些API内部会对Block进行copy，下面情况会自动对Block进行copy：</p>
+<p><img src="media/15629225986501/15629227792120.jpg" alt=""/></p>
 
-<pre><code class="language-text">- (Block)get_block {
-    int index = 6;
-    return ^{NSLog(@&quot;index = %d&quot;, index);};
-}
+<h3 id="toc_2">__block修饰</h3>
 
-- (void) autoCopyToHeap {
-    // 1、Block作为右值
-    int num = 10;
-    Block blk1 = ^{
-        NSLog(@&quot;num = %d&quot;, num);
-    };
-    NSLog(@&quot;&lt;1&gt;%@&quot;, blk1);
+<p>现在我们来看看有<mark>__block</mark>修饰会有什么不同：</p>
 
-    // 2、Block作为方法/函数返回值
-    NSLog(@&quot;&lt;2&gt;%@&quot;, [self get_block]);
-
-    // 3、调用GCD API时，内部会copy Block
-    NSLog(@&quot;执行blk3前num的内存地址：%p&quot;, &amp;num);
-    __weak Block blk3 = ^{
-        NSLog(@&quot;执行blk3&lt;时&gt;num的内存地址：%p&quot;, &amp;num);
-    };
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), blk3);
-
-    // 4、Cocoa框架的方法且方法名含有usingBlock/block
-    NSLog(@&quot;执行blk4前num的内存地址：%p&quot;, &amp;num);
-    __weak void (^blk4)(NSTimer *timer) = ^(NSTimer *timer) {
-        NSLog(@&quot;执行blk4&lt;时&gt;num的内存地址：%p&quot;, &amp;num);
-    };
-    [[NSTimer timerWithTimeInterval:1 repeats:NO block:blk4] fire];
+<pre><code class="language-objectivec">int main(int argc, const char * argv[]) {
+    @autoreleasepool {
+        __block int var = 10;
+        void (^block)(void) = ^{
+            printf(&quot;var = %d,&lt;%p&gt;\n&quot;, var++, &amp;var);
+        };
+        block();
+    }
+    return 0;
 }
 </code></pre>
+
+<p>转化代码简化如下：</p>
+
+<pre><code class="language-objectivec">// 使用__block修饰后，多了这个结构体
+struct __Block_byref_var_0 {
+    void *__isa;
+    __Block_byref_var_0 *__forwarding;
+    int __flags;
+    int __size;
+    int var;
+};
+
+struct __main_block_impl_0 {
+    struct __block_impl impl;
+    struct __main_block_desc_0* Desc;
+    // 现在var是一个结构体指针
+    __Block_byref_var_0 *var; // by ref
+    // 结构体构造函数，这里注意var = _var-&gt;__forwarding，也就是说__forwarding指向了自己
+    __main_block_impl_0(void *fp, struct __main_block_desc_0 *desc, __Block_byref_var_0 *_var, int flags=0) : var(_var-&gt;__forwarding) {
+        impl.isa = &amp;_NSConcreteStackBlock;
+        impl.Flags = flags;
+        impl.FuncPtr = fp;
+        Desc = desc;
+    }
+};
+
+// block()指向的函数
+static void __main_block_func_0(struct __main_block_impl_0 *__cself) {
+    // 定义结构体指针，指向__main_block_impl_0中的var
+    __Block_byref_var_0 *var = __cself-&gt;var; // bound by ref
+    // 获取结构体中的__forwarding中的var，
+    // 其实在这就是：var-&gt;var，那为什么还要经过__forwarding指针呢？这个疑问暂时放在这
+    printf(&quot;var = %d,&lt;%p&gt;\n&quot;, (var-&gt;__forwarding-&gt;var)++, &amp;(var-&gt;__forwarding-&gt;var));
+}
+
+// 当Stack上的Block复制到Heap时调用
+static void __main_block_copy_0(struct __main_block_impl_0*dst, struct __main_block_impl_0*src) {
+    _Block_object_assign((void*)&amp;dst-&gt;var, (void*)src-&gt;var, 8/*BLOCK_FIELD_IS_BYREF*/);
+}
+
+// 当Heap区的Block被废弃的时候调用
+static void __main_block_dispose_0(struct __main_block_impl_0*src) {
+    _Block_object_dispose((void*)src-&gt;var, 8/*BLOCK_FIELD_IS_BYREF*/);
+}
+
+static struct __main_block_desc_0 {
+    size_t reserved;
+    size_t Block_size;
+    // block描述结构体多了两个函数：copy，dispose
+    // 当Stack上的Block复制到Heap时调用
+    void (*copy)(struct __main_block_impl_0*, struct __main_block_impl_0*);
+    // 当Heap区的Block被废弃的时候调用
+    void (*dispose)(struct __main_block_impl_0*);
+} __main_block_desc_0_DATA = { 0, sizeof(struct __main_block_impl_0), __main_block_copy_0, __main_block_dispose_0};
+
+
+int main(int argc, const char * argv[]) {
+    /* @autoreleasepool */ 
+    { __AtAutoreleasePool __autoreleasepool; 
+
+        // 创建__Block_byref_var_0结构体变量var
+        __attribute__((__blocks__(byref))) __Block_byref_var_0 var = {(void*)0,(__Block_byref_var_0 *)&amp;var, 0, sizeof(__Block_byref_var_0), 10};
+
+        // 和之前一样，唯一不同的是var是结构体指针
+        void (*block)(void) = ((void (*)())&amp;__main_block_impl_0((void *)__main_block_func_0, &amp;__main_block_desc_0_DATA, (__Block_byref_var_0 *)&amp;var, 570425344));
+
+        // 执行block()
+        ((void (*)(__block_impl *))((__block_impl *)block)-&gt;FuncPtr)((__block_impl *)block);
+    }
+    return 0;
+}
+</code></pre>
+
+<p>从上面c++代码我们可以看出，使用<mark>__block</mark>修饰的var变量以结构体的形式出现，传给block的结构体以指针的形式，这样在block内部就可以修改局部变量的值。</p>
+
+<p><img src="media/15629225986501/15629229064615.jpg" alt=""/></p>
 
 ]]></content>
   </entry>
@@ -1156,232 +1690,65 @@ UIView *backLogoView = [factory backLogoView];
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[block内修改变量的值]]></title>
-    <link href="http://riverschan.com/ios-block-changevar.html"/>
-    <updated>2019-07-12T17:09:58+08:00</updated>
-    <id>http://riverschan.com/ios-block-changevar.html</id>
+    <title type="html"><![CDATA[ARC模式下的block]]></title>
+    <link href="http://riverschan.com/ios-block-arc.html"/>
+    <updated>2019-07-12T17:19:52+08:00</updated>
+    <id>http://riverschan.com/ios-block-arc.html</id>
     <content type="html"><![CDATA[
-<p>进入主题之前，让我们回顾“Block的类型”中的内存分布图，看看下面这些变量保存在内存的哪块区域：</p>
+<p>前面三章都是在MRC模式下对Block进行了一系列分析，这章将讨论ARC模式下Block有什么不一样的？</p>
 
-<pre><code class="language-objectivec">int var;
-int var1 = 1;
-static int var2;
-static int var3 = 2;
-
-int main(int argc, const char * argv[]) {
+<pre><code class="language-text">int main(int argc, const char * argv[]) {
     @autoreleasepool {
-        static int var4 = 3;
-        static int var5;
-        int var6 = 4;
-    }
-    return 0;
-}
-</code></pre>
-
-<ol>
-<li>var、var2、var5保存在BSS区；</li>
-<li>var1、var3、var4保存在Data区；</li>
-<li>var6保存在Stack区。</li>
-</ol>
-
-<p>现在看下面代码：</p>
-
-<pre><code class="language-objectivec">typedef void(^Block)(void);
-
-// 全局初始化变量，保存在内存的Data区
-int globalVar = 10;
-
-// 静态初始化变量，保存在内存的Data区
-static int outsideStaticVar = 20;
-
-int main(int argc, const char * argv[]) {
-    @autoreleasepool {
-        // 静态初始化变量，保存在内存的Data区
-        static int insideStaticVar = 30;
-
-        // 局部变量，保存在内存的Stack区
-        int var = 40;
-
-        // 创建一个Stack区的Block
-        Block block = ^{
-            globalVar = 11;
-            outsideStaticVar = 21;
-            insideStaticVar = 31;
-//            var = 41; // 编译报错，Block内不能修改栈区的变量，只能读取
-            NSLog(@&quot;Block内&lt;globalVar = %d, outsideStaticVar = %d, insideStaticVar = %d, var = %d&gt;&quot;, globalVar, outsideStaticVar, insideStaticVar, var);
+        int a = 10;
+        void(^block) (void) = ^{
+            NSLog(@&quot;%d&quot;, a);
         };
-    }
-    return 0;
-}
-</code></pre>
+        NSLog(@&quot;%@&quot;, block);
 
-<p>由此可见，block内部不能修改block外部Stack区的变量，也就是局部变量。那怎么才能修改呢？这就是下节要讲的。</p>
-
-<h2 id="toc_0">block的内部实现</h2>
-
-<h3 id="toc_1">没有__block修饰</h3>
-
-<p>我们都知道，经过<mark>__block</mark>修饰的局部变量，可以在Block内部被修改，那它的原理又是什么？我们可以先分析不用<mark>__block</mark>修饰的代码：</p>
-
-<pre><code class="language-objectivec">int main(int argc, const char * argv[]) {
-    @autoreleasepool {
-        int var = 10;
-        void (^block)(void) = ^{
-            printf(&quot;%d&quot;, var);
-        };
-        block();
-    }
-    return 0;
-}
-</code></pre>
-
-<p>使用命令：clang -rewrite-objc main.m得到cpp代码，简化：</p>
-
-<pre><code class="language-objectivec">struct __block_impl {
-  void *isa;
-  int Flags;
-  int Reserved;
-  void *FuncPtr;
-};
-
-struct __main_block_impl_0 {
-    struct __block_impl impl;
-    struct __main_block_desc_0* Desc;
-    int var;
-    // __main_block_impl_0结构体的构造方法，初始化impl、Des和var
-    // var = _var
-    __main_block_impl_0(void *fp, struct __main_block_desc_0 *desc, int _var, int flags=0) : var(_var) {
-        impl.isa = &amp;_NSConcreteStackBlock; // block类型，但是这里有时不准确
-        impl.Flags = flags;
-        impl.FuncPtr = fp; // 执行block()时调用的函数
-        Desc = desc; // block的描述结构体
-    }
-};
-
-// block内部执行的代码，被赋值给impl.FuncPtr
-static void __main_block_func_0(struct __main_block_impl_0 *__cself) {
-    // 取block结构体中var成员的值
-    int var = __cself-&gt;var; // bound by copy
-    printf(&quot;%d&quot;, var);
-}
-
-// block描述
-static struct __main_block_desc_0 {
-    size_t reserved; // 保留
-    size_t Block_size; // block的大小，就是__main_block_impl_0结构体的大小
-} __main_block_desc_0_DATA = { 0, sizeof(struct __main_block_impl_0)};
-
-int main(int argc, const char * argv[]) {
-    /* @autoreleasepool */ 
-    { __AtAutoreleasePool __autoreleasepool; 
-        int var = 10;
-
-        // 创建Block，本质就是创建__main_block_impl_0结构体
-        // 参数分别是：block内部执行的函数指针、block描述结构体指针、var变量的值
-        struct __main_block_impl_0 tmp = __main_block_impl_0(__main_block_func_0, &amp;__main_block_desc_0_DATA, var));
-        struct __main_block_impl_0 *block = &amp;tmp;
-
-        // 执行block()
-        *block-&gt;impl.FuncPtr(block);
+        NSLog(@&quot;%@&quot;, ^{NSLog(@&quot;%d&quot;, a);});
     }
     return 0;
 }
 
+// 打印会发现，第一个打印的block竟然在堆区，而第二打印的block在栈区
+// &lt;__NSMallocBlock__: 0x100431750&gt;
+// &lt;__NSStackBlock__: 0x7ffeefbff4c0&gt;
+
 </code></pre>
 
-<p><img src="media/15629225986501/15629227792120.jpg" alt=""/></p>
+<p>为什么在MRC模式下，上面代码中的block在栈区，而到了ARC模式下却在堆区，那是因为在ARC模式下有些API内部会对Block进行copy，下面情况会自动对Block进行copy：</p>
 
-<h3 id="toc_2">__block修饰</h3>
+<pre><code class="language-text">- (Block)get_block {
+    int index = 6;
+    return ^{NSLog(@&quot;index = %d&quot;, index);};
+}
 
-<p>现在我们来看看有<mark>__block</mark>修饰会有什么不同：</p>
+- (void) autoCopyToHeap {
+    // 1、Block作为右值
+    int num = 10;
+    Block blk1 = ^{
+        NSLog(@&quot;num = %d&quot;, num);
+    };
+    NSLog(@&quot;&lt;1&gt;%@&quot;, blk1);
 
-<pre><code class="language-objectivec">int main(int argc, const char * argv[]) {
-    @autoreleasepool {
-        __block int var = 10;
-        void (^block)(void) = ^{
-            printf(&quot;var = %d,&lt;%p&gt;\n&quot;, var++, &amp;var);
-        };
-        block();
-    }
-    return 0;
+    // 2、Block作为方法/函数返回值
+    NSLog(@&quot;&lt;2&gt;%@&quot;, [self get_block]);
+
+    // 3、调用GCD API时，内部会copy Block
+    NSLog(@&quot;执行blk3前num的内存地址：%p&quot;, &amp;num);
+    __weak Block blk3 = ^{
+        NSLog(@&quot;执行blk3&lt;时&gt;num的内存地址：%p&quot;, &amp;num);
+    };
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), blk3);
+
+    // 4、Cocoa框架的方法且方法名含有usingBlock/block
+    NSLog(@&quot;执行blk4前num的内存地址：%p&quot;, &amp;num);
+    __weak void (^blk4)(NSTimer *timer) = ^(NSTimer *timer) {
+        NSLog(@&quot;执行blk4&lt;时&gt;num的内存地址：%p&quot;, &amp;num);
+    };
+    [[NSTimer timerWithTimeInterval:1 repeats:NO block:blk4] fire];
 }
 </code></pre>
-
-<p>转化代码简化如下：</p>
-
-<pre><code class="language-objectivec">// 使用__block修饰后，多了这个结构体
-struct __Block_byref_var_0 {
-    void *__isa;
-    __Block_byref_var_0 *__forwarding;
-    int __flags;
-    int __size;
-    int var;
-};
-
-struct __main_block_impl_0 {
-    struct __block_impl impl;
-    struct __main_block_desc_0* Desc;
-    // 现在var是一个结构体指针
-    __Block_byref_var_0 *var; // by ref
-    // 结构体构造函数，这里注意var = _var-&gt;__forwarding，也就是说__forwarding指向了自己
-    __main_block_impl_0(void *fp, struct __main_block_desc_0 *desc, __Block_byref_var_0 *_var, int flags=0) : var(_var-&gt;__forwarding) {
-        impl.isa = &amp;_NSConcreteStackBlock;
-        impl.Flags = flags;
-        impl.FuncPtr = fp;
-        Desc = desc;
-    }
-};
-
-// block()指向的函数
-static void __main_block_func_0(struct __main_block_impl_0 *__cself) {
-    // 定义结构体指针，指向__main_block_impl_0中的var
-    __Block_byref_var_0 *var = __cself-&gt;var; // bound by ref
-    // 获取结构体中的__forwarding中的var，
-    // 其实在这就是：var-&gt;var，那为什么还要经过__forwarding指针呢？这个疑问暂时放在这
-    printf(&quot;var = %d,&lt;%p&gt;\n&quot;, (var-&gt;__forwarding-&gt;var)++, &amp;(var-&gt;__forwarding-&gt;var));
-}
-
-// 当Stack上的Block复制到Heap时调用
-static void __main_block_copy_0(struct __main_block_impl_0*dst, struct __main_block_impl_0*src) {
-    _Block_object_assign((void*)&amp;dst-&gt;var, (void*)src-&gt;var, 8/*BLOCK_FIELD_IS_BYREF*/);
-}
-
-// 当Heap区的Block被废弃的时候调用
-static void __main_block_dispose_0(struct __main_block_impl_0*src) {
-    _Block_object_dispose((void*)src-&gt;var, 8/*BLOCK_FIELD_IS_BYREF*/);
-}
-
-static struct __main_block_desc_0 {
-    size_t reserved;
-    size_t Block_size;
-    // block描述结构体多了两个函数：copy，dispose
-    // 当Stack上的Block复制到Heap时调用
-    void (*copy)(struct __main_block_impl_0*, struct __main_block_impl_0*);
-    // 当Heap区的Block被废弃的时候调用
-    void (*dispose)(struct __main_block_impl_0*);
-} __main_block_desc_0_DATA = { 0, sizeof(struct __main_block_impl_0), __main_block_copy_0, __main_block_dispose_0};
-
-
-int main(int argc, const char * argv[]) {
-    /* @autoreleasepool */ 
-    { __AtAutoreleasePool __autoreleasepool; 
-
-        // 创建__Block_byref_var_0结构体变量var
-        __attribute__((__blocks__(byref))) __Block_byref_var_0 var = {(void*)0,(__Block_byref_var_0 *)&amp;var, 0, sizeof(__Block_byref_var_0), 10};
-
-        // 和之前一样，唯一不同的是var是结构体指针
-        void (*block)(void) = ((void (*)())&amp;__main_block_impl_0((void *)__main_block_func_0, &amp;__main_block_desc_0_DATA, (__Block_byref_var_0 *)&amp;var, 570425344));
-
-        // 执行block()
-        ((void (*)(__block_impl *))((__block_impl *)block)-&gt;FuncPtr)((__block_impl *)block);
-    }
-    return 0;
-}
-</code></pre>
-
-<p>从上面c++代码我们可以看出，使用<mark>__block</mark>修饰的var变量以结构体的形式出现，传给block的结构体以指针的形式，这样在block内部就可以修改局部变量的值。</p>
-
-<p><img src="media/15629225986501/15629229064615.jpg" alt=""/></p>
 
 ]]></content>
   </entry>
@@ -1788,121 +2155,63 @@ JCVideoPlayer -&gt; RefinedAbstraction（扩充抽象类）
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[block的类型]]></title>
-    <link href="http://riverschan.com/ios-block-type.html"/>
-    <updated>2019-07-12T17:06:45+08:00</updated>
-    <id>http://riverschan.com/ios-block-type.html</id>
+    <title type="html"><![CDATA[block的思考]]></title>
+    <link href="http://riverschan.com/ios-block-think.html"/>
+    <updated>2019-07-12T17:27:49+08:00</updated>
+    <id>http://riverschan.com/ios-block-think.html</id>
     <content type="html"><![CDATA[
-<p>在学习Block类型前，我们必须清楚内存的分布结构：<br/>
-<img src="media/15629224056096/15629224428386.jpg" alt=""/></p>
+<p>第一题：</p>
 
-<p>我们还需要把内存管理模式设置为MRC，在Build Phases -&gt; Compile Sources中选中需要修改的文件，双击输入：-fno-objc-arc</p>
-
-<p>Block的三种类型，分别是：</p>
-
-<ol>
-<li><strong>NSGlobalBlock</strong>：保存在Data区域；</li>
-<li><strong>NSStackBlock</strong> ：保存在Stack区域；</li>
-<li><strong>NSMallocBlock</strong>：保存在Heap区域。</li>
-</ol>
-
-<p>三种类型存在的关系，如下图：<br/>
-<img src="media/15629224056096/15629224845148.jpg" alt=""/></p>
-
-<h3 id="toc_0"><strong>NSGlobalBlock</strong></h3>
-
-<pre><code class="language-objectivec">// 1.在函数体外/方法外定义的Block
-void (^outsideFunctionGlobalBlock)(void) = ^{
-    NSLog(@&quot;outside function global block&quot;);
-};
-
+<pre><code class="language-text">// MRC模式下，dispatch_async API Block内的block为什么会变成__NSMallocBlock__？
 int main(int argc, const char * argv[]) {
     @autoreleasepool {
-        // 2. 在函数体内/方法内，不引用Block外的局部变量
-        void (^insideFunctionGlobalBlock)(void) = ^{
-            NSLog(@&quot;inside function global block&quot;);
+        int a = 10;
+        void(^block) (void) = ^{
+            NSLog(@&quot;%d&quot;, a);
         };
-
-        NSLog(@&quot;outside = %@\ninside = %@&quot;, outsideFunctionGlobalBlock, insideFunctionGlobalBlock);
+        NSLog(@&quot;&lt;1&gt;%@&quot;, block);
+        dispatch_queue_t queue = dispatch_queue_create(&quot;queue&quot;, NULL);
+        dispatch_async(queue, ^{
+            block();
+            NSLog(@&quot;&lt;2&gt;%@&quot;, block);
+        });
     }
     return 0;
 }
 </code></pre>
 
-<h3 id="toc_1"><strong>NSStackBlock</strong></h3>
+<p>第二题：</p>
 
-<pre><code class="language-objectivec">int main(int argc, const char * argv[]) {
+<pre><code class="language-text">// ARC模式下，在dispatch_async API Block中的block为什么还是__NSStackBlock__？
+int main(int argc, const char * argv[]) {
     @autoreleasepool {
-        // 在block内引用了外部的局部变量
         int a = 10;
-        void (^stackBlock)(void) = ^{
-            NSLog(@&quot;stack block:%d&quot;, a);
+        __weak void(^block) (void) = ^{
+            NSLog(@&quot;%d&quot;, a);
         };
-
-        NSLog(@&quot;stackBlock = %@&quot;, stackBlock);
+        NSLog(@&quot;&lt;1&gt;%@&quot;, block);
+        dispatch_queue_t queue = dispatch_queue_create(&quot;queue&quot;, NULL);
+        dispatch_async(queue, ^{
+            block();
+            NSLog(@&quot;&lt;2&gt;%@&quot;, block);
+        });
     }
     return 0;
 }
 </code></pre>
 
-<h3 id="toc_2"><strong>NSMallocBlock</strong></h3>
+<p>第三题：</p>
 
-<pre><code class="language-objectivec">int main(int argc, const char * argv[]) {
-    @autoreleasepool {
-        // 由stack类型的block使用copy得来
-        int a = 10;
-        void (^heapBlock)(void) = [^{
-            NSLog(@&quot;stack block:%d&quot;, a);
-        } copy];
-        NSLog(@&quot;heapBlock = %@&quot;, heapBlock);
-        }
-    return 0;
-}
-</code></pre>
-
-<h3 id="toc_3">思考</h3>
-
-<p>请回答下面代码中Block的类型：</p>
-
-<pre><code class="language-objectivec">int a = 10;
-
-void (^outsideFunctionBlock1)(void) = ^{
-    NSLog(@&quot;outside function block：%d&quot;, a);
-};
-
-void (^outsideFunctionBlock2)(int x, int y) = ^(int x, int y){
-    NSLog(@&quot;outside function block：%d, (x+y = %d)&quot;, a, x+y);
-};
-
+<pre><code class="language-text">// ARC模式下，在dispatch_async API Block中的block为什么是__NSMallocBlock__？
 int main(int argc, const char * argv[]) {
     @autoreleasepool {
-
-        static int num = 20;
-
-        int var = 30;
-
-        void (^insideFunctionBlock1)(void) = ^{
-            NSLog(@&quot;inside function block：%d&quot;, a);
+        int a = 10;
+        __weak void(^block) (void) = ^{
+            NSLog(@&quot;%d&quot;, a);
         };
-
-        void (^insideFunctionBlock2)(void) = ^{
-            NSLog(@&quot;inside function block：%d&quot;, var);
-        };
-
-        void (^insideFunctionBlock3)(void) = ^{
-            NSLog(@&quot;inside function block：%d，num = %d&quot;, a, num);
-        };  
-
-        void (^insideFunctionBlock4)(void) = ^{
-            NSLog(@&quot;inside function block：%d, num = %d, var = %d&quot;, a, num, var);
-        };        
-
-        void (^insideFunctionBlock5)(void) = [insideFunctionBlock1 copy];
-
-        void (^insideFunctionBlock6)(void) = [insideFunctionBlock2 copy];
-
-        void (^insideFunctionBlock7)(void) = [insideFunctionBlock3 copy];
-
+        NSLog(@&quot;&lt;1&gt;%@&quot;, block);
+        dispatch_queue_t queue = dispatch_queue_create(&quot;queue&quot;, NULL);
+        dispatch_async(queue, block);
     }
     return 0;
 }
