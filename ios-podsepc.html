@@ -1,0 +1,391 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+    
+  podspec开发介绍 - 陈江川
+  
+  </title>
+ <meta name="description" content="陈江川的技术累计">
+ <link href="atom.xml" rel="alternate" title="陈江川" type="application/atom+xml">
+    <link rel="stylesheet" href="asset/css/foundation.min.css" />
+    <link rel="stylesheet" href="asset/css/docs.css" />
+
+    <script src="asset/js/vendor/modernizr.js"></script>
+    <script src="asset/js/vendor/jquery.js"></script>
+    <script src="asset/highlightjs/highlight.pack.js"></script>
+    <link href="asset/highlightjs/styles/github.css" media="screen, projection" rel="stylesheet" type="text/css">
+    <script>hljs.initHighlightingOnLoad();</script>
+    
+  </head>
+  <body class="antialiased hide-extras">
+    
+    <div class="marketing off-canvas-wrap" data-offcanvas>
+      <div class="inner-wrap">
+
+
+<nav class="top-bar docs-bar hide-for-small" data-topbar>
+
+<div id="header">
+    <h1><a href="index.html">陈江川</a></h1>
+</div>
+
+</nav>
+        <nav class="tab-bar show-for-small">
+  <a href="javascript:void(0)" class="left-off-canvas-toggle menu-icon">
+    <span> &nbsp; 陈江川</span>
+  </a>
+</nav>
+
+<aside class="left-off-canvas-menu">
+      <ul class="off-canvas-list">
+      <li><a href="index.html">Home</a></li>
+      
+        <li class="divider"></li>
+        <li><label>组件化</label></li>
+
+          
+            <li><a title="CocoaPods私有库" href="ios-pods-create.html">CocoaPods私有库</a></li>
+          
+            <li><a title="podspec开发介绍" href="ios-podsepc.html">podspec开发介绍</a></li>
+          
+            <li><a title="iOS项目开发中组件化的应用" href="ios-module-use.html">iOS项目开发中组件化的应用</a></li>
+          
+
+      
+        <li class="divider"></li>
+        <li><label>设计模式</label></li>
+
+          
+            <li><a title="工厂方法模式和抽象工厂方法模式的区别" href="design-pattern-factory.html">工厂方法模式和抽象工厂方法模式的区别</a></li>
+          
+            <li><a title="桥接模式" href="design-pattern-bridge.html">桥接模式</a></li>
+          
+
+      
+        <li class="divider"></li>
+        <li><label>iOS</label></li>
+
+          
+            <li><a title="isa指针" href="ios-isa.html">isa指针</a></li>
+          
+            <li><a title="objc_msgSend分析" href="ios-objc-msgsend.html">objc_msgSend分析</a></li>
+          
+            <li><a title="block的思考" href="ios-block-think.html">block的思考</a></li>
+          
+            <li><a title="ARC模式下的block" href="ios-block-arc.html">ARC模式下的block</a></li>
+          
+            <li><a title="Block_copy原理" href="ios-block-copy.html">Block_copy原理</a></li>
+          
+            <li><a title="block内修改变量的值" href="ios-block-changevar.html">block内修改变量的值</a></li>
+          
+            <li><a title="block的类型" href="ios-block-type.html">block的类型</a></li>
+          
+
+      
+        <li class="divider"></li>
+        <li><label>Web</label></li>
+
+          
+            <li><a title="Python爬虫 - 环境的搭建" href="python_spider.html">Python爬虫 - 环境的搭建</a></li>
+          
+
+      
+      </ul>
+    </aside>
+
+<a class="exit-off-canvas" href="#"></a>
+
+        <section id="main-content" role="main" class="scroll-container">
+
+          <div class="row">
+            <div class="large-3 medium-3 columns">
+              <div class="hide-for-small">
+                <div class="sidebar">
+                <nav>
+                  <ul id="side-nav" class="side-nav">
+
+                    
+                      <li class="side-title"><span>组件化</span></li>
+                        
+                          <li><a title="CocoaPods私有库" href="ios-pods-create.html">CocoaPods私有库</a></li>
+                        
+                          <li><a title="podspec开发介绍" href="ios-podsepc.html">podspec开发介绍</a></li>
+                        
+                          <li><a title="iOS项目开发中组件化的应用" href="ios-module-use.html">iOS项目开发中组件化的应用</a></li>
+                        
+
+                    
+                      <li class="side-title"><span>设计模式</span></li>
+                        
+                          <li><a title="工厂方法模式和抽象工厂方法模式的区别" href="design-pattern-factory.html">工厂方法模式和抽象工厂方法模式的区别</a></li>
+                        
+                          <li><a title="桥接模式" href="design-pattern-bridge.html">桥接模式</a></li>
+                        
+
+                    
+                      <li class="side-title"><span>iOS</span></li>
+                        
+                          <li><a title="isa指针" href="ios-isa.html">isa指针</a></li>
+                        
+                          <li><a title="objc_msgSend分析" href="ios-objc-msgsend.html">objc_msgSend分析</a></li>
+                        
+                          <li><a title="block的思考" href="ios-block-think.html">block的思考</a></li>
+                        
+                          <li><a title="ARC模式下的block" href="ios-block-arc.html">ARC模式下的block</a></li>
+                        
+                          <li><a title="Block_copy原理" href="ios-block-copy.html">Block_copy原理</a></li>
+                        
+                          <li><a title="block内修改变量的值" href="ios-block-changevar.html">block内修改变量的值</a></li>
+                        
+                          <li><a title="block的类型" href="ios-block-type.html">block的类型</a></li>
+                        
+
+                    
+                      <li class="side-title"><span>Web</span></li>
+                        
+                          <li><a title="Python爬虫 - 环境的搭建" href="python_spider.html">Python爬虫 - 环境的搭建</a></li>
+                        
+
+                    
+                  </ul>
+                </nav>
+                </div>
+              </div>
+            </div>
+            <div class="large-9 medium-9 columns">
+
+ <div class="markdown-body">
+<h1>podspec开发介绍</h1>
+
+<p>podspec文件里面描述了库所有信息，所以怎么修改这个文件还是要花点时间，所以在这分析下该文件里面的内容还有有必要的。</p>
+
+<pre><code class="language-text">Pod::Spec.new do |s|
+  s.name             = &#39;HoriHomeModule&#39;
+  s.version          = &#39;1.0.7&#39;
+  s.summary          = &#39;this is hori home module&#39;
+  s.description      = &lt;&lt;-DESC
+                        TODO: Add long description of the pod here.
+                        add BeeHive
+                       DESC
+  s.homepage         = &#39;https://gitlab.com/chenjiangchuan/HoriHomeModule&#39;
+  s.license          = { :type =&gt; &#39;MIT&#39;, :file =&gt; &#39;LICENSE&#39; }
+  s.author           = { &#39;jc&#39; =&gt; &#39;jiangchuanc@gmail.com&#39; }
+  s.source           = { :git =&gt; &#39;https://chenjiangchuan@gitlab.com/chenjiangchuan/HoriHomeModule.git&#39;, :tag =&gt; s.version.to_s }
+
+  s.ios.deployment_target = &#39;8.0&#39;
+  s.source_files = &#39;HoriHomeModule/Classes/**/*&#39;
+  s.frameworks = &#39;Foundation&#39;
+  s.dependency &#39;BeeHive&#39;
+end
+</code></pre>
+
+<p>1、先从整体来看</p>
+
+<pre><code class="language-text"># 这里等于是一个main函数
+Pod::Spec.new do |s|
+end
+</code></pre>
+
+<p>2、再分析内部</p>
+
+<pre><code class="language-text">s.name：         Pod的名称（可不修改）
+s.version：      Pod对应的版本号（更新Pod的时候，这里要对应的修改）
+s.summary：      Pod的简短说明（这里要修改，否则lint后会报错）
+s.description：  Pod详细描述
+s.homepage：     Pod的主页地址（修改）
+s.license：      Pod遵守的许可（可不修改）
+s.author：       Pod作者（可不修改）
+s.source：       Pod的项目地址（修改）
+s.ios.deployment_target：Pod支持的最低iOS版本
+s.source_files：         Pod项目中代码所在的路径（这个很重要）
+s.frameworks：           Pod依赖的框架，依赖多个用,隔开
+s.dependency：           Pod依赖的第三方框架，依赖几个，就要写几个s.dependency
+
+还有其它的就不一一列举
+</code></pre>
+
+<h2 id="toc_0">用法</h2>
+
+<h3 id="toc_1">所有源文件都在一个目录</h3>
+
+<p>这种情况是最简单的，即使你在Classes目录下创建了多个文件夹，但是没有在podspec对应设置，最终生成的Pod库，所有的文件都只会在一个目录下。</p>
+
+<pre><code class="language-text"># podspec文件
+Pod::Spec.new do |s|
+  s.name             = &#39;HoriHomeModule&#39;
+  s.version          = &#39;1.0.7&#39;
+  s.summary          = &#39;this is hori home module&#39;
+  s.description      = &lt;&lt;-DESC
+                        TODO: Add long description of the pod here.
+                        add BeeHive
+                       DESC
+
+  s.homepage         = &#39;https://gitlab.com/chenjiangchuan/HoriHomeModule&#39;
+  s.license          = { :type =&gt; &#39;MIT&#39;, :file =&gt; &#39;LICENSE&#39; }
+  s.author           = { &#39;jc&#39; =&gt; &#39;jiangchuanc@gmail.com&#39; }
+  s.source           = { :git =&gt; &#39;https://chenjiangchuan@gitlab.com/chenjiangchuan/HoriHomeModule.git&#39;, :tag =&gt; s.version.to_s }
+  s.ios.deployment_target = &#39;8.0&#39;
+
+  s.source_files = &#39;HoriHomeModule/Classes/**/*&#39;
+  s.frameworks = &#39;Foundation&#39;
+  s.dependency &#39;BeeHive&#39;
+end
+</code></pre>
+
+<p>Classes目录结构，里面还有三个目录：<br/>
+<img src="media/15629252246453/15629253403056.jpg" alt=""/></p>
+
+<p>但是最终生成的Pod库，所有的源文件只会在一个目录下：<br/>
+<img src="media/15629252246453/15629253578078.jpg" alt=""/></p>
+
+<h3 id="toc_2">有文件夹结构分层</h3>
+
+<pre><code class="language-text"># podspec文件
+Pod::Spec.new do |s|
+  s.name             = &#39;HoriHomeModule&#39;
+  s.version          = &#39;1.0.7&#39;
+  s.summary          = &#39;this is hori home module&#39;
+  s.description      = &lt;&lt;-DESC
+                        TODO: Add long description of the pod here.
+                        add BeeHive
+                       DESC
+
+  s.homepage         = &#39;https://gitlab.com/chenjiangchuan/HoriHomeModule&#39;
+  s.license          = { :type =&gt; &#39;MIT&#39;, :file =&gt; &#39;LICENSE&#39; }
+  s.author           = { &#39;jc&#39; =&gt; &#39;jiangchuanc@gmail.com&#39; }
+  s.source           = { :git =&gt; &#39;https://chenjiangchuan@gitlab.com/chenjiangchuan/HoriHomeModule.git&#39;, :tag =&gt; s.version.to_s }
+  s.ios.deployment_target = &#39;8.0&#39;
+  
+  # 第一层
+  # s.source_files = &#39;HoriHomeModule/Classes/**/*&#39;
+
+  # 第二层
+  s.subspec &#39;Service&#39; do |service|
+    service.source_files = &#39;HoriHomeModule/Classes/Service/*&#39;
+    service.public_header_files = &#39;HoriHomeModule/Classes/Service/*.h&#39;
+  end
+
+  # 第二层
+  s.subspec &#39;Home&#39; do |home|
+    # home.source_files = &#39;HoriHomeModule/Classes/Home&#39;
+    # 第三层
+    home.subspec &#39;Controller&#39; do |controller|
+      controller.source_files = &#39;HoriHomeModule/Classes/Home/**/*&#39;
+     # 如果Home/Controller目录下的文件依赖与Service目录下文件，这个依赖关系一定要写
+     # 而且注意路径，这里是HoriHomeModule/Service，而不是HoriHomeModule/Classes/Service
+      controller.dependency &#39;HoriHomeModule/Service&#39;
+    end
+  end
+
+  # 第二层
+  s.subspec &#39;Module&#39; do |modules|
+    modules.source_files = &#39;HoriHomeModule/Classes/Module/*&#39;
+    # 如果Module目录下的文件依赖与Service目录下文件，这个依赖关系一定要写
+    modules.dependency &#39;HoriHomeModule/Service&#39; 
+  end
+  
+  s.frameworks = &#39;Foundation&#39;
+  s.dependency &#39;BeeHive&#39;
+end
+</code></pre>
+
+<p>最终效果如下：<br/>
+<img src="media/15629252246453/15629253968225.jpg" alt=""/></p>
+
+<h3 id="toc_3">在私有库中如何引用另一个私有库</h3>
+
+<p>和引用公开的CocoaPods库是一样的，在podsepc文件中添加：</p>
+
+<pre><code class="language-text">s.dependency &#39;QMToolsModule&#39;
+</code></pre>
+
+<p>再执行：</p>
+
+<pre><code class="language-text">pod lib lint
+</code></pre>
+
+<p>但随后会报一个错误信息：<br/>
+<img src="media/15629252246453/15629254716344.jpg" alt=""/></p>
+
+<p>这是因为会去远程podspec库查找相关依赖，但是这是我们的私有库，所以报错，解决方法：</p>
+
+<pre><code class="language-text">pod lib lint --sources=&#39;git@gitlab.com:chenjiangchuan/QMSpecs.git,https://github.com/CocoaPods/Specs.git&#39;
+</code></pre>
+
+
+</div>
+
+<br /><br />
+<hr />
+
+<div class="row clearfix">
+  <div class="large-6 columns">
+	<div class="text-left" style="padding:15px 0px;">
+		
+	        <a href="ios-block-changevar.html"  title="Previous Post: block内修改变量的值">&laquo; block内修改变量的值</a>
+	    
+	</div>
+  </div>
+  <div class="large-6 columns">
+	<div class="text-right" style="padding:15px 0px;">
+		
+	        <a href="design-pattern-bridge.html" 
+	        title="Next Post: 桥接模式">桥接模式 &raquo;</a>
+	    
+	</div>
+  </div>
+</div>
+
+<div class="row">
+<div style="padding:0px 0.93em;" class="share-comments">
+
+</div>
+</div>
+<script type="text/javascript">
+	$(function(){
+		var currentURL = 'ios-podsepc.html';
+		$('#side-nav a').each(function(){
+			if($(this).attr('href') == currentURL){
+				$(this).parent().addClass('active');
+			}
+		});
+	});
+</script>  
+</div></div>
+
+
+<div class="page-bottom">
+  <div class="row">
+  <hr />
+  <div class="small-9 columns">
+  <p class="copyright">Copyright &copy; 2015
+Powered by <a target="_blank" href="http://www.mweb.im">MWeb</a>,&nbsp; 
+Theme used <a target="_blank" href="http://github.com">GitHub CSS</a>.</p>
+  </div>
+  <div class="small-3 columns">
+  <p class="copyright text-right"><a href="#header">TOP</a></p>
+  </div>
+   
+  </div>
+</div>
+
+        </section>
+      </div>
+    </div>
+    
+    
+    <script src="asset/js/foundation.min.js"></script>
+    <script src="asset/js/foundation/foundation.offcanvas.js"></script>
+    <script>
+      $(document).foundation();
+
+     
+    </script>
+    
+
+
+  </body>
+</html>

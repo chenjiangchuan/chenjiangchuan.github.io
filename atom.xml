@@ -1,0 +1,2157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[陈江川]]></title>
+  <link href="http://riverschan.com/atom.xml" rel="self"/>
+  <link href="http://riverschan.com/"/>
+  <updated>2019-07-12T18:23:46+08:00</updated>
+  <id>http://riverschan.com/</id>
+  <author>
+    <name><![CDATA[]]></name>
+    
+  </author>
+  <generator uri="http://www.mweb.im">MWeb</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Python爬虫 - 环境的搭建]]></title>
+    <link href="http://riverschan.com/python_spider.html"/>
+    <updated>2019-08-19T00:50:03+08:00</updated>
+    <id>http://riverschan.com/python_spider.html</id>
+    <content type="html"><![CDATA[
+<p>本文主要介绍工具使用（MacOS 系统），如何快速入手，Python和Web前端的知识不会介绍。</p>
+
+<h2 id="toc_0">软件安装</h2>
+
+<p>Python 3.7、Scrapy、PyCharm、Firefox Developer Edition</p>
+
+<h3 id="toc_1">Python 3.7</h3>
+
+<p>1、MacOS 10.15之前系统自带的都是Python 2.7，先查看系统Python版本，打开终端输入：</p>
+
+<pre><code class="language-text">python -V
+</code></pre>
+
+<p>如果输出的版本号是Python 3，可以跳过这一步。</p>
+
+<p>2、下载Python 3.7</p>
+
+<p>官网地址：<a href="https://www.python.org/downloads/">https://www.python.org/downloads/</a></p>
+
+<p>3、双击安装后，Python 3.7的默认安装路径为：<em>/Library/Frameworks/Python.framework/Versions/3.7</em></p>
+
+<p>4、修改<em>~/.bash_profile</em>文件（如果你使用了zsh，修改<em>~/.zshrc</em>是一样的），在终端输入：</p>
+
+<pre><code class="language-text">open ~/.bash_profile 
+</code></pre>
+
+<p>如果没有这个文件，那就先创建，还是在终端输入：</p>
+
+<pre><code class="language-text">touch ~/.bash_profile
+</code></pre>
+
+<p>在文件最后一行添加，并保存：</p>
+
+<pre><code class="language-text"># python
+export PATH=&quot;/Library/Frameworks/Python.framework/Versions/3.7/bin:$PATH&quot;
+alias python=&quot;/Library/Frameworks/Python.framework/Versions/3.7/bin/python3.7&quot;
+alias pip=&quot;/Library/Frameworks/Python.framework/Versions/3.7/bin/pip3&quot;
+</code></pre>
+
+<p>继续在终端输入（或者退出终端再打开）：</p>
+
+<pre><code class="language-text">source ~/.bash_profile
+</code></pre>
+
+<p>5、验证Python版本，在终端输入：</p>
+
+<pre><code class="language-text">python -V
+</code></pre>
+
+<p>我Mac上输出信息：</p>
+
+<pre><code class="language-text">Python 3.7.4
+</code></pre>
+
+<h3 id="toc_2">Scrapy</h3>
+
+<p>Scrapy 是用Python实现的一个为了爬取网站数据、提取结构性数据而编写的应用框架</p>
+
+<p>1、先确保Mac安装了Homebrew，如果安装了，直接跳到第二步。打开终端输入：</p>
+
+<pre><code class="language-text">/usr/bin/ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;
+</code></pre>
+
+<p>2、安装Scrapy，在终端输入：</p>
+
+<pre><code class="language-text">sudo pip install Scrapy
+</code></pre>
+
+<p>3、安装成功后，在终端输入：</p>
+
+<pre><code class="language-text">scrapy -version
+</code></pre>
+
+<p>我Mac输出的信息：</p>
+
+<pre><code class="language-text">Scrapy 1.7.3 - no active project
+
+Usage:
+  scrapy &lt;command&gt; [options] [args]
+
+Available commands:
+  bench         Run quick benchmark test
+  fetch         Fetch a URL using the Scrapy downloader
+  genspider     Generate new spider using pre-defined templates
+  runspider     Run a self-contained spider (without creating a project)
+  settings      Get settings values
+  shell         Interactive scraping console
+  startproject  Create new project
+  version       Print Scrapy version
+  view          Open URL in browser, as seen by Scrapy
+
+  [ more ]      More commands available when run from project directory
+
+Use &quot;scrapy &lt;command&gt; -h&quot; to see more info about a command
+</code></pre>
+
+<h3 id="toc_3">PyCharm</h3>
+
+<p>这个属于可选安装，使用IDE开发过程方便很多。</p>
+
+<p>1、下载两个文件：</p>
+
+<pre><code class="language-text">PyCharm：https://pan.baidu.com/s/1B-XwFmyrkzdYBKQfEchYQQ  密码:anlt
+破解文件（JetbrainsCrack-release-enc.jar）：https://pan.baidu.com/s/116-ClMthrzP55EzW4qMwzw  密码:1j75 
+</code></pre>
+
+<p>2、双击解压后，进入解压目录双击安装：<em>pycharm-professional-2019.1.2.dmg</em></p>
+
+<p>3、打开Finder，进入<em>应用程度</em> -&gt; 找到<em>PyCharm</em> -&gt; 右击<em>显示包内容</em> -&gt; 进入<em>Contents</em> -&gt; <em>bin</em><br/>
+<img src="media/15661470034756/15661499282007.jpg" alt="" style="width:339px;"/></p>
+
+<p>4、把下载好的<em>JetbrainsCrack-release-enc.jar</em>拖进去<br/>
+<img src="media/15661470034756/15661500763245.jpg" alt="" style="width:614px;"/></p>
+
+<p>5、 然后双击打开<em>pycharm.vmoptions</em>文件，在最后一行输入，并保存：</p>
+
+<pre><code class="language-text">-javaagent:/Applications/PyCharm.app/Contents/bin/JetbrainsCrack-release-enc.jar
+</code></pre>
+
+<p><img src="media/15661470034756/15661501440657.jpg" alt="" style="width:636px;"/></p>
+
+<p>6、打开PyCharm，选择<em>Activate</em> -&gt; <em>Activate code</em>，然后复制下面内容，点击Ok即可：</p>
+
+<pre><code class="language-text">JKHX300590-eyJsaWNlbnNlSWQiOiJKS0hYMzAwNTkwIiwibGljZW5zZWVOYW1lIjoiTmljb2xlIFBvd2VsbCIsImFzc2lnbmVlTmFtZSI6IiIsImFzc2lnbmVlRW1haWwiOiIiLCJsaWNlbnNlUmVzdHJpY3Rpb24iOiJGb3IgZWR1Y2F0aW9uYWwgdXNlIG9ubHkiLCJjaGVja0NvbmN1cnJlbnRVc2UiOmZhbHNlLCJwcm9kdWN0cyI6W3siY29kZSI6IklJIiwicGFpZFVwVG8iOiIyMDE5LTA5LTI0In0seyJjb2RlIjoiQUMiLCJwYWlkVXBUbyI6IjIwMTktMDktMjQifSx7ImNvZGUiOiJEUE4iLCJwYWlkVXBUbyI6IjIwMTktMDktMjQifSx7ImNvZGUiOiJQUyIsInBhaWRVcFRvIjoiMjAxOS0wOS0yNCJ9LHsiY29kZSI6IkdPIiwicGFpZFVwVG8iOiIyMDE5LTA5LTI0In0seyJjb2RlIjoiRE0iLCJwYWlkVXBUbyI6IjIwMTktMDktMjQifSx7ImNvZGUiOiJDTCIsInBhaWRVcFRvIjoiMjAxOS0wOS0yNCJ9LHsiY29kZSI6IlJTMCIsInBhaWRVcFRvIjoiMjAxOS0wOS0yNCJ9LHsiY29kZSI6IlJDIiwicGFpZFVwVG8iOiIyMDE5LTA5LTI0In0seyJjb2RlIjoiUkQiLCJwYWlkVXBUbyI6IjIwMTktMDktMjQifSx7ImNvZGUiOiJQQyIsInBhaWRVcFRvIjoiMjAxOS0wOS0yNCJ9LHsiY29kZSI6IlJNIiwicGFpZFVwVG8iOiIyMDE5LTA5LTI0In0seyJjb2RlIjoiV1MiLCJwYWlkVXBUbyI6IjIwMTktMDktMjQifSx7ImNvZGUiOiJEQiIsInBhaWRVcFRvIjoiMjAxOS0wOS0yNCJ9LHsiY29kZSI6IkRDIiwicGFpZFVwVG8iOiIyMDE5LTA5LTI0In0seyJjb2RlIjoiUlNVIiwicGFpZFVwVG8iOiIyMDE5LTA5LTI0In1dLCJoYXNoIjoiMTAzMTY2ODUvMCIsImdyYWNlUGVyaW9kRGF5cyI6MCwiYXV0b1Byb2xvbmdhdGVkIjpmYWxzZSwiaXNBdXRvUHJvbG9uZ2F0ZWQiOmZhbHNlfQ==-GvkOuUgCVPdyynFuSG+GNmcDZKp643apInM159fRXb69urSBIFyKO46umkRbl89lwr25SrAcl2TfRG1NMP/zPMRmGvd5VHiXDxa/xatzyPpkGf/czv0GeyuP/XhfX8332kXh9Dnowt3Z++IKUlkTjYInkpg09G9OHSwYcIcHAZ51CsqbrWIaemvDH3P9v+k6EUwwhgDZYA/TplavU/2d9J0EZg8kwzo/TK5P7Za09RFx91YBE558Ncl6VMgdhcwgF+oYHGEfs4Bez5xawJwagLymf3mLhq9acihxGnFsfqcyM/EeKDLKWOAveLQIk1NhtU7YR3fFC0EHEGwb04MavA==-MIIEPjCCAiagAwIBAgIBBTANBgkqhkiG9w0BAQsFADAYMRYwFAYDVQQDDA1KZXRQcm9maWxlIENBMB4XDTE1MTEwMjA4MjE0OFoXDTE4MTEwMTA4MjE0OFowETEPMA0GA1UEAwwGcHJvZDN5MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAxcQkq+zdxlR2mmRYBPzGbUNdMN6OaXiXzxIWtMEkrJMO/5oUfQJbLLuMSMK0QHFmaI37WShyxZcfRCidwXjot4zmNBKnlyHodDij/78TmVqFl8nOeD5+07B8VEaIu7c3E1N+e1doC6wht4I4+IEmtsPAdoaj5WCQVQbrI8KeT8M9VcBIWX7fD0fhexfg3ZRt0xqwMcXGNp3DdJHiO0rCdU+Itv7EmtnSVq9jBG1usMSFvMowR25mju2JcPFp1+I4ZI+FqgR8gyG8oiNDyNEoAbsR3lOpI7grUYSvkB/xVy/VoklPCK2h0f0GJxFjnye8NT1PAywoyl7RmiAVRE/EKwIDAQABo4GZMIGWMAkGA1UdEwQCMAAwHQYDVR0OBBYEFGEpG9oZGcfLMGNBkY7SgHiMGgTcMEgGA1UdIwRBMD+AFKOetkhnQhI2Qb1t4Lm0oFKLl/GzoRykGjAYMRYwFAYDVQQDDA1KZXRQcm9maWxlIENBggkA0myxg7KDeeEwEwYDVR0lBAwwCgYIKwYBBQUHAwEwCwYDVR0PBAQDAgWgMA0GCSqGSIb3DQEBCwUAA4ICAQC9WZuYgQedSuOc5TOUSrRigMw4/+wuC5EtZBfvdl4HT/8vzMW/oUlIP4YCvA0XKyBaCJ2iX+ZCDKoPfiYXiaSiH+HxAPV6J79vvouxKrWg2XV6ShFtPLP+0gPdGq3x9R3+kJbmAm8w+FOdlWqAfJrLvpzMGNeDU14YGXiZ9bVzmIQbwrBA+c/F4tlK/DV07dsNExihqFoibnqDiVNTGombaU2dDup2gwKdL81ua8EIcGNExHe82kjF4zwfadHk3bQVvbfdAwxcDy4xBjs3L4raPLU3yenSzr/OEur1+jfOxnQSmEcMXKXgrAQ9U55gwjcOFKrgOxEdek/Sk1VfOjvS+nuM4eyEruFMfaZHzoQiuw4IqgGc45ohFH0UUyjYcuFxxDSU9lMCv8qdHKm+wnPRb0l9l5vXsCBDuhAGYD6ss+Ga+aDY6f/qXZuUCEUOH3QUNbbCUlviSz6+GiRnt1kA9N2Qachl+2yBfaqUqr8h7Z2gsx5LcIf5kYNsqJ0GavXTVyWh7PYiKX4bs354ZQLUwwa/cG++2+wNWP+HtBhVxMRNTdVhSm38AknZlD+PTAsWGu9GyLmhti2EnVwGybSD2Dxmhxk3IPCkhKAK+pl0eWYGZWG3tJ9mZ7SowcXLWDFAk0lRJnKGFMTggrWjV8GYpw5bq23VmIqqDLgkNzuoog==
+</code></pre>
+
+<h3 id="toc_4">Firefox Developer Edition</h3>
+
+<p>火狐开发者版本有个特别好用的工具<em>Inspector</em>，可以直观的抓取网页的布局，使用：⌘（command）+ ⇪（大小写锁定）调出<em>Inspector</em>功能</p>
+
+<p><img src="media/15661470034756/15661509238075.jpg" alt="" style="width:1678px;"/></p>
+
+<p>链接:<a href="https://pan.baidu.com/s/1mL3BsGHvXNnlPysxAktVbw">https://pan.baidu.com/s/1mL3BsGHvXNnlPysxAktVbw</a>  密码:s37s</p>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[isa指针]]></title>
+    <link href="http://riverschan.com/ios-isa.html"/>
+    <updated>2019-07-12T16:49:44+08:00</updated>
+    <id>http://riverschan.com/ios-isa.html</id>
+    <content type="html"><![CDATA[
+<h3 id="toc_0">isa</h3>
+
+<p>我们知道，在NSObject中有一个isa成员变量：</p>
+
+<pre><code class="language-objectivec">@interface NSObject &lt;NSObject&gt; {
+    Class isa  OBJC_ISA_AVAILABILITY;
+}
+</code></pre>
+
+<p>但这个isa具体又是什么东西？我们一步步来分析：</p>
+
+<h3 id="toc_1">Class</h3>
+
+<p>在objc-private.h中，我们能看到Class的定义：</p>
+
+<pre><code class="language-objectivec">typedef struct objc_class *Class;
+</code></pre>
+
+<p>也就是说isa其实就是一个objc_class的结构体指针，而objc_class代表着OC中的一个类：</p>
+
+<pre><code class="language-objectivec">struct objc_class : objc_object {
+    Class superclass;
+    cache_t cache;
+    class_data_bits_t bits;
+    // ....
+}
+</code></pre>
+
+<h3 id="toc_2">Object</h3>
+
+<p>从上面可以看出，objc_class继承了objc_object，而objc_object在OC中代表着一个对象：</p>
+
+<pre><code class="language-objectivec">struct objc_object {
+private:
+    isa_t isa;
+    // ...
+}
+</code></pre>
+
+<p>objc_object中有一个私有成员：isa，它是isa_t类型，继续跟下去会发现isa_t是一个union(联合体)</p>
+
+<pre><code class="language-c">union isa_t
+{
+    isa_t() { }
+    isa_t(uintptr_t value) : bits(value) { }
+
+    Class cls;
+    uintptr_t bits;
+    
+# elif __x86_64__
+#   define ISA_MASK        0x00007ffffffffff8ULL
+#   define ISA_MAGIC_MASK  0x001f800000000001ULL
+#   define ISA_MAGIC_VALUE 0x001d800000000001ULL
+    struct {
+        uintptr_t indexed           : 1;
+        uintptr_t has_assoc         : 1;
+        uintptr_t has_cxx_dtor      : 1;
+        uintptr_t shiftcls          : 44; // MACH_VM_MAX_ADDRESS 0x7fffffe00000
+        uintptr_t magic             : 6;
+        uintptr_t weakly_referenced : 1;
+        uintptr_t deallocating      : 1;
+        uintptr_t has_sidetable_rc  : 1;
+        uintptr_t extra_rc          : 8;
+#       define RC_ONE   (1ULL&lt;&lt;56)
+#       define RC_HALF  (1ULL&lt;&lt;7)
+    };
+}
+</code></pre>
+
+<p>上面可以看出在x86_64下，isa占64个字节。这里我们主要把关注点放在indexed：</p>
+
+<pre><code class="language-objectivec">inline void 
+objc_object::initIsa(Class cls, bool indexed, bool hasCxxDtor) 
+{ 
+    assert(!isTaggedPointer()); 
+    
+    if (!indexed) {
+        isa.cls = cls;
+    } else {
+        assert(!DisableIndexedIsa);
+        isa.bits = ISA_MAGIC_VALUE;
+        // isa.magic is part of ISA_MAGIC_VALUE
+        // isa.indexed is part of ISA_MAGIC_VALUE
+        isa.has_cxx_dtor = hasCxxDtor;
+        isa.shiftcls = (uintptr_t)cls &gt;&gt; 3;
+    }
+}
+</code></pre>
+
+<p>从上面可以看出：<br/>
+indexed为0：表示访问对象的isa指针会直接返回指向cls的指针；<br/>
+indexed为1：表示当前isa包含了更多信息，但是里面也包含了cls信息，只是其中关于类的信息放在了shiftcls中。</p>
+
+<p>回头再看看NSObject中的isa成员变量：</p>
+
+<pre><code class="language-objectivec">@interface NSObject &lt;NSObject&gt; {
+    struct objc_class *isa;
+}
+
+// 继续替换
+@interface NSObject &lt;NSObject&gt; {
+    struct objc_class : objc_object {
+        Class superclass;
+        cache_t cache;
+        class_data_bits_t bits;
+        ....
+    } *isa;
+}
+
+// 最后结构
+@interface NSObject &lt;NSObject&gt; {
+    struct objc_class : objc_object {
+        isa_t isa;
+        Class superclass;
+        cache_t cache;
+        class_data_bits_t bits;
+        ....
+    } *isa;
+}
+</code></pre>
+
+<h3 id="toc_3">对象中的isa如何与类关联</h3>
+
+<p>从上面我们知道，每个对象中都有一个isa，那么这个isa是怎么和对应的类关联起来的呢？<br/>
+我们从alloc中进行分析：</p>
+
+<p><img src="media/15629213844550/15629217608358.jpg" alt=""/></p>
+
+<p>alloc最终会调用initIsa，在这个函数中对对象的isa进行赋值，把它指向所属的类：</p>
+
+<pre><code class="language-objectivec">isa.shiftcls = (uintptr_t)cls &gt;&gt; 3;
+</code></pre>
+
+<h3 id="toc_4">类中isa如何与元类关联</h3>
+
+<p>对于类中isa怎么关联上meta class的，我没有找到相应的代码，只能通过clang编译。<br/>
+定义了一个Person类，继承NSObject：</p>
+
+<pre><code class="language-objectivec">static void OBJC_CLASS_SETUP_$_Person(void ) {
+    OBJC_METACLASS_$_Person.isa = &amp;OBJC_METACLASS_$_NSObject;
+    OBJC_METACLASS_$_Person.superclass = &amp;OBJC_METACLASS_$_NSObject;
+    OBJC_METACLASS_$_Person.cache = &amp;_objc_empty_cache;
+    OBJC_CLASS_$_Person.isa = &amp;OBJC_METACLASS_$_Person;
+    OBJC_CLASS_$_Person.superclass = &amp;OBJC_CLASS_$_NSObject;
+    OBJC_CLASS_$_Person.cache = &amp;_objc_empty_cache;
+}
+</code></pre>
+
+<p>可以得出：</p>
+
+<ol>
+<li>Person类的isa指向了Person的元类；</li>
+<li>Person的superclass指向了NSObject；</li>
+<li>cache这个是方法的缓存列表，因为没有调用方法，所以这个缓存列表为空；</li>
+<li>Person元类的isa指向了NSObject的元类；</li>
+<li>Person元类的父类指向了NSObject的元类。</li>
+</ol>
+
+<p>现在又定义了一个类Man，继承Person：</p>
+
+<pre><code class="language-objectivec">static void OBJC_CLASS_SETUP_$_Man(void ) {
+    OBJC_METACLASS_$_Man.isa = &amp;OBJC_METACLASS_$_NSObject;
+    OBJC_METACLASS_$_Man.superclass = &amp;OBJC_METACLASS_$_Person;
+    OBJC_METACLASS_$_Man.cache = &amp;_objc_empty_cache;
+    OBJC_CLASS_$_Man.isa = &amp;OBJC_METACLASS_$_Man;
+    OBJC_CLASS_$_Man.superclass = &amp;OBJC_CLASS_$_Person;
+    OBJC_CLASS_$_Man.cache = &amp;_objc_empty_cache;
+}
+</code></pre>
+
+<p>可以得出：</p>
+
+<ol>
+<li>Man类的isa指向了Man的元类；</li>
+<li>Man的父类指向了Person类；</li>
+<li>Man元类的isa指向了NSObject的元类；</li>
+<li>Man元类的父类指向了Person的元类。</li>
+</ol>
+
+<p>那么我们得出的结论为：</p>
+
+<p><img src="media/15629213844550/15629218437818.jpg" alt=""/></p>
+
+<p>但是NSObject中的isa、superclass指向谁？NSObject元类的isa和superclass又指向了谁？<br/>
+按照网上的说法：</p>
+
+<ol>
+<li>NSObject Class的superclass指向nil；</li>
+<li>NSObject Class的isa指向NSObject metaClass；</li>
+<li>NSObject metaClass的superclass指向NSObject Class；</li>
+<li>NSObject metaClass的isa指向NSObject metaClass本身。</li>
+</ol>
+
+<p>那么我们一步一步验证：</p>
+
+<pre><code class="language-objectivec">int main(int argc, const char * argv[]) {
+    
+    NSLog(@&quot;===============================================================&quot;);
+
+    NSLog(@&quot;NSObject address    = %p&quot;, [NSObject class]);
+    NSLog(@&quot;NSObject superclass = %p&quot;, [NSObject superclass]);
+    NSLog(@&quot;NSObject metaClass  = %p&quot;, objc_getMetaClass(&quot;NSObject&quot;));
+    NSLog(@&quot;NSObject metaClass superclass    = %p&quot;, [objc_getMetaClass(&quot;NSObject&quot;) superclass]);
+
+    NSLog(@&quot;===============================================================&quot;);
+
+    NSLog(@&quot;Person address      = %p&quot;, objc_getClass(&quot;Person&quot;));
+    NSLog(@&quot;Person superclass   = %p&quot;, [Person superclass]);
+    NSLog(@&quot;Person metaClass    = %p&quot;, objc_getMetaClass(&quot;Person&quot;));
+    NSLog(@&quot;Person metaClass superclass    = %p&quot;, [objc_getMetaClass(&quot;Person&quot;) superclass]);
+
+    NSLog(@&quot;================================================================&quot;);
+
+    NSLog(@&quot;Man address      = %p&quot;, objc_getClass(&quot;Man&quot;));
+    NSLog(@&quot;Man superclass   = %p&quot;, [Man superclass]);
+    NSLog(@&quot;Man metaClass    = %p&quot;, objc_getMetaClass(&quot;Man&quot;));
+    NSLog(@&quot;Man metaClass superclass    = %p&quot;, [objc_getMetaClass(&quot;Man&quot;) superclass]);
+
+    NSLog(@&quot;===============================================================&quot;);
+
+    return 0;
+}
+</code></pre>
+
+<p>然后我在objc_getMetaClass函数中添加了两行打印信息：</p>
+
+<pre><code class="language-objectivec">Class objc_getMetaClass(const char *aClassName)
+{
+    Class cls;
+
+    if (!aClassName) return Nil;
+
+    cls = objc_getClass (aClassName);
+    if (!cls)
+    {
+        _objc_inform (&quot;class `%s&#39; not linked into application&quot;, aClassName);
+        return Nil;
+    }
+
+    // 这两行代码自己添加
+    _objc_inform(&quot;%s isa           = %p&quot;, aClassName, cls-&gt;getIsa());
+    _objc_inform(&quot;%s metaClass isa = %p&quot;, aClassName, cls-&gt;ISA()-&gt;getIsa());
+
+    return cls-&gt;ISA();
+}
+</code></pre>
+
+<p>objc_getMetaClass函数是获取名为aClassName类的元类，看内部实现非常的清楚，就是获取名为aClassName类中isa指向的东西。<br/>
+而添加的两行打印代码中，第一行是打印名为aClassName类的isa指针内容；第二行打印的是名为aClassName元类的isa指针内容。</p>
+
+<pre><code class="language-text">log简化版：
+Man address = 0x1000024c0
+Man superclass = 0x1000024e8 -&gt; Person address
+Man isa = 0x100002498 -&gt; Man metaClass
+Man metaClass = 0x100002498
+Man metaClass superclass = 0x100002510 -&gt; Person metaClass
+Man metaClass isa = 0x1003b0120 -&gt; NSObject metaClass
+
+Person address = 0x1000024e8
+Person superclass = 0x1003b00f8 -&gt; NSObject address 
+Person isa = 0x100002510 -&gt; Person metaClass
+Person metaClass = 0x100002510
+Person metaClass superclass = 0x1003b0120 -&gt; NSObject metaClass
+Person metaClass isa = 0x1003b0120 -&gt; NSObject metaClass
+
+NSObject address = 0x1003b00f8
+NSObject superclass = 0x0 -&gt; nil
+NSObject isa = 0x1003b0120 -&gt; NSObject metaClass
+NSObject metaClass = 0x1003b0120
+NSObject metaClass superclass = 0x1003b00f8 -&gt; NSObject address
+NSObject metaClass isa = 0x1003b0120 -&gt; NSObject metaClass
+</code></pre>
+
+<p>最后得出的最终最终结论为：</p>
+
+<p><img src="media/15629213844550/15629219578501.jpg" alt=""/></p>
+
+<p><a href="https://github.com/chenjiangchuan/runtime">Demo点我</a></p>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[objc_msgSend分析]]></title>
+    <link href="http://riverschan.com/ios-objc-msgsend.html"/>
+    <updated>2019-07-12T17:01:54+08:00</updated>
+    <id>http://riverschan.com/ios-objc-msgsend.html</id>
+    <content type="html"><![CDATA[
+<p>我们都知道调用的方法，系统都会以消息的方式来发送，比如：</p>
+
+<pre><code class="language-objectivec">Person *p = [[Person alloc] init];
+[p test];
+
+// 本质发送消息
+((void (*)(id, SEL))(void *)objc_msgSend)((id)p, sel_registerName(&quot;test&quot;));
+</code></pre>
+
+<p>苹果是通过汇编的实现objc_msgSend，在ARM架构下的源码：</p>
+
+<pre><code class="language-objectivec">/********************************************************************
+ *
+ * id objc_msgSend(id self, SEL _cmd,...);
+ *
+ ********************************************************************/
+
+    ENTRY objc_msgSend
+    MESSENGER_START
+    /*
+        #define LNilReceiver_f 9f
+        r0代表第一个参数self
+        cbz：如果self为nil，那么就调转到LNilReceiver
+    */
+    cbz r0, LNilReceiver_f
+
+    // id类型的第一个字节就是isa
+    ldr r9, [r0]        // r9 = self-&gt;isa
+
+    /*
+        NORMAL 0
+        从缓存列表中找到_cmd对应的IMP:
+        如果找到，会返回对应的IMP;
+        没有找到，则返回LCacheMiss
+     */
+    CacheLookup NORMAL
+    // calls IMP or LCacheMiss
+
+/*
+  没有在缓存中找到_cmd对应的IMP，就会去方法列表中找.
+  但是这里没有这么简单，后面再说。
+ */
+LCacheMiss:
+    MESSENGER_END_SLOW
+    ldr r9, [r0, #ISA]      // class = receiver-&gt;isa
+    b   __objc_msgSend_uncached
+
+/*
+    self为nil的一些处理
+ */
+LNilReceiver:
+    // r0 is already zero
+    mov r1, #0
+    mov r2, #0
+    mov r3, #0
+    FP_RETURN_ZERO
+    MESSENGER_END_NIL
+    bx  lr  
+
+// 结束消息发送
+LMsgSendExit:
+    END_ENTRY objc_msgSend
+</code></pre>
+
+<p>上面代码中有提到如果方法缓存列表中没有该方法的缓存，就会执行_objc_msgSend_uncached：</p>
+
+<pre><code class="language-objectivec">STATIC_ENTRY _objc_msgSend_uncached
+
+    // THIS IS NOT A CALLABLE C FUNCTION
+    // Out-of-band r9 is the class to search
+
+    stmfd   sp!, {r0-r3,r7,lr}
+    add     r7, sp, #16
+    sub     sp, #8          // align stack
+    FP_SAVE
+                    // receiver already in r0
+                    // selector already in r1
+    mov r2, r9          // class to search
+
+    MI_CALL_EXTERNAL(__class_lookupMethodAndLoadCache3)
+    mov     r12, r0         // r12 = IMP
+
+    movs    r9, #0          // r9=0, Z=1 for nonstret forwarding
+    FP_RESTORE
+    add     sp, #8          // align stack
+    ldmfd   sp!, {r0-r3,r7,lr}
+    bx  r12
+
+    END_ENTRY _objc_msgSend_uncached
+</code></pre>
+
+<p>可以看出，在_objc_msgSend_uncached中会调用C语言的一个函数_class_lookupMethodAndLoadCache3</p>
+
+<pre><code class="language-objectivec">IMP _class_lookupMethodAndLoadCache3(id obj, SEL sel, Class cls)
+{
+    return lookUpImpOrForward(cls, sel, obj, 
+                              YES/*initialize*/, NO/*cache*/, YES/*resolver*/);
+}
+</code></pre>
+
+<p>这个函数中做了以下几件事：</p>
+
+<ol>
+<li>是否开启GC(垃圾回收)；</li>
+<li>还是会尝试去缓存中获取IMP；</li>
+<li>再从类的方法列表中获取IMP，获取到了再保存到方法列表缓存中，返回IMP；否则</li>
+<li>循环变量父级的方法列表：
+<ol>
+<li>首先会从父类的方法缓存中查找对应的IMP，获取到后再把父级中的方法缓存保存到当前类的方法缓存；否则</li>
+<li>从父类获取SEL对应的方法，然后把IMP添加到本来的方法缓存列表中；否则</li>
+</ol></li>
+<li>调用_class_resolveMethod，尝试一次方法解析，但不会添加到方法缓存列表中；否则</li>
+<li>使用消息转发，把SEL转发出去。</li>
+</ol>
+
+<p>苹果以汇编的形式来实现objc_msgSend，但是对于看不懂汇编的人来说就是种折磨，不过还好，国外的大牛以C的方式实现了objc_msgSend：<a href="http://www.mulle-kybernetik.com/artikel/Optimization/opti-9.html">Obj-C Optimization: The faster objc_msgSend</a></p>
+
+<pre><code class="language-objectivec">id  c_objc_msgSend( struct mulle_nsobject *self, SEL _cmd, ...)
+{
+   struct mulle_objc_class    *cls; // 类
+   struct mulle_objc_cache    *cache; // 缓存列表
+   unsigned int               hash;
+   struct mulle_objc_method   *method; // 方法列表
+   unsigned int               index; // 当前索引值
+   
+   if( self)
+   {
+      cls   = self-&gt;isa;
+      cache = cls-&gt;cache;
+      hash  = cache-&gt;mask;
+      index = (unsigned int) _cmd &amp; hash;
+      
+      do
+      {
+         method = cache-&gt;buckets[ index];
+         if( ! method)
+            goto recache;
+         index = (index + 1) &amp; cache-&gt;mask;
+      }
+      while( method-&gt;method_name != _cmd);
+      return( (*method-&gt;method_imp)( (id) self, _cmd));
+   }
+   return( (id) self);
+
+recache:
+/* ... */
+   return( 0);
+}
+</code></pre>
+
+<p>下图为整个objc_msgSend的流程图：<br/>
+<img src="media/15629221142418/15629223568907.jpg" alt=""/></p>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[block的思考]]></title>
+    <link href="http://riverschan.com/ios-block-think.html"/>
+    <updated>2019-07-12T17:27:49+08:00</updated>
+    <id>http://riverschan.com/ios-block-think.html</id>
+    <content type="html"><![CDATA[
+<p>第一题：</p>
+
+<pre><code class="language-text">// MRC模式下，dispatch_async API Block内的block为什么会变成__NSMallocBlock__？
+int main(int argc, const char * argv[]) {
+    @autoreleasepool {
+        int a = 10;
+        void(^block) (void) = ^{
+            NSLog(@&quot;%d&quot;, a);
+        };
+        NSLog(@&quot;&lt;1&gt;%@&quot;, block);
+        dispatch_queue_t queue = dispatch_queue_create(&quot;queue&quot;, NULL);
+        dispatch_async(queue, ^{
+            block();
+            NSLog(@&quot;&lt;2&gt;%@&quot;, block);
+        });
+    }
+    return 0;
+}
+</code></pre>
+
+<p>第二题：</p>
+
+<pre><code class="language-text">// ARC模式下，在dispatch_async API Block中的block为什么还是__NSStackBlock__？
+int main(int argc, const char * argv[]) {
+    @autoreleasepool {
+        int a = 10;
+        __weak void(^block) (void) = ^{
+            NSLog(@&quot;%d&quot;, a);
+        };
+        NSLog(@&quot;&lt;1&gt;%@&quot;, block);
+        dispatch_queue_t queue = dispatch_queue_create(&quot;queue&quot;, NULL);
+        dispatch_async(queue, ^{
+            block();
+            NSLog(@&quot;&lt;2&gt;%@&quot;, block);
+        });
+    }
+    return 0;
+}
+</code></pre>
+
+<p>第三题：</p>
+
+<pre><code class="language-text">// ARC模式下，在dispatch_async API Block中的block为什么是__NSMallocBlock__？
+int main(int argc, const char * argv[]) {
+    @autoreleasepool {
+        int a = 10;
+        __weak void(^block) (void) = ^{
+            NSLog(@&quot;%d&quot;, a);
+        };
+        NSLog(@&quot;&lt;1&gt;%@&quot;, block);
+        dispatch_queue_t queue = dispatch_queue_create(&quot;queue&quot;, NULL);
+        dispatch_async(queue, block);
+    }
+    return 0;
+}
+</code></pre>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[ARC模式下的block]]></title>
+    <link href="http://riverschan.com/ios-block-arc.html"/>
+    <updated>2019-07-12T17:19:52+08:00</updated>
+    <id>http://riverschan.com/ios-block-arc.html</id>
+    <content type="html"><![CDATA[
+<p>前面三章都是在MRC模式下对Block进行了一系列分析，这章将讨论ARC模式下Block有什么不一样的？</p>
+
+<pre><code class="language-text">int main(int argc, const char * argv[]) {
+    @autoreleasepool {
+        int a = 10;
+        void(^block) (void) = ^{
+            NSLog(@&quot;%d&quot;, a);
+        };
+        NSLog(@&quot;%@&quot;, block);
+
+        NSLog(@&quot;%@&quot;, ^{NSLog(@&quot;%d&quot;, a);});
+    }
+    return 0;
+}
+
+// 打印会发现，第一个打印的block竟然在堆区，而第二打印的block在栈区
+// &lt;__NSMallocBlock__: 0x100431750&gt;
+// &lt;__NSStackBlock__: 0x7ffeefbff4c0&gt;
+
+</code></pre>
+
+<p>为什么在MRC模式下，上面代码中的block在栈区，而到了ARC模式下却在堆区，那是因为在ARC模式下有些API内部会对Block进行copy，下面情况会自动对Block进行copy：</p>
+
+<pre><code class="language-text">- (Block)get_block {
+    int index = 6;
+    return ^{NSLog(@&quot;index = %d&quot;, index);};
+}
+
+- (void) autoCopyToHeap {
+    // 1、Block作为右值
+    int num = 10;
+    Block blk1 = ^{
+        NSLog(@&quot;num = %d&quot;, num);
+    };
+    NSLog(@&quot;&lt;1&gt;%@&quot;, blk1);
+
+    // 2、Block作为方法/函数返回值
+    NSLog(@&quot;&lt;2&gt;%@&quot;, [self get_block]);
+
+    // 3、调用GCD API时，内部会copy Block
+    NSLog(@&quot;执行blk3前num的内存地址：%p&quot;, &amp;num);
+    __weak Block blk3 = ^{
+        NSLog(@&quot;执行blk3&lt;时&gt;num的内存地址：%p&quot;, &amp;num);
+    };
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), blk3);
+
+    // 4、Cocoa框架的方法且方法名含有usingBlock/block
+    NSLog(@&quot;执行blk4前num的内存地址：%p&quot;, &amp;num);
+    __weak void (^blk4)(NSTimer *timer) = ^(NSTimer *timer) {
+        NSLog(@&quot;执行blk4&lt;时&gt;num的内存地址：%p&quot;, &amp;num);
+    };
+    [[NSTimer timerWithTimeInterval:1 repeats:NO block:blk4] fire];
+}
+</code></pre>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Block_copy原理]]></title>
+    <link href="http://riverschan.com/ios-block-copy.html"/>
+    <updated>2019-07-12T17:16:19+08:00</updated>
+    <id>http://riverschan.com/ios-block-copy.html</id>
+    <content type="html"><![CDATA[
+<p>当我们在代码中使用:</p>
+
+<pre><code class="language-objectivec">int main(int argc, const char * argv[]) {
+    @autoreleasepool {
+        __block int var = 10;
+        void (^block)(void) = Block_copy(^{
+            printf(&quot;var = %d,&lt;%p&gt;\n&quot;, var++, &amp;var);
+        });
+        block();
+    }
+    return 0;
+}
+</code></pre>
+
+<p>使用命令：clang -rewrite-objc main.m</p>
+
+<pre><code class="language-objectivec">// 和前一章节一样，只是在main中多了_Block_copy函数
+struct __Block_byref_var_0 {
+    void *__isa;
+    __Block_byref_var_0 *__forwarding;
+    int __flags;
+    int __size;
+    int var;
+};
+
+struct __main_block_impl_0 {
+    struct __block_impl impl;
+    struct __main_block_desc_0* Desc;
+    __Block_byref_var_0 *var; // by ref
+    __main_block_impl_0(void *fp, struct __main_block_desc_0 *desc, __Block_byref_var_0 *_var, int flags=0) : var(_var-&gt;__forwarding) {
+        impl.isa = &amp;_NSConcreteStackBlock;
+        impl.Flags = flags;
+        impl.FuncPtr = fp;
+        Desc = desc;
+    }
+};
+
+static void __main_block_func_0(struct __main_block_impl_0 *__cself) {
+    __Block_byref_var_0 *var = __cself-&gt;var; // bound by ref
+    printf(&quot;var = %d,&lt;%p&gt;\n&quot;, (var-&gt;__forwarding-&gt;var)++, &amp;(var-&gt;__forwarding-&gt;var));
+}
+
+static void __main_block_copy_0(struct __main_block_impl_0*dst, struct __main_block_impl_0*src) {
+    _Block_object_assign((void*)&amp;dst-&gt;var, (void*)src-&gt;var, 8/*BLOCK_FIELD_IS_BYREF*/);
+}
+
+static void __main_block_dispose_0(struct __main_block_impl_0*src) {
+    _Block_object_dispose((void*)src-&gt;var, 8/*BLOCK_FIELD_IS_BYREF*/);
+}
+
+static struct __main_block_desc_0 {
+    size_t reserved;
+    size_t Block_size;
+    void (*copy)(struct __main_block_impl_0*, struct __main_block_impl_0*);
+    void (*dispose)(struct __main_block_impl_0*);
+} __main_block_desc_0_DATA = { 0, sizeof(struct __main_block_impl_0), __main_block_copy_0, __main_block_dispose_0};
+
+int main(int argc, const char * argv[]) {
+    /* @autoreleasepool */ 
+    { __AtAutoreleasePool __autoreleasepool; 
+        __attribute__((__blocks__(byref))) __Block_byref_var_0 var = {(void*)0,(__Block_byref_var_0 *)&amp;var, 0, sizeof(__Block_byref_var_0), 10};
+
+        // 这里多了_Block_copy函数
+        void (*block)(void) = ((void (*)())_Block_copy((const void *)(((void (*)())&amp;__main_block_impl_0((void *)__main_block_func_0, &amp;__main_block_desc_0_DATA, (__Block_byref_var_0 *)&amp;var, 570425344)))));
+
+
+        ((void (*)(__block_impl *))((__block_impl *)block)-&gt;FuncPtr)((__block_impl *)block);
+    }
+    return 0;
+}
+</code></pre>
+
+<p>在c++代码中，多了_Block_copy()函数，而这个函数在runtime.c中（已开源）。</p>
+
+<h2 id="toc_0">runtime.m</h2>
+
+<p><mark>_Block_copy()</mark>函数</p>
+
+<pre><code class="language-objectivec">void *_Block_copy(const void *arg) {
+    // Block_layout结构体就是block对应的原型
+    struct Block_layout *aBlock;
+    // 参数为nil，直接return
+    if (!arg) return NULL;
+
+    // 把参数结构体指针赋给局部变量
+    aBlock = (struct Block_layout *)arg;
+    // 如果该Block已经在堆上，refcount+1，然后return
+    if (aBlock-&gt;flags &amp; BLOCK_NEEDS_FREE) {
+        // latches on high
+        latching_incr_int(&amp;aBlock-&gt;flags);
+        return aBlock;
+    }
+    // 如果该Block在Data区，直接return，
+    // 第一章我们讲到global类型的block使用copy类型不会改变
+    else if (aBlock-&gt;flags &amp; BLOCK_IS_GLOBAL) {
+        return aBlock;
+    }
+    else {
+        // 如果是栈区的block，先使用malloc在堆区分配内存空间
+        struct Block_layout *result = malloc(aBlock-&gt;descriptor-&gt;size);
+        // 分配失败，return
+        if (!result) return NULL;
+        // 把参数Block中成员按位复制到新开辟的堆里
+        memmove(result, aBlock, aBlock-&gt;descriptor-&gt;size); // bitcopy first
+        // 计数复位
+        result-&gt;flags &amp;= ~(BLOCK_REFCOUNT_MASK|BLOCK_DEALLOCATING);    // XXX not needed
+        // 逻辑或0x01，refcount复位1
+        result-&gt;flags |= BLOCK_NEEDS_FREE | 2;  // logical refcount 1
+        // 调用了另一个函数，等会我们来看
+        _Block_call_copy_helper(result, aBlock);
+        // Set isa last so memory analysis tools see a fully-initialized object.
+        // 把isa类型指向为堆类型Block
+        result-&gt;isa = _NSConcreteMallocBlock;
+        return result;
+    }
+}
+
+// 在_Block_copy()中调用了该函数
+static void _Block_call_copy_helper(void *result, struct Block_layout *aBlock)
+{
+    /**
+        这个Block_descriptor_2结构体就是文章开头c++代码中的__main_block_desc_0_DATA结构体，
+        开头__main_block_desc_0_DATA结构体中是不是实现了copy的函数？
+        对应的函数是：__main_block_copy_0()
+     */
+    struct Block_descriptor_2 *desc = _Block_descriptor_2(aBlock);
+    if (!desc) return;
+
+    // 这里就调用了__main_block_desc_0_DATA结构体中成员函数copy()
+    (*desc-&gt;copy)(result, aBlock); // do fixup
+}
+</code></pre>
+
+<p>现在捋一捋调用的顺序：<br/>
+Block_copy() -&gt; _Block_copy() -&gt; _Block_call_copy_helper() -&gt; *desc-&gt;copy()</p>
+
+<p>在_Block_copy()函数中在堆区开辟一个内存空间，并把原来在栈区的Block按位逐个复制到堆区，最后还会调用定义Block描述结构体中的copy函数。</p>
+
+<h4 id="toc_1">_Block_object_assign</h4>
+
+<p>回到文章开头，copy函数指向了__main_block_copy_0函数，在该函数中调用_Block_object_assign函数，我们继续看代码：</p>
+
+<pre><code class="language-objectivec">// _Block_object_assign((void*)&amp;dst-&gt;var, (void*)src-&gt;var, 8/*BLOCK_FIELD_IS_BYREF*/);
+// 这里destArg和object都是指向var，而var是一个结构体，第三个参数为：BLOCK_FIELD_IS_BYREF
+void _Block_object_assign(void *destArg, const void *object, const int flags) {
+    const void **dest = (const void **)destArg;
+    switch (os_assumes(flags &amp; BLOCK_ALL_COPY_DISPOSE_FLAGS)) {
+        case BLOCK_FIELD_IS_OBJECT:
+            /*******
+             id object = ...;
+             [^{ object; } copy];
+             ********/
+            // 如果源参数是一个对象，那么引用计数+1
+            _Block_retain_object(object);
+            // 把现在指向堆区的指针重新指向原来该数据的内存地址
+            *dest = object;
+            break;
+
+        case BLOCK_FIELD_IS_BLOCK:
+            /*******
+             void (^object)(void) = ...;
+             [^{ object; } copy];
+             ********/
+            /**
+                如果源参数是一个Block，则调用_Block_copy
+                还是和前面一样：
+                1. 该源Block在栈区，则会被复制到堆区；
+                2. 该源Block在堆区，引用计数+1；
+                3. 该源Block在Data，不会发生任何改变
+            */ 
+            *dest = _Block_copy(object);
+            break;
+
+        case BLOCK_FIELD_IS_BYREF | BLOCK_FIELD_IS_WEAK:
+        case BLOCK_FIELD_IS_BYREF:
+            /*******
+             // copy the onstack __block container to the heap
+             // Note this __weak is old GC-weak/MRC-unretained.
+             // ARC-style __weak is handled by the copy helper directly.
+             __block ... x;
+             __weak __block ... x;
+             [^{ x; } copy];
+             ********/
+            // 如果在栈区的变量被__block修饰，那么它将被复制到堆区
+            *dest = _Block_byref_copy(object);
+            break;
+
+        case BLOCK_BYREF_CALLER | BLOCK_FIELD_IS_OBJECT:
+        case BLOCK_BYREF_CALLER | BLOCK_FIELD_IS_BLOCK:
+            /*******
+             // copy the actual field held in the __block container
+             // Note this is MRC unretained __block only.
+             // ARC retained __block is handled by the copy helper directly.
+             __block id object;
+             __block void (^object)(void);
+             [^{ object; } copy];
+             ********/
+            // MRC模式下，使用__block的修饰对象引用计数不会发生任何变化，这样可以避免循环引用
+            // 把现在指向堆区的指针重新指向原来该数据的内存地址
+            *dest = object;
+            break;
+
+        case BLOCK_BYREF_CALLER | BLOCK_FIELD_IS_OBJECT | BLOCK_FIELD_IS_WEAK:
+        case BLOCK_BYREF_CALLER | BLOCK_FIELD_IS_BLOCK  | BLOCK_FIELD_IS_WEAK:
+            /*******
+             // copy the actual field held in the __block container
+             // Note this __weak is old GC-weak/MRC-unretained.
+             // ARC-style __weak is handled by the copy helper directly.
+             __weak __block id object;
+             __weak __block void (^object)(void);
+             [^{ object; } copy];
+             ********/
+            // Block中引用了用__weak修饰的对象和Block，
+            // 把现在指向堆区的指针重新指向原来该数据的内存地址
+            *dest = object;
+            break;
+
+        default:
+            break;
+    }
+}
+</code></pre>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[CocoaPods私有库]]></title>
+    <link href="http://riverschan.com/ios-pods-create.html"/>
+    <updated>2019-07-12T17:46:08+08:00</updated>
+    <id>http://riverschan.com/ios-pods-create.html</id>
+    <content type="html"><![CDATA[
+<h3 id="toc_0">私有库的创建</h3>
+
+<p>前提：需要创建一个仓库作为私有的Spec Repo，可以在gitLab上创建一个私有的Spec Repo。</p>
+
+<p>1、在gitlab上创建完项目后，执行下面命令，把自己的Spec Repo添加到~/.cocoapods/repos目录下</p>
+
+<pre><code class="language-text">pod repo add 本地仓库名称 gitlab仓库https地址
+// 如下
+pod repo add gitlab-specs https://chenjiangchuan@gitlab.com/chenjiangchuan/YLBSpecs.git
+</code></pre>
+
+<p>2、创建Pod项目</p>
+
+<pre><code class="language-text">pod lib create 项目名称   // 之后会有4步让你选，根据实际需要选择
+</code></pre>
+
+<p>3、修改Pod项目</p>
+
+<ul>
+<li>Assets：存放资源</li>
+<li><p>Classes：存放源码，把代码都放在这个文件夹中</p>
+<p>修改完后，再Example目录中执行：pod update，就会更新修改的文件。</p></li>
+</ul>
+
+<p>4、修改.podspec文件</p>
+
+<pre><code class="language-text">Pod::Spec.new do |s|
+s.name             = &#39;HoriFindModule&#39;
+s.version          = &#39;0.1.0&#39; #每次更新模块版本后，这里也要修改成对应的版本号
+s.summary          = &#39;A short description of HoriFindModule.&#39; #这里需要修改
+s.homepage         = &#39;https://github.com/chenjiangchuan/HoriFindModule&#39;
+
+// 剩下的就不贴出来了...
+</code></pre>
+
+<p>修改完后，执行：pod lib lint，如果成功如下所示：</p>
+
+<pre><code class="language-text">-&gt; HoriFindModule (0.1.0)
+
+HoriFindModule passed validation.
+</code></pre>
+
+<p>如果报错，根据对应的提示进行修改。</p>
+
+<p>5、确定达到自己需求后，我们就把项目上传到仓库，这里也需要在创建一个仓库：</p>
+
+<pre><code class="language-text">1. git add .
+2. git commit -m &quot;提交版本描述&quot;
+3. git remote add origin 项目仓库地址 // 注意，这不是Spec Repo私有库的仓库地址！！
+4. git push origin master
+5. git tag -m &quot;标签描述&quot; 标签名
+6. git push --tags
+7. pod repo push 本地仓库名称 xxx.podspec
+</code></pre>
+
+<p>6、测试，新建一个项目后执行：</p>
+
+<pre><code class="language-text">pod init
+</code></pre>
+
+<p>再修改Podfile文件，这里要注意，需要在Podfile文件的最前面添加：</p>
+
+<pre><code class="language-text">source &#39;https://github.com/CocoaPods/Specs.git&#39; #官方仓库地址       
+source &#39;https://chenjiangchuan@gitlab.com/chenjiangchuan/YLBSpecs.git&#39; #自己的仓库地址
+
+pod &#39;HoriFindModule&#39;
+</code></pre>
+
+<p>最后执行：pod install</p>
+
+<h3 id="toc_1">私有库的更新</h3>
+
+<p>1、在Classes文件夹修改代码：</p>
+
+<p><img src="media/15629247680057/15629250740393.jpg" alt=""/></p>
+
+<p>2、修改完后，在对.podspec文件里面的版本进行修改</p>
+
+<p><img src="media/15629247680057/15629250861981.jpg" alt=""/></p>
+
+<p><img src="media/15629247680057/15629250905751.jpg" alt=""/></p>
+
+<p>3、执行命令</p>
+
+<pre><code class="language-text">pod lib lint
+</code></pre>
+
+<p>4、在Example目录下执行：</p>
+
+<pre><code class="language-text">pod update
+</code></pre>
+
+<p>5、回到上一级目录执行：</p>
+
+<pre><code class="language-text">git add 修改的文件
+git commit -m &quot;本次提交的描述&quot;
+git push origin master
+git tag -m &quot;标签描述&quot; 标签名
+git push --tags
+</code></pre>
+
+<p>6、把本地的Sepc更新到远程仓库</p>
+
+<pre><code class="language-text">pod repo push 本地Spec xxx.podspec
+</code></pre>
+
+<p>7、在对应的项目中使用：pod install进行更新，如果还是下载之前的版本，删除Podfile.lock文件后，再执行pod install。</p>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[工厂方法模式和抽象工厂方法模式的区别]]></title>
+    <link href="http://riverschan.com/design-pattern-factory.html"/>
+    <updated>2019-07-12T16:18:59+08:00</updated>
+    <id>http://riverschan.com/design-pattern-factory.html</id>
+    <content type="html"><![CDATA[
+<table>
+<thead>
+<tr>
+<th style="text-align: center">工厂方法</th>
+<th style="text-align: center">抽象工厂方法</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td style="text-align: center">通过类继承创建抽象产品</td>
+<td style="text-align: center">通过组合对象创建抽象产品</td>
+</tr>
+<tr>
+<td style="text-align: center">生产单一的产品</td>
+<td style="text-align: center">生产多个系列的产品</td>
+</tr>
+<tr>
+<td style="text-align: center">通过子类化Creator，并且重载父的工厂方法创建产品</td>
+<td style="text-align: center">子类化Creator，不重载父类的工厂方法，但是通过修改父类的多个接口，达到创建多个产品</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="toc_0">应用场景</h2>
+
+<h3 id="toc_1">工厂方法</h3>
+
+<ol>
+<li>我想要一部手机（这个手机是抽象，因为没有具体说要什么品牌的手机）：Phone</li>
+<li>需要一个工厂生产手机（这个工厂也是抽象，因为并没具体让哪家工厂生产手机）：PhoneCreator</li>
+<li>工厂要有生产线（生产产品的接口）：- (Phone *)createPhone;</li>
+</ol>
+
+<pre><code class="language-objectivec">// Phone.h
+@interface Phone : UIView
+@end
+
+// Phone.m
+@implementation Phone
+@end
+</code></pre>
+
+<pre><code class="language-objectivec">// PhoneCreator.h
+@interface PhoneCreator : NSObject
+- (Phone *)createPhone;
+@end
+
+// PhoneCreator.m
+@implementation PhoneCreator
+
+- (Phone *)createPhone {
+    return [[Phone alloc] init];
+}
+
+@end
+</code></pre>
+
+<p>现在，我想让富士康帮我生产iPhone：</p>
+
+<ol>
+<li>iPone属于手机的一类，继承Phone；</li>
+<li>富士康属于工厂，继承PhoneCreator；</li>
+</ol>
+
+<pre><code class="language-objectivec">// iPhone.h
+@interface iPhone : Phone
+@end
+
+// iPhone.m
+@implementation iPhone
+
+- (instance)init {
+    self = [super init];
+    if (self) {
+        NSLog(@&quot;可以在iPhone内部添加一个特有的东西&quot;);
+    }
+    return self;
+}
+
+@end
+</code></pre>
+
+<pre><code class="language-objectivec">// Foxconn.h
+@interface Foxconn : PhoneCreator
+@end
+
+// Foxconn.m
+@implementation Foxconn
+
+// 通过重载父类的工厂方法创建单一产品 
+- (iPhone *)createPhone {
+    // iPhone是通过继承Phone来创建产品的
+    return [[iPhone alloc] init];
+}
+@end
+</code></pre>
+
+<p>最后我通过以下步骤就能得到iPhone了：</p>
+
+<pre><code class="language-objectivec">Foxconn *foxconn = [[Foxconn alloc] init];
+Phone *phone = [foxconn createPhone];
+</code></pre>
+
+<h3 id="toc_2">抽象工厂</h3>
+
+<p>现在生产了一部手机，但是要贴两个不同公司(Apple，Mi)的牌子，所以在每个有公司logo的的地方我们都得改。假设手机的背部logo：backLogoView，home键：homeButton。</p>
+
+<ol>
+<li>我们要有一个工厂Factory；</li>
+<li>Factory有一个生产线（工厂方法）：+ (instance)factory; 这个方法决定了把该生产线变成生产Apple手机的生产线还是Mi手机的生产线；</li>
+<li>Factory中还有其它的接口返回对应品牌的东西，比如backLogoView、homeButton。</li>
+</ol>
+
+<pre><code class="language-objectivec">// Factory.h
+@interface Factory : NSObject
++ (instance)factory;
+- (UIView *)backLogoView;
+- (UIbutton *)homeButton;
+@end
+
+// Factory.m
+@implemetation Factory 
+
++ (instance)factory {
+#if APPLE
+    return [[AppleFactory alloc] init];
+#else if MI
+    return [[MIFactory alloc] init];
+#else
+    return nil;
+#end
+}
+
+- (UIView *)backLogoView {
+    return nil;
+}
+
+- (UIButton *)homeButton {
+    return nil;
+}
+
+@end
+</code></pre>
+
+<p>生产苹果手机</p>
+
+<pre><code class="language-objectivec">// AppleFactory.h
+
+@interface AppleFactory : Factory 
+@end
+
+// AppleFactory.m
+@implemetation AppleFactory 
+
+// 没有重载父类的工厂方法来创建产品；
+// 而是通过修改父类的接口创建多个产品。
+// 并没有通过类继承的方式创建产品，而是通过组合对象的方式
+
+- (AppleBackLogoView *)backLogoView {
+    return [[AppleBackLogoView alloc] init];
+}
+
+- (AppleHomeButton *)homeButton {
+    return [[AppleHomeButton alloc] init];
+}
+
+@end
+</code></pre>
+
+<p>生产小米手机</p>
+
+<pre><code class="language-objectivec">// MiFactory.h
+@interface MiFactory : Factory 
+@end
+
+// MiFactory.m
+@implemetation MiFactory 
+
+// 没有重载父类的工厂方法来创建产品；
+// 而是通过修改父类的接口创建多个产品。
+
+- (MiBackLogoView *)backLogoView {
+    return [[MiBackLogoView alloc] init];
+}
+
+- (MiHomeButton *)homeButton {
+    return [[MiHomeButton alloc] init];
+}
+
+@end
+
+</code></pre>
+
+<p>最后根据当前的手机品牌生产对应的手机：</p>
+
+<pre><code class="language-objectivec">// 创建工厂
+Factory *factory = [Factory factory];
+// 如果现在生产的是Apple，那么返回的backLogoView类型是：AppleBackLogoView
+UIView *backLogoView = [factory backLogoView];
+</code></pre>
+
+<p><a href="https://github.com/chenjiangchuan/FactoryMode">工厂方法模式Demo</a></p>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[block内修改变量的值]]></title>
+    <link href="http://riverschan.com/ios-block-changevar.html"/>
+    <updated>2019-07-12T17:09:58+08:00</updated>
+    <id>http://riverschan.com/ios-block-changevar.html</id>
+    <content type="html"><![CDATA[
+<p>进入主题之前，让我们回顾“Block的类型”中的内存分布图，看看下面这些变量保存在内存的哪块区域：</p>
+
+<pre><code class="language-objectivec">int var;
+int var1 = 1;
+static int var2;
+static int var3 = 2;
+
+int main(int argc, const char * argv[]) {
+    @autoreleasepool {
+        static int var4 = 3;
+        static int var5;
+        int var6 = 4;
+    }
+    return 0;
+}
+</code></pre>
+
+<ol>
+<li>var、var2、var5保存在BSS区；</li>
+<li>var1、var3、var4保存在Data区；</li>
+<li>var6保存在Stack区。</li>
+</ol>
+
+<p>现在看下面代码：</p>
+
+<pre><code class="language-objectivec">typedef void(^Block)(void);
+
+// 全局初始化变量，保存在内存的Data区
+int globalVar = 10;
+
+// 静态初始化变量，保存在内存的Data区
+static int outsideStaticVar = 20;
+
+int main(int argc, const char * argv[]) {
+    @autoreleasepool {
+        // 静态初始化变量，保存在内存的Data区
+        static int insideStaticVar = 30;
+
+        // 局部变量，保存在内存的Stack区
+        int var = 40;
+
+        // 创建一个Stack区的Block
+        Block block = ^{
+            globalVar = 11;
+            outsideStaticVar = 21;
+            insideStaticVar = 31;
+//            var = 41; // 编译报错，Block内不能修改栈区的变量，只能读取
+            NSLog(@&quot;Block内&lt;globalVar = %d, outsideStaticVar = %d, insideStaticVar = %d, var = %d&gt;&quot;, globalVar, outsideStaticVar, insideStaticVar, var);
+        };
+    }
+    return 0;
+}
+</code></pre>
+
+<p>由此可见，block内部不能修改block外部Stack区的变量，也就是局部变量。那怎么才能修改呢？这就是下节要讲的。</p>
+
+<h2 id="toc_0">block的内部实现</h2>
+
+<h3 id="toc_1">没有__block修饰</h3>
+
+<p>我们都知道，经过<mark>__block</mark>修饰的局部变量，可以在Block内部被修改，那它的原理又是什么？我们可以先分析不用<mark>__block</mark>修饰的代码：</p>
+
+<pre><code class="language-objectivec">int main(int argc, const char * argv[]) {
+    @autoreleasepool {
+        int var = 10;
+        void (^block)(void) = ^{
+            printf(&quot;%d&quot;, var);
+        };
+        block();
+    }
+    return 0;
+}
+</code></pre>
+
+<p>使用命令：clang -rewrite-objc main.m得到cpp代码，简化：</p>
+
+<pre><code class="language-objectivec">struct __block_impl {
+  void *isa;
+  int Flags;
+  int Reserved;
+  void *FuncPtr;
+};
+
+struct __main_block_impl_0 {
+    struct __block_impl impl;
+    struct __main_block_desc_0* Desc;
+    int var;
+    // __main_block_impl_0结构体的构造方法，初始化impl、Des和var
+    // var = _var
+    __main_block_impl_0(void *fp, struct __main_block_desc_0 *desc, int _var, int flags=0) : var(_var) {
+        impl.isa = &amp;_NSConcreteStackBlock; // block类型，但是这里有时不准确
+        impl.Flags = flags;
+        impl.FuncPtr = fp; // 执行block()时调用的函数
+        Desc = desc; // block的描述结构体
+    }
+};
+
+// block内部执行的代码，被赋值给impl.FuncPtr
+static void __main_block_func_0(struct __main_block_impl_0 *__cself) {
+    // 取block结构体中var成员的值
+    int var = __cself-&gt;var; // bound by copy
+    printf(&quot;%d&quot;, var);
+}
+
+// block描述
+static struct __main_block_desc_0 {
+    size_t reserved; // 保留
+    size_t Block_size; // block的大小，就是__main_block_impl_0结构体的大小
+} __main_block_desc_0_DATA = { 0, sizeof(struct __main_block_impl_0)};
+
+int main(int argc, const char * argv[]) {
+    /* @autoreleasepool */ 
+    { __AtAutoreleasePool __autoreleasepool; 
+        int var = 10;
+
+        // 创建Block，本质就是创建__main_block_impl_0结构体
+        // 参数分别是：block内部执行的函数指针、block描述结构体指针、var变量的值
+        struct __main_block_impl_0 tmp = __main_block_impl_0(__main_block_func_0, &amp;__main_block_desc_0_DATA, var));
+        struct __main_block_impl_0 *block = &amp;tmp;
+
+        // 执行block()
+        *block-&gt;impl.FuncPtr(block);
+    }
+    return 0;
+}
+
+</code></pre>
+
+<p><img src="media/15629225986501/15629227792120.jpg" alt=""/></p>
+
+<h3 id="toc_2">__block修饰</h3>
+
+<p>现在我们来看看有<mark>__block</mark>修饰会有什么不同：</p>
+
+<pre><code class="language-objectivec">int main(int argc, const char * argv[]) {
+    @autoreleasepool {
+        __block int var = 10;
+        void (^block)(void) = ^{
+            printf(&quot;var = %d,&lt;%p&gt;\n&quot;, var++, &amp;var);
+        };
+        block();
+    }
+    return 0;
+}
+</code></pre>
+
+<p>转化代码简化如下：</p>
+
+<pre><code class="language-objectivec">// 使用__block修饰后，多了这个结构体
+struct __Block_byref_var_0 {
+    void *__isa;
+    __Block_byref_var_0 *__forwarding;
+    int __flags;
+    int __size;
+    int var;
+};
+
+struct __main_block_impl_0 {
+    struct __block_impl impl;
+    struct __main_block_desc_0* Desc;
+    // 现在var是一个结构体指针
+    __Block_byref_var_0 *var; // by ref
+    // 结构体构造函数，这里注意var = _var-&gt;__forwarding，也就是说__forwarding指向了自己
+    __main_block_impl_0(void *fp, struct __main_block_desc_0 *desc, __Block_byref_var_0 *_var, int flags=0) : var(_var-&gt;__forwarding) {
+        impl.isa = &amp;_NSConcreteStackBlock;
+        impl.Flags = flags;
+        impl.FuncPtr = fp;
+        Desc = desc;
+    }
+};
+
+// block()指向的函数
+static void __main_block_func_0(struct __main_block_impl_0 *__cself) {
+    // 定义结构体指针，指向__main_block_impl_0中的var
+    __Block_byref_var_0 *var = __cself-&gt;var; // bound by ref
+    // 获取结构体中的__forwarding中的var，
+    // 其实在这就是：var-&gt;var，那为什么还要经过__forwarding指针呢？这个疑问暂时放在这
+    printf(&quot;var = %d,&lt;%p&gt;\n&quot;, (var-&gt;__forwarding-&gt;var)++, &amp;(var-&gt;__forwarding-&gt;var));
+}
+
+// 当Stack上的Block复制到Heap时调用
+static void __main_block_copy_0(struct __main_block_impl_0*dst, struct __main_block_impl_0*src) {
+    _Block_object_assign((void*)&amp;dst-&gt;var, (void*)src-&gt;var, 8/*BLOCK_FIELD_IS_BYREF*/);
+}
+
+// 当Heap区的Block被废弃的时候调用
+static void __main_block_dispose_0(struct __main_block_impl_0*src) {
+    _Block_object_dispose((void*)src-&gt;var, 8/*BLOCK_FIELD_IS_BYREF*/);
+}
+
+static struct __main_block_desc_0 {
+    size_t reserved;
+    size_t Block_size;
+    // block描述结构体多了两个函数：copy，dispose
+    // 当Stack上的Block复制到Heap时调用
+    void (*copy)(struct __main_block_impl_0*, struct __main_block_impl_0*);
+    // 当Heap区的Block被废弃的时候调用
+    void (*dispose)(struct __main_block_impl_0*);
+} __main_block_desc_0_DATA = { 0, sizeof(struct __main_block_impl_0), __main_block_copy_0, __main_block_dispose_0};
+
+
+int main(int argc, const char * argv[]) {
+    /* @autoreleasepool */ 
+    { __AtAutoreleasePool __autoreleasepool; 
+
+        // 创建__Block_byref_var_0结构体变量var
+        __attribute__((__blocks__(byref))) __Block_byref_var_0 var = {(void*)0,(__Block_byref_var_0 *)&amp;var, 0, sizeof(__Block_byref_var_0), 10};
+
+        // 和之前一样，唯一不同的是var是结构体指针
+        void (*block)(void) = ((void (*)())&amp;__main_block_impl_0((void *)__main_block_func_0, &amp;__main_block_desc_0_DATA, (__Block_byref_var_0 *)&amp;var, 570425344));
+
+        // 执行block()
+        ((void (*)(__block_impl *))((__block_impl *)block)-&gt;FuncPtr)((__block_impl *)block);
+    }
+    return 0;
+}
+</code></pre>
+
+<p>从上面c++代码我们可以看出，使用<mark>__block</mark>修饰的var变量以结构体的形式出现，传给block的结构体以指针的形式，这样在block内部就可以修改局部变量的值。</p>
+
+<p><img src="media/15629225986501/15629229064615.jpg" alt=""/></p>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[podspec开发介绍]]></title>
+    <link href="http://riverschan.com/ios-podsepc.html"/>
+    <updated>2019-07-12T17:53:44+08:00</updated>
+    <id>http://riverschan.com/ios-podsepc.html</id>
+    <content type="html"><![CDATA[
+<p>podspec文件里面描述了库所有信息，所以怎么修改这个文件还是要花点时间，所以在这分析下该文件里面的内容还有有必要的。</p>
+
+<pre><code class="language-text">Pod::Spec.new do |s|
+  s.name             = &#39;HoriHomeModule&#39;
+  s.version          = &#39;1.0.7&#39;
+  s.summary          = &#39;this is hori home module&#39;
+  s.description      = &lt;&lt;-DESC
+                        TODO: Add long description of the pod here.
+                        add BeeHive
+                       DESC
+  s.homepage         = &#39;https://gitlab.com/chenjiangchuan/HoriHomeModule&#39;
+  s.license          = { :type =&gt; &#39;MIT&#39;, :file =&gt; &#39;LICENSE&#39; }
+  s.author           = { &#39;jc&#39; =&gt; &#39;jiangchuanc@gmail.com&#39; }
+  s.source           = { :git =&gt; &#39;https://chenjiangchuan@gitlab.com/chenjiangchuan/HoriHomeModule.git&#39;, :tag =&gt; s.version.to_s }
+
+  s.ios.deployment_target = &#39;8.0&#39;
+  s.source_files = &#39;HoriHomeModule/Classes/**/*&#39;
+  s.frameworks = &#39;Foundation&#39;
+  s.dependency &#39;BeeHive&#39;
+end
+</code></pre>
+
+<p>1、先从整体来看</p>
+
+<pre><code class="language-text"># 这里等于是一个main函数
+Pod::Spec.new do |s|
+end
+</code></pre>
+
+<p>2、再分析内部</p>
+
+<pre><code class="language-text">s.name：         Pod的名称（可不修改）
+s.version：      Pod对应的版本号（更新Pod的时候，这里要对应的修改）
+s.summary：      Pod的简短说明（这里要修改，否则lint后会报错）
+s.description：  Pod详细描述
+s.homepage：     Pod的主页地址（修改）
+s.license：      Pod遵守的许可（可不修改）
+s.author：       Pod作者（可不修改）
+s.source：       Pod的项目地址（修改）
+s.ios.deployment_target：Pod支持的最低iOS版本
+s.source_files：         Pod项目中代码所在的路径（这个很重要）
+s.frameworks：           Pod依赖的框架，依赖多个用,隔开
+s.dependency：           Pod依赖的第三方框架，依赖几个，就要写几个s.dependency
+
+还有其它的就不一一列举
+</code></pre>
+
+<h2 id="toc_0">用法</h2>
+
+<h3 id="toc_1">所有源文件都在一个目录</h3>
+
+<p>这种情况是最简单的，即使你在Classes目录下创建了多个文件夹，但是没有在podspec对应设置，最终生成的Pod库，所有的文件都只会在一个目录下。</p>
+
+<pre><code class="language-text"># podspec文件
+Pod::Spec.new do |s|
+  s.name             = &#39;HoriHomeModule&#39;
+  s.version          = &#39;1.0.7&#39;
+  s.summary          = &#39;this is hori home module&#39;
+  s.description      = &lt;&lt;-DESC
+                        TODO: Add long description of the pod here.
+                        add BeeHive
+                       DESC
+
+  s.homepage         = &#39;https://gitlab.com/chenjiangchuan/HoriHomeModule&#39;
+  s.license          = { :type =&gt; &#39;MIT&#39;, :file =&gt; &#39;LICENSE&#39; }
+  s.author           = { &#39;jc&#39; =&gt; &#39;jiangchuanc@gmail.com&#39; }
+  s.source           = { :git =&gt; &#39;https://chenjiangchuan@gitlab.com/chenjiangchuan/HoriHomeModule.git&#39;, :tag =&gt; s.version.to_s }
+  s.ios.deployment_target = &#39;8.0&#39;
+
+  s.source_files = &#39;HoriHomeModule/Classes/**/*&#39;
+  s.frameworks = &#39;Foundation&#39;
+  s.dependency &#39;BeeHive&#39;
+end
+</code></pre>
+
+<p>Classes目录结构，里面还有三个目录：<br/>
+<img src="media/15629252246453/15629253403056.jpg" alt=""/></p>
+
+<p>但是最终生成的Pod库，所有的源文件只会在一个目录下：<br/>
+<img src="media/15629252246453/15629253578078.jpg" alt=""/></p>
+
+<h3 id="toc_2">有文件夹结构分层</h3>
+
+<pre><code class="language-text"># podspec文件
+Pod::Spec.new do |s|
+  s.name             = &#39;HoriHomeModule&#39;
+  s.version          = &#39;1.0.7&#39;
+  s.summary          = &#39;this is hori home module&#39;
+  s.description      = &lt;&lt;-DESC
+                        TODO: Add long description of the pod here.
+                        add BeeHive
+                       DESC
+
+  s.homepage         = &#39;https://gitlab.com/chenjiangchuan/HoriHomeModule&#39;
+  s.license          = { :type =&gt; &#39;MIT&#39;, :file =&gt; &#39;LICENSE&#39; }
+  s.author           = { &#39;jc&#39; =&gt; &#39;jiangchuanc@gmail.com&#39; }
+  s.source           = { :git =&gt; &#39;https://chenjiangchuan@gitlab.com/chenjiangchuan/HoriHomeModule.git&#39;, :tag =&gt; s.version.to_s }
+  s.ios.deployment_target = &#39;8.0&#39;
+  
+  # 第一层
+  # s.source_files = &#39;HoriHomeModule/Classes/**/*&#39;
+
+  # 第二层
+  s.subspec &#39;Service&#39; do |service|
+    service.source_files = &#39;HoriHomeModule/Classes/Service/*&#39;
+    service.public_header_files = &#39;HoriHomeModule/Classes/Service/*.h&#39;
+  end
+
+  # 第二层
+  s.subspec &#39;Home&#39; do |home|
+    # home.source_files = &#39;HoriHomeModule/Classes/Home&#39;
+    # 第三层
+    home.subspec &#39;Controller&#39; do |controller|
+      controller.source_files = &#39;HoriHomeModule/Classes/Home/**/*&#39;
+     # 如果Home/Controller目录下的文件依赖与Service目录下文件，这个依赖关系一定要写
+     # 而且注意路径，这里是HoriHomeModule/Service，而不是HoriHomeModule/Classes/Service
+      controller.dependency &#39;HoriHomeModule/Service&#39;
+    end
+  end
+
+  # 第二层
+  s.subspec &#39;Module&#39; do |modules|
+    modules.source_files = &#39;HoriHomeModule/Classes/Module/*&#39;
+    # 如果Module目录下的文件依赖与Service目录下文件，这个依赖关系一定要写
+    modules.dependency &#39;HoriHomeModule/Service&#39; 
+  end
+  
+  s.frameworks = &#39;Foundation&#39;
+  s.dependency &#39;BeeHive&#39;
+end
+</code></pre>
+
+<p>最终效果如下：<br/>
+<img src="media/15629252246453/15629253968225.jpg" alt=""/></p>
+
+<h3 id="toc_3">在私有库中如何引用另一个私有库</h3>
+
+<p>和引用公开的CocoaPods库是一样的，在podsepc文件中添加：</p>
+
+<pre><code class="language-text">s.dependency &#39;QMToolsModule&#39;
+</code></pre>
+
+<p>再执行：</p>
+
+<pre><code class="language-text">pod lib lint
+</code></pre>
+
+<p>但随后会报一个错误信息：<br/>
+<img src="media/15629252246453/15629254716344.jpg" alt=""/></p>
+
+<p>这是因为会去远程podspec库查找相关依赖，但是这是我们的私有库，所以报错，解决方法：</p>
+
+<pre><code class="language-text">pod lib lint --sources=&#39;git@gitlab.com:chenjiangchuan/QMSpecs.git,https://github.com/CocoaPods/Specs.git&#39;
+</code></pre>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[桥接模式]]></title>
+    <link href="http://riverschan.com/design-pattern-bridge.html"/>
+    <updated>2019-07-12T16:33:49+08:00</updated>
+    <id>http://riverschan.com/design-pattern-bridge.html</id>
+    <content type="html"><![CDATA[
+<p>先抛出问题：设计一个跨平台视频播放器框架，可以在Windows、Linux、Unix平台上播放rmvb、avi、mpeg、wmv格式的视频文件。</p>
+
+<ul>
+<li>方案一：每个平台都提供一套解码和视频操作接口；</li>
+<li>方案二：平台视频操作接口和解码独立出来，根据实际的视频格式先解码，然后再在不同的平台上对解码后的视频数据进行操作。</li>
+</ul>
+
+<h3 id="toc_0">方案一</h3>
+
+<pre><code class="language-objectivec">// WindowsPlatform
+
+// 开始播放视频
+- (void)startWithVideoPath:(NSString *)videoPath {
+    // 先解码
+    [self decoding:videoPath];
+    // 执行特定平台的播放操作
+    
+}
+
+// 停止
+- (void)stop {
+    // 执行特定平台的停止操作
+}
+
+- (void)decoding:(NSString *)videoPath {
+    // 根据videoPath文件的后缀名，判断所属的视频格式，然后调用对应的解码方法
+}
+
+// RMVB解码
+- (void)decodingRMVB:(NSString *)videoPath {
+}
+
+// MPEG解码
+- (void)decodingMPEG:(NSString *)videoPath {
+}
+
+// AVI解码
+- (void)decodingAVI:(NSString *)videoPath {
+}
+
+// WMV解码
+- (void)decodingWMV:(NSString *)videoPath {
+}
+
+</code></pre>
+
+<p>Linux、Unix和上面代码类似，那么这里会出现什么问题？假如现在需要支持MP4格式，是不是每个平台类中都得添加MP4解码的方法？那以后又要支持音频格式的播放呢？随着业务的增加，平台类中的代码将会越来越臃肿。</p>
+
+<h3 id="toc_1">方案二</h3>
+
+<p>把平台的视频操作和解码独立出来，Platform只负责视频操作，解码由Decoding处理：</p>
+
+<pre><code class="language-objectivec">// Platform
+
+// aVideoCommandType是对视频进行操作的枚举，比如开始、暂停、重播等；
+// aVideoData是已经解码后的视频数据
+- (void)executeCommand:(VideoCommandType)aVideoCommandType
+        videoData:(id)aVideoData {
+
+}
+</code></pre>
+
+<pre><code class="language-objectivec">// Decoding
+
+// originData是视频的绝对路径
+- (id)decodingWithOrigin:(id)originData {
+
+}
+</code></pre>
+
+<p>现在我想在Windows平台播放rmvb格式的视频：</p>
+
+<pre><code class="language-objectivec">// WindowsPlatform 继承 Platform，重写父类方法
+
+- (void)executeCommand:(VideoCommandType)aVideoCommandType videoData:(id)aVideoData {
+    // 在Windows的平台上对解码后的aVideoData数据进行aVideoCommandType操作
+}
+</code></pre>
+
+<pre><code class="language-objectivec">// RMVBDecoding 继承 Decoding，重写父类方法
+- (id)decodingWithOrigin:(id)originData {
+    // 解码RMVB视频文件
+}
+</code></pre>
+
+<blockquote>
+<p>这样的好处，即便添加新的格式支持，只需要继承Decoding，然后重写父类方法进行特定的格式解码。对于添加新的平台来说，同样如此。</p>
+</blockquote>
+
+<p>上面我们把视频播放器实现的部分完成了，下一步要做的就是怎样给client提供接口。对于Client来说，他们只需要传入视频路径，然后简单的执行start（开始播放）、stop（停止播放）等操作。</p>
+
+<p>我们可以把这些命令抽象出来：</p>
+
+<pre><code class="language-objectivec">// VideoPlayer
+
+/** Platform */
+@property (strong, nonatomic) Platform *platform;
+/** Decoding */
+@property (strong, nonatomic) Decoding *decoding;
+
+// 对视频文件aVideoOriginData执行aVideoCommandType指令，
+- (void)executeCommand:(VideoCommandType)aVideoCommandType videoOriginData:(id)aVideoOriginData {
+    id decodingData = nil;
+    // 播放操作，先解码
+    if (aVideoCommandType == VideoCommandTypePlay) {
+        decodingData = [self.decoding decodingWithOrigin:aVideoOriginData];
+    }
+    // 再平台上执行命令
+    [self.platform executeCommand:aVideoCommandType videoData:decodingData];
+}
+</code></pre>
+
+<p>我们把Client所有的指令操作抽象成一个类<strong>VideoPlayer</strong>，在这个类中调用了Platform和Decoding的接口。</p>
+
+<p>最后在创建一个继承VideoPlayer抽象类的<strong>JCVideoPlayer</strong>，这个类提供了直接的操作接口给Client：</p>
+
+<pre><code class="language-objectivec">// JCVideoPlayer
+
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+#ifdef WINDOWS
+        self.platform = [[WindowsPlatform alloc] init];
+#elif defined LINUX
+        self.platform = [[LinuxPlatform alloc] init];
+#elif defined UNIX
+        self.platform = [[UnixPlatform alloc] init];
+#else
+        self.platform = [[UnixPlatform alloc] init];
+#endif
+    }
+    return self;
+}
+
+// 播放视频
+- (void)playVideo:(NSString *)videoPath {
+    NSString *classString = [self vidoType:videoPath];
+    Class class = objc_getClass([classString UTF8String]);
+    self.decoding = [[class alloc] init];
+    
+    if (!self.decoding) {
+        NSLog(@&quot;不支持该格式的解码&quot;);
+        return;
+    }
+    
+    [super executeCommand:VideoCommandTypePlay videoOriginData:videoPath];
+}
+
+// 停止
+- (void)stopVideo {
+    if (!self.decoding) return;
+    
+    [super executeCommand:VideoCommandTypeStop videoOriginData:nil];
+}
+
+// 继续播放
+- (void)resumeVideo {
+    if (!self.decoding) return;
+    
+    [super executeCommand:VideoCommandTypeResume videoOriginData:nil];
+}
+
+// 重新播放
+- (void)restartVideo {
+    if (!self.decoding) return;
+    
+    [super executeCommand:VideoCommandTypeRestart videoOriginData:nil];
+}
+
+#pragma mark - Private Method
+
+- (NSString *)vidoType:(NSString *)videoPath {
+    NSString *suffix = [[videoPath lastPathComponent] pathExtension];
+    if ([suffix caseInsensitiveCompare:@&quot;rmvb&quot;] == NSOrderedSame) {
+        return @&quot;RMVBDecoding&quot;;
+    } else if ([suffix caseInsensitiveCompare:@&quot;mpeg&quot;] == NSOrderedSame) {
+        return @&quot;MPEGDecoding&quot;;
+    } else if ([suffix caseInsensitiveCompare:@&quot;avi&quot;] == NSOrderedSame) {
+        return @&quot;AVIDecoding&quot;;
+    } else if ([suffix caseInsensitiveCompare:@&quot;wmv&quot;] == NSOrderedSame) {
+        return @&quot;WMVDecoding&quot;;
+    } else {
+        return @&quot;unknow&quot;;
+    }
+}
+</code></pre>
+
+<p>最后Client只需要简单的几行代码：</p>
+
+<pre><code class="language-objectivec">JCVideoPlayer *videoPlayer = [[JCVideoPlayer alloc] init];
+[videoPlayer playVideo:@&quot;~/Library/Developer/xxx.avi&quot;];
+</code></pre>
+
+<p>Client没有传入Platform、Decoding对象，对于Platform对象只需要定义对应平台的宏，而Decoding是根据视频格式创建Decoding对象，这些都是动态创建的。</p>
+
+<h3 id="toc_2">桥接模式</h3>
+
+<p>最后回归主题，先看看下面的图片（图片来源自：<a href="http://design-patterns.readthedocs.io/zh_CN/latest/structural_patterns/bridge.html#id9">bridge</a>） ：</p>
+
+<p><img src="media/15629204293568/15629208266564.jpg" alt=""/></p>
+
+<p>这就是桥接模式的UML类图，主要有以下部分组成：Abstraction（抽象类）、RefinedAbstraction（扩充抽象类）、Implementor（实现类接口）、ConcreteImplementor（具体实现类）。</p>
+
+<p>方案二中类的对应关系：</p>
+
+<pre><code class="language-objectivec">Platform -&gt; Implementor（实现类接口）
+WindowsPlatform -&gt; ConcreteImplementor（具体实现类）
+LinuxPlatform -&gt; ConcreteImplementor（具体实现类）
+UnixPlatform - &gt; ConcreteImplementor（具体实现类）
+
+Decoding -&gt; Implementor（实现类接口）
+RMVBDecoding -&gt; ConcreteImplementor（具体实现类）
+MPEGDecoding -&gt; ConcreteImplementor（具体实现类）
+AVIDecoding -&gt; ConcreteImplementor（具体实现类）
+WMVDecoding -&gt; ConcreteImplementor（具体实现类）
+
+VideoPlayer -&gt; Abstraction（抽象类）
+JCVideoPlayer -&gt; RefinedAbstraction（扩充抽象类）
+</code></pre>
+
+<blockquote>
+<p>桥接桥接，就是把Abstraction（抽象）与Implementor（实现）这两个相互独立的部分连接起来。这里重点是相互独立，你可以把Abstraction去掉，替换成一个继承Implementor的类，这样就是不独立了，并且增加了类之间的耦合度。《Objective-C编程之道：iOS设计模式解析》第一章写到：优先使用对象组合而不是类继承！</p>
+
+<p>从VideoPlayer可以看到，内部定义了Platform和Decoding对象，这就是组合关系。而桥接模式中Abstraction和Implementor之间就是使用关联关系（组合或聚合），而不是继承！</p>
+</blockquote>
+
+<p><a href="https://github.com/chenjiangchuan/DesignPattern-Bridge">demo地址</a></p>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[block的类型]]></title>
+    <link href="http://riverschan.com/ios-block-type.html"/>
+    <updated>2019-07-12T17:06:45+08:00</updated>
+    <id>http://riverschan.com/ios-block-type.html</id>
+    <content type="html"><![CDATA[
+<p>在学习Block类型前，我们必须清楚内存的分布结构：<br/>
+<img src="media/15629224056096/15629224428386.jpg" alt=""/></p>
+
+<p>我们还需要把内存管理模式设置为MRC，在Build Phases -&gt; Compile Sources中选中需要修改的文件，双击输入：-fno-objc-arc</p>
+
+<p>Block的三种类型，分别是：</p>
+
+<ol>
+<li><strong>NSGlobalBlock</strong>：保存在Data区域；</li>
+<li><strong>NSStackBlock</strong> ：保存在Stack区域；</li>
+<li><strong>NSMallocBlock</strong>：保存在Heap区域。</li>
+</ol>
+
+<p>三种类型存在的关系，如下图：<br/>
+<img src="media/15629224056096/15629224845148.jpg" alt=""/></p>
+
+<h3 id="toc_0"><strong>NSGlobalBlock</strong></h3>
+
+<pre><code class="language-objectivec">// 1.在函数体外/方法外定义的Block
+void (^outsideFunctionGlobalBlock)(void) = ^{
+    NSLog(@&quot;outside function global block&quot;);
+};
+
+int main(int argc, const char * argv[]) {
+    @autoreleasepool {
+        // 2. 在函数体内/方法内，不引用Block外的局部变量
+        void (^insideFunctionGlobalBlock)(void) = ^{
+            NSLog(@&quot;inside function global block&quot;);
+        };
+
+        NSLog(@&quot;outside = %@\ninside = %@&quot;, outsideFunctionGlobalBlock, insideFunctionGlobalBlock);
+    }
+    return 0;
+}
+</code></pre>
+
+<h3 id="toc_1"><strong>NSStackBlock</strong></h3>
+
+<pre><code class="language-objectivec">int main(int argc, const char * argv[]) {
+    @autoreleasepool {
+        // 在block内引用了外部的局部变量
+        int a = 10;
+        void (^stackBlock)(void) = ^{
+            NSLog(@&quot;stack block:%d&quot;, a);
+        };
+
+        NSLog(@&quot;stackBlock = %@&quot;, stackBlock);
+    }
+    return 0;
+}
+</code></pre>
+
+<h3 id="toc_2"><strong>NSMallocBlock</strong></h3>
+
+<pre><code class="language-objectivec">int main(int argc, const char * argv[]) {
+    @autoreleasepool {
+        // 由stack类型的block使用copy得来
+        int a = 10;
+        void (^heapBlock)(void) = [^{
+            NSLog(@&quot;stack block:%d&quot;, a);
+        } copy];
+        NSLog(@&quot;heapBlock = %@&quot;, heapBlock);
+        }
+    return 0;
+}
+</code></pre>
+
+<h3 id="toc_3">思考</h3>
+
+<p>请回答下面代码中Block的类型：</p>
+
+<pre><code class="language-objectivec">int a = 10;
+
+void (^outsideFunctionBlock1)(void) = ^{
+    NSLog(@&quot;outside function block：%d&quot;, a);
+};
+
+void (^outsideFunctionBlock2)(int x, int y) = ^(int x, int y){
+    NSLog(@&quot;outside function block：%d, (x+y = %d)&quot;, a, x+y);
+};
+
+int main(int argc, const char * argv[]) {
+    @autoreleasepool {
+
+        static int num = 20;
+
+        int var = 30;
+
+        void (^insideFunctionBlock1)(void) = ^{
+            NSLog(@&quot;inside function block：%d&quot;, a);
+        };
+
+        void (^insideFunctionBlock2)(void) = ^{
+            NSLog(@&quot;inside function block：%d&quot;, var);
+        };
+
+        void (^insideFunctionBlock3)(void) = ^{
+            NSLog(@&quot;inside function block：%d，num = %d&quot;, a, num);
+        };  
+
+        void (^insideFunctionBlock4)(void) = ^{
+            NSLog(@&quot;inside function block：%d, num = %d, var = %d&quot;, a, num, var);
+        };        
+
+        void (^insideFunctionBlock5)(void) = [insideFunctionBlock1 copy];
+
+        void (^insideFunctionBlock6)(void) = [insideFunctionBlock2 copy];
+
+        void (^insideFunctionBlock7)(void) = [insideFunctionBlock3 copy];
+
+    }
+    return 0;
+}
+</code></pre>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[iOS项目开发中组件化的应用]]></title>
+    <link href="http://riverschan.com/ios-module-use.html"/>
+    <updated>2019-07-12T17:33:34+08:00</updated>
+    <id>http://riverschan.com/ios-module-use.html</id>
+    <content type="html"><![CDATA[
+<p>以下项目的组件化应用是在合立任职时实现的，采用的是CocoaPods方式，组件关系图：<br/>
+<img src="media/15629240146862/15629242636608.jpg" alt=""/></p>
+
+<p>整个项目有4个组件：Hori-pjsip、HRWebRTC、HoriSip、HoriWebRTC；</p>
+
+<ol>
+<li>Hori-pjsip组件：修改编译好的pjsip静态库由CocoaPods管理；</li>
+<li>HRWebRTC组件：修改编译好的webRTC动态库由CocoaPods管理：</li>
+<li>HoriSip组件：HoriSip组件中封装了一层基于pjsip的C++接口，然后基于这套C++接口再封装OC接口；</li>
+<li>HoriWebRTC组件：基于HRWebRTC组件和HoriSip发出的音视频通知封装的一套音视频接口。</li>
+</ol>
+
+<h3 id="toc_0">准备工作</h3>
+
+<p>项目都是使用git管理</p>
+
+<ol>
+<li>考虑到公司网络问题，建立内部的CocoaPods公有库镜像：Specs；</li>
+<li>创建CocoaPods私有库：HoriSpecs；</li>
+<li>分别创建4个组件的git仓库。</li>
+</ol>
+
+<h3 id="toc_1">开发阶段</h3>
+
+<p>主要是负责Hori-pjsip、HoriSip封装，HoriWebRTC组件主要负责podspec的编写</p>
+
+<h4 id="toc_2">Hori-pjsip组件</h4>
+
+<p>pjsip官方提供了一个pod lib，目前是<a href="https://github.com/chebur/pjsip">2.6版本pjsip官方pod lib</a>。因为封装C++接口是另外一个同事在做，而且修改了pjsip的源码，所以pjsip相关的静态库必须自己编译。不过还好，官方提供了一套完整的podsepc文件，直接拿来用。</p>
+
+<h4 id="toc_3">HoriSip组件</h4>
+
+<p>同事提供一个一份基于pjsip的C++接口，而后通过这套接口封装OC的API，这就是HoriSip组件做的事情：<br/>
+<img src="media/15629240146862/15629244558521.jpg" alt=""/></p>
+
+<p>这是HoriSip的框架，主要是采用外观设计模式，分成3个子系统，然后由HoriFacade类统一对子系统进行调用，Proxy存放着C++接口文件。</p>
+
+<p>框架有了，然后就是填代码了，这里不过多描述。现在主要说下podspec文件的编写，说下很少碰到的参数：</p>
+
+<pre><code class="language-text">header_search_paths   =[&#39;&quot;$(PODS_ROOT)/Headers/Public/Hori-pjsip/pjlib/include&quot;&#39;,
+                        &#39;&quot;$(PODS_ROOT)/Headers/Public/Hori-pjsip/pjlib-util/include&quot;&#39;,
+                        &#39;&quot;$(PODS_ROOT)/Headers/Public/Hori-pjsip/pjmedia/include&quot;&#39;,
+                        &#39;&quot;$(PODS_ROOT)/Headers/Public/Hori-pjsip/pjnath/include&quot;&#39;,
+                        &#39;&quot;$(PODS_ROOT)/Headers/Public/Hori-pjsip/pjsip/include&quot;&#39;]
+s.xcconfig            = {
+&#39;HEADER_SEARCH_PATHS&#39;          =&gt; header_search_paths.join(&#39; &#39;),
+&#39;GCC_PREPROCESSOR_DEFINITIONS&#39; =&gt; &#39;PJ_AUTOCONF=1&#39;
+</code></pre>
+
+<p>s.xcconfig实际是对Build Settings进行配置：</p>
+
+<ol>
+<li>HEADER_SEARCH_PATHS配置Target的搜索头文件的路径，这里配置了pjsip中所有静态库的头文件路径；</li>
+<li>GCC_PREPROCESSOR_DEFINITIONS是GCC预编译头参数，这里配置了PJ_AUTOCONF=1，是pjsip官方推荐配置。</li>
+</ol>
+
+<h4 id="toc_4">HoriWebRTC</h4>
+
+<p>这个组件我只是把框架搭好，主要由同事负责，说说pod lib lint遇到的问题吧。<br/>
+因为这个组件是基于HRWebRTC-&gt;webRTC，我第一次pod lib lint的时候，报错：</p>
+
+<pre><code class="language-text">Undefined symbols for architecture i386:
+  &quot;_OBJC_CLASS_$_WebrtcEngine&quot;, referenced from:
+      objc-class-ref in libHoriWebRTC.a(HoriMediaCallEngineCtrl.o)
+  &quot;_OBJC_CLASS_$_HRMediaParameter&quot;, referenced from:
+      objc-class-ref in libHoriWebRTC.a(HoriMediaCallEngineCtrl.o)
+  &quot;_OBJC_CLASS_$_RTCEAGLVideoView&quot;, referenced from:
+      objc-class-ref in libHoriWebRTC.a(HoriRemoteVideoView.o)
+  &quot;_OBJC_CLASS_$_RTCCameraPreviewView&quot;, referenced from:
+      objc-class-ref in libHoriWebRTC.a(HoriLocalVideoView.o)
+ld: symbol(s) not found for architecture i386
+</code></pre>
+
+<p>追到本质，就是webRTC.framework不支持i386架构，为验证使用的webRTC.framework有没有支持i386：</p>
+
+<pre><code class="language-text">lipo -info WebRTC.framework/WebRTC
+</code></pre>
+
+<pre><code class="language-text">// 终端显示
+Architectures in the fat file: WebRTC.framework/WebRTC are: x86_64 armv7 arm64
+</code></pre>
+
+<p>确实没有i386的支持，那怎么办，让同事添加i386的支持吗？其实还有一种方式，修改xcconfig文件（上面已经提到过），我们知道可以在Build Settings -&gt; Valid Architectures中修改支持的架构，所以同理在podsepc中添加：</p>
+
+<pre><code class="language-text"># 只支持arm64和x86_64架构
+valid_archs = [&#39;arm64&#39;,&#39;x86_64&#39;,]
+s.xcconfig            = {
+ &#39;VALID_ARCHS&#39;          =&gt;  valid_archs.join(&#39; &#39;),
+}
+</code></pre>
+
+]]></content>
+  </entry>
+  
+</feed>

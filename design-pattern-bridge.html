@@ -1,0 +1,464 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+    
+  桥接模式 - 陈江川
+  
+  </title>
+ <meta name="description" content="陈江川的技术累计">
+ <link href="atom.xml" rel="alternate" title="陈江川" type="application/atom+xml">
+    <link rel="stylesheet" href="asset/css/foundation.min.css" />
+    <link rel="stylesheet" href="asset/css/docs.css" />
+
+    <script src="asset/js/vendor/modernizr.js"></script>
+    <script src="asset/js/vendor/jquery.js"></script>
+    <script src="asset/highlightjs/highlight.pack.js"></script>
+    <link href="asset/highlightjs/styles/github.css" media="screen, projection" rel="stylesheet" type="text/css">
+    <script>hljs.initHighlightingOnLoad();</script>
+    
+  </head>
+  <body class="antialiased hide-extras">
+    
+    <div class="marketing off-canvas-wrap" data-offcanvas>
+      <div class="inner-wrap">
+
+
+<nav class="top-bar docs-bar hide-for-small" data-topbar>
+
+<div id="header">
+    <h1><a href="index.html">陈江川</a></h1>
+</div>
+
+</nav>
+        <nav class="tab-bar show-for-small">
+  <a href="javascript:void(0)" class="left-off-canvas-toggle menu-icon">
+    <span> &nbsp; 陈江川</span>
+  </a>
+</nav>
+
+<aside class="left-off-canvas-menu">
+      <ul class="off-canvas-list">
+      <li><a href="index.html">Home</a></li>
+      
+        <li class="divider"></li>
+        <li><label>组件化</label></li>
+
+          
+            <li><a title="CocoaPods私有库" href="ios-pods-create.html">CocoaPods私有库</a></li>
+          
+            <li><a title="podspec开发介绍" href="ios-podsepc.html">podspec开发介绍</a></li>
+          
+            <li><a title="iOS项目开发中组件化的应用" href="ios-module-use.html">iOS项目开发中组件化的应用</a></li>
+          
+
+      
+        <li class="divider"></li>
+        <li><label>设计模式</label></li>
+
+          
+            <li><a title="工厂方法模式和抽象工厂方法模式的区别" href="design-pattern-factory.html">工厂方法模式和抽象工厂方法模式的区别</a></li>
+          
+            <li><a title="桥接模式" href="design-pattern-bridge.html">桥接模式</a></li>
+          
+
+      
+        <li class="divider"></li>
+        <li><label>iOS</label></li>
+
+          
+            <li><a title="isa指针" href="ios-isa.html">isa指针</a></li>
+          
+            <li><a title="objc_msgSend分析" href="ios-objc-msgsend.html">objc_msgSend分析</a></li>
+          
+            <li><a title="block的思考" href="ios-block-think.html">block的思考</a></li>
+          
+            <li><a title="ARC模式下的block" href="ios-block-arc.html">ARC模式下的block</a></li>
+          
+            <li><a title="Block_copy原理" href="ios-block-copy.html">Block_copy原理</a></li>
+          
+            <li><a title="block内修改变量的值" href="ios-block-changevar.html">block内修改变量的值</a></li>
+          
+            <li><a title="block的类型" href="ios-block-type.html">block的类型</a></li>
+          
+
+      
+        <li class="divider"></li>
+        <li><label>Web</label></li>
+
+          
+            <li><a title="Python爬虫 - 环境的搭建" href="python_spider.html">Python爬虫 - 环境的搭建</a></li>
+          
+
+      
+      </ul>
+    </aside>
+
+<a class="exit-off-canvas" href="#"></a>
+
+        <section id="main-content" role="main" class="scroll-container">
+
+          <div class="row">
+            <div class="large-3 medium-3 columns">
+              <div class="hide-for-small">
+                <div class="sidebar">
+                <nav>
+                  <ul id="side-nav" class="side-nav">
+
+                    
+                      <li class="side-title"><span>组件化</span></li>
+                        
+                          <li><a title="CocoaPods私有库" href="ios-pods-create.html">CocoaPods私有库</a></li>
+                        
+                          <li><a title="podspec开发介绍" href="ios-podsepc.html">podspec开发介绍</a></li>
+                        
+                          <li><a title="iOS项目开发中组件化的应用" href="ios-module-use.html">iOS项目开发中组件化的应用</a></li>
+                        
+
+                    
+                      <li class="side-title"><span>设计模式</span></li>
+                        
+                          <li><a title="工厂方法模式和抽象工厂方法模式的区别" href="design-pattern-factory.html">工厂方法模式和抽象工厂方法模式的区别</a></li>
+                        
+                          <li><a title="桥接模式" href="design-pattern-bridge.html">桥接模式</a></li>
+                        
+
+                    
+                      <li class="side-title"><span>iOS</span></li>
+                        
+                          <li><a title="isa指针" href="ios-isa.html">isa指针</a></li>
+                        
+                          <li><a title="objc_msgSend分析" href="ios-objc-msgsend.html">objc_msgSend分析</a></li>
+                        
+                          <li><a title="block的思考" href="ios-block-think.html">block的思考</a></li>
+                        
+                          <li><a title="ARC模式下的block" href="ios-block-arc.html">ARC模式下的block</a></li>
+                        
+                          <li><a title="Block_copy原理" href="ios-block-copy.html">Block_copy原理</a></li>
+                        
+                          <li><a title="block内修改变量的值" href="ios-block-changevar.html">block内修改变量的值</a></li>
+                        
+                          <li><a title="block的类型" href="ios-block-type.html">block的类型</a></li>
+                        
+
+                    
+                      <li class="side-title"><span>Web</span></li>
+                        
+                          <li><a title="Python爬虫 - 环境的搭建" href="python_spider.html">Python爬虫 - 环境的搭建</a></li>
+                        
+
+                    
+                  </ul>
+                </nav>
+                </div>
+              </div>
+            </div>
+            <div class="large-9 medium-9 columns">
+
+ <div class="markdown-body">
+<h1>桥接模式</h1>
+
+<p>先抛出问题：设计一个跨平台视频播放器框架，可以在Windows、Linux、Unix平台上播放rmvb、avi、mpeg、wmv格式的视频文件。</p>
+
+<ul>
+<li>方案一：每个平台都提供一套解码和视频操作接口；</li>
+<li>方案二：平台视频操作接口和解码独立出来，根据实际的视频格式先解码，然后再在不同的平台上对解码后的视频数据进行操作。</li>
+</ul>
+
+<h3 id="toc_0">方案一</h3>
+
+<pre><code class="language-objectivec">// WindowsPlatform
+
+// 开始播放视频
+- (void)startWithVideoPath:(NSString *)videoPath {
+    // 先解码
+    [self decoding:videoPath];
+    // 执行特定平台的播放操作
+    
+}
+
+// 停止
+- (void)stop {
+    // 执行特定平台的停止操作
+}
+
+- (void)decoding:(NSString *)videoPath {
+    // 根据videoPath文件的后缀名，判断所属的视频格式，然后调用对应的解码方法
+}
+
+// RMVB解码
+- (void)decodingRMVB:(NSString *)videoPath {
+}
+
+// MPEG解码
+- (void)decodingMPEG:(NSString *)videoPath {
+}
+
+// AVI解码
+- (void)decodingAVI:(NSString *)videoPath {
+}
+
+// WMV解码
+- (void)decodingWMV:(NSString *)videoPath {
+}
+
+</code></pre>
+
+<p>Linux、Unix和上面代码类似，那么这里会出现什么问题？假如现在需要支持MP4格式，是不是每个平台类中都得添加MP4解码的方法？那以后又要支持音频格式的播放呢？随着业务的增加，平台类中的代码将会越来越臃肿。</p>
+
+<h3 id="toc_1">方案二</h3>
+
+<p>把平台的视频操作和解码独立出来，Platform只负责视频操作，解码由Decoding处理：</p>
+
+<pre><code class="language-objectivec">// Platform
+
+// aVideoCommandType是对视频进行操作的枚举，比如开始、暂停、重播等；
+// aVideoData是已经解码后的视频数据
+- (void)executeCommand:(VideoCommandType)aVideoCommandType
+        videoData:(id)aVideoData {
+
+}
+</code></pre>
+
+<pre><code class="language-objectivec">// Decoding
+
+// originData是视频的绝对路径
+- (id)decodingWithOrigin:(id)originData {
+
+}
+</code></pre>
+
+<p>现在我想在Windows平台播放rmvb格式的视频：</p>
+
+<pre><code class="language-objectivec">// WindowsPlatform 继承 Platform，重写父类方法
+
+- (void)executeCommand:(VideoCommandType)aVideoCommandType videoData:(id)aVideoData {
+    // 在Windows的平台上对解码后的aVideoData数据进行aVideoCommandType操作
+}
+</code></pre>
+
+<pre><code class="language-objectivec">// RMVBDecoding 继承 Decoding，重写父类方法
+- (id)decodingWithOrigin:(id)originData {
+    // 解码RMVB视频文件
+}
+</code></pre>
+
+<blockquote>
+<p>这样的好处，即便添加新的格式支持，只需要继承Decoding，然后重写父类方法进行特定的格式解码。对于添加新的平台来说，同样如此。</p>
+</blockquote>
+
+<p>上面我们把视频播放器实现的部分完成了，下一步要做的就是怎样给client提供接口。对于Client来说，他们只需要传入视频路径，然后简单的执行start（开始播放）、stop（停止播放）等操作。</p>
+
+<p>我们可以把这些命令抽象出来：</p>
+
+<pre><code class="language-objectivec">// VideoPlayer
+
+/** Platform */
+@property (strong, nonatomic) Platform *platform;
+/** Decoding */
+@property (strong, nonatomic) Decoding *decoding;
+
+// 对视频文件aVideoOriginData执行aVideoCommandType指令，
+- (void)executeCommand:(VideoCommandType)aVideoCommandType videoOriginData:(id)aVideoOriginData {
+    id decodingData = nil;
+    // 播放操作，先解码
+    if (aVideoCommandType == VideoCommandTypePlay) {
+        decodingData = [self.decoding decodingWithOrigin:aVideoOriginData];
+    }
+    // 再平台上执行命令
+    [self.platform executeCommand:aVideoCommandType videoData:decodingData];
+}
+</code></pre>
+
+<p>我们把Client所有的指令操作抽象成一个类<strong>VideoPlayer</strong>，在这个类中调用了Platform和Decoding的接口。</p>
+
+<p>最后在创建一个继承VideoPlayer抽象类的<strong>JCVideoPlayer</strong>，这个类提供了直接的操作接口给Client：</p>
+
+<pre><code class="language-objectivec">// JCVideoPlayer
+
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+#ifdef WINDOWS
+        self.platform = [[WindowsPlatform alloc] init];
+#elif defined LINUX
+        self.platform = [[LinuxPlatform alloc] init];
+#elif defined UNIX
+        self.platform = [[UnixPlatform alloc] init];
+#else
+        self.platform = [[UnixPlatform alloc] init];
+#endif
+    }
+    return self;
+}
+
+// 播放视频
+- (void)playVideo:(NSString *)videoPath {
+    NSString *classString = [self vidoType:videoPath];
+    Class class = objc_getClass([classString UTF8String]);
+    self.decoding = [[class alloc] init];
+    
+    if (!self.decoding) {
+        NSLog(@&quot;不支持该格式的解码&quot;);
+        return;
+    }
+    
+    [super executeCommand:VideoCommandTypePlay videoOriginData:videoPath];
+}
+
+// 停止
+- (void)stopVideo {
+    if (!self.decoding) return;
+    
+    [super executeCommand:VideoCommandTypeStop videoOriginData:nil];
+}
+
+// 继续播放
+- (void)resumeVideo {
+    if (!self.decoding) return;
+    
+    [super executeCommand:VideoCommandTypeResume videoOriginData:nil];
+}
+
+// 重新播放
+- (void)restartVideo {
+    if (!self.decoding) return;
+    
+    [super executeCommand:VideoCommandTypeRestart videoOriginData:nil];
+}
+
+#pragma mark - Private Method
+
+- (NSString *)vidoType:(NSString *)videoPath {
+    NSString *suffix = [[videoPath lastPathComponent] pathExtension];
+    if ([suffix caseInsensitiveCompare:@&quot;rmvb&quot;] == NSOrderedSame) {
+        return @&quot;RMVBDecoding&quot;;
+    } else if ([suffix caseInsensitiveCompare:@&quot;mpeg&quot;] == NSOrderedSame) {
+        return @&quot;MPEGDecoding&quot;;
+    } else if ([suffix caseInsensitiveCompare:@&quot;avi&quot;] == NSOrderedSame) {
+        return @&quot;AVIDecoding&quot;;
+    } else if ([suffix caseInsensitiveCompare:@&quot;wmv&quot;] == NSOrderedSame) {
+        return @&quot;WMVDecoding&quot;;
+    } else {
+        return @&quot;unknow&quot;;
+    }
+}
+</code></pre>
+
+<p>最后Client只需要简单的几行代码：</p>
+
+<pre><code class="language-objectivec">JCVideoPlayer *videoPlayer = [[JCVideoPlayer alloc] init];
+[videoPlayer playVideo:@&quot;~/Library/Developer/xxx.avi&quot;];
+</code></pre>
+
+<p>Client没有传入Platform、Decoding对象，对于Platform对象只需要定义对应平台的宏，而Decoding是根据视频格式创建Decoding对象，这些都是动态创建的。</p>
+
+<h3 id="toc_2">桥接模式</h3>
+
+<p>最后回归主题，先看看下面的图片（图片来源自：<a href="http://design-patterns.readthedocs.io/zh_CN/latest/structural_patterns/bridge.html#id9">bridge</a>） ：</p>
+
+<p><img src="media/15629204293568/15629208266564.jpg" alt=""/></p>
+
+<p>这就是桥接模式的UML类图，主要有以下部分组成：Abstraction（抽象类）、RefinedAbstraction（扩充抽象类）、Implementor（实现类接口）、ConcreteImplementor（具体实现类）。</p>
+
+<p>方案二中类的对应关系：</p>
+
+<pre><code class="language-objectivec">Platform -&gt; Implementor（实现类接口）
+WindowsPlatform -&gt; ConcreteImplementor（具体实现类）
+LinuxPlatform -&gt; ConcreteImplementor（具体实现类）
+UnixPlatform - &gt; ConcreteImplementor（具体实现类）
+
+Decoding -&gt; Implementor（实现类接口）
+RMVBDecoding -&gt; ConcreteImplementor（具体实现类）
+MPEGDecoding -&gt; ConcreteImplementor（具体实现类）
+AVIDecoding -&gt; ConcreteImplementor（具体实现类）
+WMVDecoding -&gt; ConcreteImplementor（具体实现类）
+
+VideoPlayer -&gt; Abstraction（抽象类）
+JCVideoPlayer -&gt; RefinedAbstraction（扩充抽象类）
+</code></pre>
+
+<blockquote>
+<p>桥接桥接，就是把Abstraction（抽象）与Implementor（实现）这两个相互独立的部分连接起来。这里重点是相互独立，你可以把Abstraction去掉，替换成一个继承Implementor的类，这样就是不独立了，并且增加了类之间的耦合度。《Objective-C编程之道：iOS设计模式解析》第一章写到：优先使用对象组合而不是类继承！</p>
+
+<p>从VideoPlayer可以看到，内部定义了Platform和Decoding对象，这就是组合关系。而桥接模式中Abstraction和Implementor之间就是使用关联关系（组合或聚合），而不是继承！</p>
+</blockquote>
+
+<p><a href="https://github.com/chenjiangchuan/DesignPattern-Bridge">demo地址</a></p>
+
+
+</div>
+
+<br /><br />
+<hr />
+
+<div class="row clearfix">
+  <div class="large-6 columns">
+	<div class="text-left" style="padding:15px 0px;">
+		
+	        <a href="ios-podsepc.html"  title="Previous Post: podspec开发介绍">&laquo; podspec开发介绍</a>
+	    
+	</div>
+  </div>
+  <div class="large-6 columns">
+	<div class="text-right" style="padding:15px 0px;">
+		
+	        <a href="ios-block-type.html" 
+	        title="Next Post: block的类型">block的类型 &raquo;</a>
+	    
+	</div>
+  </div>
+</div>
+
+<div class="row">
+<div style="padding:0px 0.93em;" class="share-comments">
+
+</div>
+</div>
+<script type="text/javascript">
+	$(function(){
+		var currentURL = 'design-pattern-bridge.html';
+		$('#side-nav a').each(function(){
+			if($(this).attr('href') == currentURL){
+				$(this).parent().addClass('active');
+			}
+		});
+	});
+</script>  
+</div></div>
+
+
+<div class="page-bottom">
+  <div class="row">
+  <hr />
+  <div class="small-9 columns">
+  <p class="copyright">Copyright &copy; 2015
+Powered by <a target="_blank" href="http://www.mweb.im">MWeb</a>,&nbsp; 
+Theme used <a target="_blank" href="http://github.com">GitHub CSS</a>.</p>
+  </div>
+  <div class="small-3 columns">
+  <p class="copyright text-right"><a href="#header">TOP</a></p>
+  </div>
+   
+  </div>
+</div>
+
+        </section>
+      </div>
+    </div>
+    
+    
+    <script src="asset/js/foundation.min.js"></script>
+    <script src="asset/js/foundation/foundation.offcanvas.js"></script>
+    <script>
+      $(document).foundation();
+
+     
+    </script>
+    
+
+
+  </body>
+</html>
