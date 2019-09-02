@@ -1,91 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
-  <loc>http://riverschan.com/</loc>
-  <lastmod>2019-08-19T02:56:01+08:00</lastmod>
+  <loc>http://blog.onez-gz.com/</loc>
+  <lastmod>2019-09-02T23:03:37+08:00</lastmod>
 </url>
 
 <url>
-  <loc>http://riverschan.com/python_spider.html</loc>
+  <loc>http://blog.onez-gz.com/15673905675165.html</loc>
+  <lastmod>2019-09-02T10:16:07+08:00</lastmod>
+</url>
+
+<url>
+  <loc>http://blog.onez-gz.com/python_spider.html</loc>
   <lastmod>2019-08-19T00:50:03+08:00</lastmod>
 </url>
 
 <url>
-  <loc>http://riverschan.com/ios-podsepc.html</loc>
+  <loc>http://blog.onez-gz.com/ios-podsepc.html</loc>
   <lastmod>2019-07-12T17:53:44+08:00</lastmod>
 </url>
 
 <url>
-  <loc>http://riverschan.com/ios-pods-create.html</loc>
+  <loc>http://blog.onez-gz.com/ios-pods-create.html</loc>
   <lastmod>2019-07-12T17:46:08+08:00</lastmod>
 </url>
 
 <url>
-  <loc>http://riverschan.com/ios-module-use.html</loc>
+  <loc>http://blog.onez-gz.com/ios-module-use.html</loc>
   <lastmod>2019-07-12T17:33:34+08:00</lastmod>
 </url>
 
 <url>
-  <loc>http://riverschan.com/ios-block-think.html</loc>
+  <loc>http://blog.onez-gz.com/ios-block-think.html</loc>
   <lastmod>2019-07-12T17:27:49+08:00</lastmod>
 </url>
 
 <url>
-  <loc>http://riverschan.com/ios-block-arc.html</loc>
+  <loc>http://blog.onez-gz.com/ios-block-arc.html</loc>
   <lastmod>2019-07-12T17:19:52+08:00</lastmod>
 </url>
 
 <url>
-  <loc>http://riverschan.com/ios-block-copy.html</loc>
+  <loc>http://blog.onez-gz.com/ios-block-copy.html</loc>
   <lastmod>2019-07-12T17:16:19+08:00</lastmod>
 </url>
 
 <url>
-  <loc>http://riverschan.com/ios-block-changevar.html</loc>
+  <loc>http://blog.onez-gz.com/ios-block-changevar.html</loc>
   <lastmod>2019-07-12T17:09:58+08:00</lastmod>
 </url>
 
 <url>
-  <loc>http://riverschan.com/ios-block-type.html</loc>
+  <loc>http://blog.onez-gz.com/ios-block-type.html</loc>
   <lastmod>2019-07-12T17:06:45+08:00</lastmod>
 </url>
 
 <url>
-  <loc>http://riverschan.com/ios-objc-msgsend.html</loc>
+  <loc>http://blog.onez-gz.com/ios-objc-msgsend.html</loc>
   <lastmod>2019-07-12T17:01:54+08:00</lastmod>
 </url>
 
 <url>
-  <loc>http://riverschan.com/ios-isa.html</loc>
+  <loc>http://blog.onez-gz.com/ios-isa.html</loc>
   <lastmod>2019-07-12T16:49:44+08:00</lastmod>
 </url>
 
 <url>
-  <loc>http://riverschan.com/design-pattern-bridge.html</loc>
+  <loc>http://blog.onez-gz.com/design-pattern-bridge.html</loc>
   <lastmod>2019-07-12T16:33:49+08:00</lastmod>
 </url>
 
 <url>
-  <loc>http://riverschan.com/design-pattern-factory.html</loc>
+  <loc>http://blog.onez-gz.com/design-pattern-factory.html</loc>
   <lastmod>2019-07-12T16:18:59+08:00</lastmod>
 </url>
 
 
 
 <url>
-  <loc>http://riverschan.com/%E7%BB%84%E4%BB%B6%E5%8C%96.html</loc>
+  <loc>http://blog.onez-gz.com/%E7%BB%84%E4%BB%B6%E5%8C%96.html</loc>
 </url>
 
 <url>
-  <loc>http://riverschan.com/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F.html</loc>
+  <loc>http://blog.onez-gz.com/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F.html</loc>
 </url>
 
 <url>
-  <loc>http://riverschan.com/iOS.html</loc>
+  <loc>http://blog.onez-gz.com/iOS.html</loc>
 </url>
 
 <url>
-  <loc>http://riverschan.com/Web.html</loc>
+  <loc>http://blog.onez-gz.com/Web.html</loc>
+</url>
+
+<url>
+  <loc>http://blog.onez-gz.com/%E7%BD%91%E7%BB%9C.html</loc>
 </url>
 
 
