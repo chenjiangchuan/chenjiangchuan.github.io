@@ -4,7 +4,7 @@
   <title><![CDATA[丸子（ONEZ）]]></title>
   <link href="http://blog.onez-gz.com/atom.xml" rel="self"/>
   <link href="http://blog.onez-gz.com/"/>
-  <updated>2019-09-02T23:08:18+08:00</updated>
+  <updated>2019-09-02T23:09:29+08:00</updated>
   <id>http://blog.onez-gz.com/</id>
   <author>
     <name><![CDATA[]]></name>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[DNS（Domain Name System）概念]]></title>
-    <link href="http://blog.onez-gz.com/15673905675165.html"/>
+    <link href="http://blog.onez-gz.com/dns-concept.html"/>
     <updated>2019-09-02T10:16:07+08:00</updated>
-    <id>http://blog.onez-gz.com/15673905675165.html</id>
+    <id>http://blog.onez-gz.com/dns-concept.html</id>
     <content type="html"><![CDATA[
 <p>一个人可以通过姓名、身份证号、公司的工号等等来标识，尽管这些标识都可以用来识别一个人，但是特定环境下，某种识别方法可能比另一种方法更为合适。比如姓名为张三的身份证号为362101196002191090的朋友，我们通常打招呼会说：张三，吃饭了呗？而不是说：362101196002191090，吃饭了呗？</p>
 
