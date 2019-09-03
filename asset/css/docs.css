@@ -24,7 +24,7 @@ ul.off-canvas-list li a:hover{background: #335a79;}
 }
 .sidebar .side-nav a{ font-family: Lato,Helvetica Neue,Helvetica,Arial,sans-serif;}
 .sidebar .side-nav li a{ padding: 4px 4px;}
-.sidebar .side-nav li.side-title span{ display: inline-block; padding: 10px 0; margin-top: 40px; color:#0e83cd; border-top: solid 1px #e3e3e3; font-weight: bold; font-size: 1.2em;}
+.sidebar .side-nav li.side-title span{ display: inline-block; padding: 10px 0; margin-top: 15px; color:#0e83cd; border-top: solid 1px #e3e3e3; font-weight: bold; font-size: 1.2em;}
 
 
 .sidebar .side-nav li a{  color: #444;}
@@ -32,6 +32,30 @@ ul.off-canvas-list li a:hover{background: #335a79;}
 .sidebar .side-nav li.active > a:first-child {
     color: #0e83cd;
 }
+
+.sidebar .side-nav .social{ padding: -10px 7px; text-align: left; padding-bottom: 0px;}
+.sidebar .side-nav .social a{
+  -moz-border-radius:50%;
+  -webkit-border-radius:50%;
+  border-radius:50%;
+  display:inline-block;
+  vertical-align:middle;
+  *vertical-align:auto;
+  *zoom:1;
+  *display:inline;
+  text-indent:-9999px;
+  margin:7px;
+  opacity:0.5;
+  width:28px;
+  height:28px;
+  -moz-transition:0.3s;
+  -o-transition:0.3s;
+  -webkit-transition:0.3s;
+  transition:0.3s}
+.sidebar .side-nav .social a.email{background:url('../img/social/email.png') center no-repeat #afb6ca;border:1px solid #afb6ca}
+.sidebar .side-nav .social a.email:hover{border:1px solid #909ab6; opacity:1.0}
+.sidebar .side-nav .social a.rss{background: url('../img/social/rss.png') center no-repeat #EF7522;border:1px solid #EF7522}
+.sidebar .side-nav .social a.rss:hover{border:1px solid #cf5d0f; opacity:1.0}
 
 .markdown-toc ul,.markdown-toc li {
     margin: 0;
