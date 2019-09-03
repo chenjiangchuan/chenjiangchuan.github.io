@@ -97,6 +97,8 @@
         <li><label>网络</label></li>
 
           
+            <li><a title="DNS解析方案" href="dns-resolution-solution.html">DNS解析方案</a></li>
+          
             <li><a title="DNS（Domain Name System）概念" href="dns-concept.html">DNS（Domain Name System）概念</a></li>
           
 
@@ -160,6 +162,8 @@
                     
                       <li class="side-title"><span>网络</span></li>
                         
+                          <li><a title="DNS解析方案" href="dns-resolution-solution.html">DNS解析方案</a></li>
+                        
                           <li><a title="DNS（Domain Name System）概念" href="dns-concept.html">DNS（Domain Name System）概念</a></li>
                         
 
@@ -176,129 +180,39 @@
 
 	
 		<div class="markdown-body">
-		<h1>DNS（Domain Name System）概念</h1>
+		<h1>DNS解析方案</h1>
 
-		<p>一个人可以通过姓名、身份证号、公司的工号等等来标识，尽管这些标识都可以用来识别一个人，但是特定环境下，某种识别方法可能比另一种方法更为合适。比如姓名为张三的身份证号为362101196002191090的朋友，我们通常打招呼会说：张三，吃饭了呗？而不是说：362101196002191090，吃饭了呗？</p>
+		<p>公司前些时候遇到一个问题：哈尔滨市的用户进入APP，页面数据加载不了，提示网络错误。开始以为是运营商的DNS服务器被劫持了，但细想如果是被劫持，那应该会加载劫持者指定的IP地址的数据，要不然毫无意义。<br/>
+后来和ISP联系，了解到解析哈尔滨市的权威DNS服务器物理地址迁移了（导致IP地址发生变更），但没有及时更新TLD服务器中的该台权威DNS服务器的A记录（猜测，目前不确定），在“DNS概念 - 如何在DNS数据库中插入记录”有介绍。</p>
 
-<p>因特网上的主机和人一样，可以有很多方式进行标识，比如主机名（域名）<code>www.onez-gz.com</code>，这名字便于我们记忆，但是主机名几乎没有提供关于主机在因特网中位置的信息（除了cn、jp等以国家码结束的域名），而且因为主机名的不定长，导致路由器难于处理，所以主机也可使用定长、有层次结构的IP地址进行标识。</p>
+<p>现在主流使用httpDNS来解决上面的问题，但考虑到money的问题（公司没有重视DNS解析的问题，只要确保DNS解析失败后，能切换IP直连）。因此有了这个方案（各位可以给出建议便于完善方案）。</p>
 
-<p>所以需要一种服务：主机名到IP地址的转换。这个就是DNS的主要任务，它是：</p>
+<h2 id="toc_0">Http/Https请求分析</h2>
 
-<ol>
-<li>一个由分层的DNS服务器实现的分布式数据库；</li>
-<li>一个应用层协议（基于UDP）：可用来查询分布式数据库。</li>
-</ol>
+<p>在<em>DNS概念</em>中简单的描述了一个Http/Https请求的过程，现在给出一个稍微详细的请求过程时序图：</p>
 
-<p>下面简单的描述一个http请求的过程，假设在浏览器中请求：<a href="http://www.onez-gz.com/#/index">http://www.onez-gz.com/#/index</a></p>
+<p><img src="media/15674762730609/Http!Https%20Request%E8%BF%87%E7%A8%8B.jpg" alt="Http!Https Request过程"/></p>
 
-<ol>
-<li>浏览器从URL中抽取主机名：www.onez-gz.com，并将主机名传给DNS客户端（每台主机都自带DNS客户端）；</li>
-<li>DNS客户端发送一个包含主机名的请求报文给DNS服务器；</li>
-<li>DNS客户端接收到一个包含主机名对应IP的回答报文；</li>
-<li>浏览器向该IP地址的80端口的http服务器进程发送发起一个TCP连接请求。</li>
-</ol>
+<p>为什么要特意说这个？我们得知道整个流程，才能确定哪个环节出问题。哈尔滨用户出现的问题可以确定是在第9、10、11步发生的，因为此时的权威DNS服务器的IP地址是错误的，所以发送的DNS查询报文是没有响应的。</p>
 
-<h2 id="toc_0">DNS服务器类别</h2>
+<p>如何解决这个问题呢？继续看。</p>
 
-<p>DNS采用分布式设计，分层次结构如下：<br/>
-<img src="media/15673905675165/15673972761456.jpg" alt="" style="width:873px;"/></p>
+<h2 id="toc_1">乞丐版httpDNS设计</h2>
 
-<ol>
-<li>根DNS服务器：全球有13个根服务器，它是最高级别的DNS服务器，负责返回顶级域的权威DNS服务器地址；</li>
-<li>顶级域DNS（TLD）服务器：负责顶级域名如com、org、net、edu和gov，及所有国家的顶级域名如cn、uk、jp等；</li>
-<li>权威DNS服务器：特定域名记录在域名注册商所设置的DNS服务器，用于特定域名本身的管理（增删改查），它只对自己所拥有的域名进行域名解析，对于不是自己的域名则拒绝访问。比如向<code>example.com</code>的权威DNS服务器查询<code>test.com</code>的域名肯定会查询失败。所以我们一般说 <u><em>某某域名的权威DNS服务器</em></u> 。</li>
-</ol>
+<p>httpDNS实际上替换了LocalDNS（本地DNS服务器）的功能，httpDNS通过IP直接请求HTTP获取服务器的A记录。如果使用第三方的httpDNS服务，上述的问题就可以解决了，因为不可抗拒因素（公司不重视），所以httpDNS提供的功能只能自己实现。</p>
 
-<p>还有一个处于层次结构之外的<code>本地DNS服务器</code>，它是由ISP（因特网服务提供商）提供的本地DNS服务器，当主机与某个ISP连接时，该ISP提供一台主机的IP地址，该主机具有一台或多台其本地DNS服务器的IP地址。<br/>
-比如你报装了电信的宽带（电信可以理解为一个ISP），安装完后，你通过账号密码连接上网络，这时电信（ISP）会分配一个IP地址给你，如果我们电脑通过DHCP获取DNS，那么通常获取到的DNS服务器就是本地DNS服务器。</p>
+<p>先给一张图，大概描述了httpDNS的功能：<br/>
+<img src="media/15674762730609/15674914066625.jpg" alt="" style="width:861px;"/></p>
 
-<h2 id="toc_1">DNS缓存</h2>
+<p>我们知道无论使用传统的DNS还是httpDNS，最终都是将hostname（域名）对应的IP地址返回给客户端。对应公司运维来说，公网服务器的IP地址和其对应的hostname都是已知的，我们可以把这些记录保存在本地，当DNS解析失败时，使用IP直连。</p>
 
-<p>本来不打算说这个，但是后面的DNS报文中有DNS缓存时长的字段，所以这里简单的描述下。但在说DNS缓存之前，我们得先知道DNS查询的过程（直接拿《计算机网络 自顶向下方法》例子）。</p>
-
-<p>前提：</p>
-
-<ol>
-<li>主机名为<code>cis.poly.edu</code>的主机想知道主机名为<code>gais.cs.umass.edu</code>的IP地址；</li>
-<li><code>cis.poly.edu</code>的本地DNS服务器为<code>dns.poly.edu</code>；</li>
-<li><code>gais.cs.umass.edu</code>的权威DNS服务器为<code>dns.umass.edu</code>。</li>
-</ol>
-
-<p>过程：<img src="media/15673905675165/DNS%E8%BF%87%E7%A8%8B.jpg" alt="DNS过程"/></p>
-
-<p>假设一台主机要查询<code>gais.cs.umass.edu</code>的IP地址，那么总共有8个DNS报文包；如果有十台主机要查询<code>gais.cs.umass.edu</code>的IP地址，那么需要80个DNS报文包，以此类推，查询的主机越多，报文包成倍增长。为了减少DNS报文数量和请求报文的时延，采用了缓存技术。当某个DNS服务器接收到一个回答报文时，它将回答报文的信息缓存到本地。</p>
-
-<p>所以当<code>cis.poly.edu</code>第二次查询<code>gais.cs.umass.edu</code>IP地址时，<code>dns.poly.edu</code>本地DNS服务器从缓存中读取对应的IP地址并返回。</p>
-
-<h2 id="toc_2">DNS资源记录</h2>
-
-<p>我们知道DNS服务器保存了域名和IP地址的相关信息，但这些信息是以什么形式存储的？</p>
-
-<p><code>资源记录（Resource Record，RR）</code>：RR提供了主机名到IP地址的映射，RR是一个包含4个字段的元组：(Name，Value，Type，TTL)，TTL是记录这条RR从缓存删掉的时间。<br/>
-<img src="media/15673905675165/15674356583330.jpg" alt="" style="width:1064px;"/></p>
-
-<p>下图是我在腾讯云中对<code>onez-gz.com</code>解析记录</p>
-
-<p><img src="media/15673905675165/15674358610891.jpg" alt="" style="width:955px;"/></p>
-
-<ul>
-<li>TXT记录类型是用来做 SPF 记录（反垃圾邮件）</li>
-<li>MX记录类型是对QQ企业邮箱服务器进行路由：<a href="mailto:xxx@onez-gz.com">xxx@onez-gz.com</a></li>
-<li>3条A记录类型都映射到同一个IP地址：onez-gz.com、www.onez-gz.com、ss.onez-gz.com都映射到129.204.xx.xx；</li>
-<li>CNAME记录类型是给规范主机名<code>chenjiangchuan.github.io</code>取了一个别名<code>blog.onez-gz.com</code>。</li>
-</ul>
-
-<h2 id="toc_3">DNS报文</h2>
-
-<p>DNS只有两种报文：查询报文和回答报文，它们的的格式是相同的。</p>
-
-<p><img src="media/15673905675165/15674278218078.jpg" alt="" style="width:967px;"/></p>
-
-<p>这里不详细说明每个字段的意义，提几个关键的字段：</p>
-
-<ul>
-<li>标识ID：由查询报文设置这个字段，当对查询报文进行回答时，这个标识会被复制到回答报文的<em>标识ID</em>字段中，DNS客户端用来区分不同的回答报文；</li>
-<li>QR：区分是请求（0）还是回答（1）报文；</li>
-<li>opcode：设置查询报文的种类，回答报文会带相同的值：标准查询（0）、反向查询（1）、服务器状态查询（2）、保留值（3-15）；</li>
-<li>rcode：响应码，在回答报文中设置，没有错误（0）、报文格式错误（1）、服务器失败（2）、名字错误（3）、没有实现（4）、拒绝（5）、保留值（6-15）。</li>
-</ul>
-
-<h2 id="toc_4">如何在DNS数据库中插入记录</h2>
-
-<p>下面以在DNSPod（已被腾讯收购）购买onez-gz.com域名为例。</p>
-
-<p>一般域名注册商会提供两个基础的服务：1、域名注册服务本身；2、DNS服务。</p>
-
-<ol>
-<li>在购买域名后DNSPod会帮你在ICANN（因特网名字和地址分配机构）申报；</li>
-<li>使用DNSPod提供的DNS服务器（权威DNS服务器）：f1g1ns1.dnspod.net（14.215.155.170）、f1g1ns2.dnspod.net（14.215.155.203），通常会自动设置；</li>
-<li><p>会在TLD com服务器中插入一个类型为NS和一个类型A的记录：</p>
-<pre><code class="language-text">(onez-gz.com, f1g1ns1.dnspod.net, NS)
-(f1g1ns1.dnspod.net, 14.215.155.170, A)
-</code></pre></li>
-</ol>
-
-<h2 id="toc_5">DNS劫持</h2>
-
-<p>DNS劫持大体分为6类：</p>
-
-<ul>
-<li>利用DNS服务器进行DDoS（分布式拒绝服务）攻击；</li>
-<li>DNS缓存污染；</li>
-<li>DNS信息劫持；</li>
-<li>DNS重定向；</li>
-<li>ARP欺骗；</li>
-<li>本机劫持。</li>
-</ul>
-
-<p>主要说下<code>DNS信息劫持</code>。</p>
-
-<h3 id="toc_6">DNS信息劫持</h3>
-
-<p>我们知道每个DNS查询报文中有16bit的标识ID，DNS服务器根据这个标识ID获取发起查询报文的源位置，入侵者通过监听DNS客户端与DNS服务器的会话，在DNS服务器发送回答报文之前将虚假的回答报文交给DNS客户端，从而欺骗客户端去访问恶意的网站。</p>
+<p><img src="media/15674762730609/dns.jpg" alt="dns"/></p>
 
 
 		</div>
+	
+
+ 
 	
 
   

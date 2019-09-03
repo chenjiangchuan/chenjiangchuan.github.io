@@ -97,6 +97,8 @@
         <li><label>网络</label></li>
 
           
+            <li><a title="DNS解析方案" href="dns-resolution-solution.html">DNS解析方案</a></li>
+          
             <li><a title="DNS（Domain Name System）概念" href="dns-concept.html">DNS（Domain Name System）概念</a></li>
           
 
@@ -160,6 +162,8 @@
                     
                       <li class="side-title"><span>网络</span></li>
                         
+                          <li><a title="DNS解析方案" href="dns-resolution-solution.html">DNS解析方案</a></li>
+                        
                           <li><a title="DNS（Domain Name System）概念" href="dns-concept.html">DNS（Domain Name System）概念</a></li>
                         
 
@@ -176,129 +180,147 @@
 
 	
 		<div class="markdown-body">
-		<h1>DNS（Domain Name System）概念</h1>
+		<h1>Python爬虫 - 环境的搭建</h1>
 
-		<p>一个人可以通过姓名、身份证号、公司的工号等等来标识，尽管这些标识都可以用来识别一个人，但是特定环境下，某种识别方法可能比另一种方法更为合适。比如姓名为张三的身份证号为362101196002191090的朋友，我们通常打招呼会说：张三，吃饭了呗？而不是说：362101196002191090，吃饭了呗？</p>
+		<p>本文主要介绍工具使用（MacOS 系统），如何快速入手，Python和Web前端的知识不会介绍。</p>
 
-<p>因特网上的主机和人一样，可以有很多方式进行标识，比如主机名（域名）<code>www.onez-gz.com</code>，这名字便于我们记忆，但是主机名几乎没有提供关于主机在因特网中位置的信息（除了cn、jp等以国家码结束的域名），而且因为主机名的不定长，导致路由器难于处理，所以主机也可使用定长、有层次结构的IP地址进行标识。</p>
+<h2 id="toc_0">软件安装</h2>
 
-<p>所以需要一种服务：主机名到IP地址的转换。这个就是DNS的主要任务，它是：</p>
+<p>Python 3.7、Scrapy、PyCharm、Firefox Developer Edition</p>
 
-<ol>
-<li>一个由分层的DNS服务器实现的分布式数据库；</li>
-<li>一个应用层协议（基于UDP）：可用来查询分布式数据库。</li>
-</ol>
+<h3 id="toc_1">Python 3.7</h3>
 
-<p>下面简单的描述一个http请求的过程，假设在浏览器中请求：<a href="http://www.onez-gz.com/#/index">http://www.onez-gz.com/#/index</a></p>
+<p>1、MacOS 10.15之前系统自带的都是Python 2.7，先查看系统Python版本，打开终端输入：</p>
 
-<ol>
-<li>浏览器从URL中抽取主机名：www.onez-gz.com，并将主机名传给DNS客户端（每台主机都自带DNS客户端）；</li>
-<li>DNS客户端发送一个包含主机名的请求报文给DNS服务器；</li>
-<li>DNS客户端接收到一个包含主机名对应IP的回答报文；</li>
-<li>浏览器向该IP地址的80端口的http服务器进程发送发起一个TCP连接请求。</li>
-</ol>
+<pre><code class="language-text">python -V
+</code></pre>
 
-<h2 id="toc_0">DNS服务器类别</h2>
+<p>如果输出的版本号是Python 3，可以跳过这一步。</p>
 
-<p>DNS采用分布式设计，分层次结构如下：<br/>
-<img src="media/15673905675165/15673972761456.jpg" alt="" style="width:873px;"/></p>
+<p>2、下载Python 3.7</p>
 
-<ol>
-<li>根DNS服务器：全球有13个根服务器，它是最高级别的DNS服务器，负责返回顶级域的权威DNS服务器地址；</li>
-<li>顶级域DNS（TLD）服务器：负责顶级域名如com、org、net、edu和gov，及所有国家的顶级域名如cn、uk、jp等；</li>
-<li>权威DNS服务器：特定域名记录在域名注册商所设置的DNS服务器，用于特定域名本身的管理（增删改查），它只对自己所拥有的域名进行域名解析，对于不是自己的域名则拒绝访问。比如向<code>example.com</code>的权威DNS服务器查询<code>test.com</code>的域名肯定会查询失败。所以我们一般说 <u><em>某某域名的权威DNS服务器</em></u> 。</li>
-</ol>
+<p>官网地址：<a href="https://www.python.org/downloads/">https://www.python.org/downloads/</a></p>
 
-<p>还有一个处于层次结构之外的<code>本地DNS服务器</code>，它是由ISP（因特网服务提供商）提供的本地DNS服务器，当主机与某个ISP连接时，该ISP提供一台主机的IP地址，该主机具有一台或多台其本地DNS服务器的IP地址。<br/>
-比如你报装了电信的宽带（电信可以理解为一个ISP），安装完后，你通过账号密码连接上网络，这时电信（ISP）会分配一个IP地址给你，如果我们电脑通过DHCP获取DNS，那么通常获取到的DNS服务器就是本地DNS服务器。</p>
+<p>3、双击安装后，Python 3.7的默认安装路径为：<em>/Library/Frameworks/Python.framework/Versions/3.7</em></p>
 
-<h2 id="toc_1">DNS缓存</h2>
+<p>4、修改<em>~/.bash_profile</em>文件（如果你使用了zsh，修改<em>~/.zshrc</em>是一样的），在终端输入：</p>
 
-<p>本来不打算说这个，但是后面的DNS报文中有DNS缓存时长的字段，所以这里简单的描述下。但在说DNS缓存之前，我们得先知道DNS查询的过程（直接拿《计算机网络 自顶向下方法》例子）。</p>
+<pre><code class="language-text">open ~/.bash_profile 
+</code></pre>
 
-<p>前提：</p>
+<p>如果没有这个文件，那就先创建，还是在终端输入：</p>
 
-<ol>
-<li>主机名为<code>cis.poly.edu</code>的主机想知道主机名为<code>gais.cs.umass.edu</code>的IP地址；</li>
-<li><code>cis.poly.edu</code>的本地DNS服务器为<code>dns.poly.edu</code>；</li>
-<li><code>gais.cs.umass.edu</code>的权威DNS服务器为<code>dns.umass.edu</code>。</li>
-</ol>
+<pre><code class="language-text">touch ~/.bash_profile
+</code></pre>
 
-<p>过程：<img src="media/15673905675165/DNS%E8%BF%87%E7%A8%8B.jpg" alt="DNS过程"/></p>
+<p>在文件最后一行添加，并保存：</p>
 
-<p>假设一台主机要查询<code>gais.cs.umass.edu</code>的IP地址，那么总共有8个DNS报文包；如果有十台主机要查询<code>gais.cs.umass.edu</code>的IP地址，那么需要80个DNS报文包，以此类推，查询的主机越多，报文包成倍增长。为了减少DNS报文数量和请求报文的时延，采用了缓存技术。当某个DNS服务器接收到一个回答报文时，它将回答报文的信息缓存到本地。</p>
+<pre><code class="language-text"># python
+export PATH=&quot;/Library/Frameworks/Python.framework/Versions/3.7/bin:$PATH&quot;
+alias python=&quot;/Library/Frameworks/Python.framework/Versions/3.7/bin/python3.7&quot;
+alias pip=&quot;/Library/Frameworks/Python.framework/Versions/3.7/bin/pip3&quot;
+</code></pre>
 
-<p>所以当<code>cis.poly.edu</code>第二次查询<code>gais.cs.umass.edu</code>IP地址时，<code>dns.poly.edu</code>本地DNS服务器从缓存中读取对应的IP地址并返回。</p>
+<p>继续在终端输入（或者退出终端再打开）：</p>
 
-<h2 id="toc_2">DNS资源记录</h2>
+<pre><code class="language-text">source ~/.bash_profile
+</code></pre>
 
-<p>我们知道DNS服务器保存了域名和IP地址的相关信息，但这些信息是以什么形式存储的？</p>
+<p>5、验证Python版本，在终端输入：</p>
 
-<p><code>资源记录（Resource Record，RR）</code>：RR提供了主机名到IP地址的映射，RR是一个包含4个字段的元组：(Name，Value，Type，TTL)，TTL是记录这条RR从缓存删掉的时间。<br/>
-<img src="media/15673905675165/15674356583330.jpg" alt="" style="width:1064px;"/></p>
+<pre><code class="language-text">python -V
+</code></pre>
 
-<p>下图是我在腾讯云中对<code>onez-gz.com</code>解析记录</p>
+<p>我Mac上输出信息：</p>
 
-<p><img src="media/15673905675165/15674358610891.jpg" alt="" style="width:955px;"/></p>
+<pre><code class="language-text">Python 3.7.4
+</code></pre>
 
-<ul>
-<li>TXT记录类型是用来做 SPF 记录（反垃圾邮件）</li>
-<li>MX记录类型是对QQ企业邮箱服务器进行路由：<a href="mailto:xxx@onez-gz.com">xxx@onez-gz.com</a></li>
-<li>3条A记录类型都映射到同一个IP地址：onez-gz.com、www.onez-gz.com、ss.onez-gz.com都映射到129.204.xx.xx；</li>
-<li>CNAME记录类型是给规范主机名<code>chenjiangchuan.github.io</code>取了一个别名<code>blog.onez-gz.com</code>。</li>
-</ul>
+<h3 id="toc_2">Scrapy</h3>
 
-<h2 id="toc_3">DNS报文</h2>
+<p>Scrapy 是用Python实现的一个为了爬取网站数据、提取结构性数据而编写的应用框架</p>
 
-<p>DNS只有两种报文：查询报文和回答报文，它们的的格式是相同的。</p>
+<p>1、先确保Mac安装了Homebrew，如果安装了，直接跳到第二步。打开终端输入：</p>
 
-<p><img src="media/15673905675165/15674278218078.jpg" alt="" style="width:967px;"/></p>
+<pre><code class="language-text">/usr/bin/ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;
+</code></pre>
 
-<p>这里不详细说明每个字段的意义，提几个关键的字段：</p>
+<p>2、安装Scrapy，在终端输入：</p>
 
-<ul>
-<li>标识ID：由查询报文设置这个字段，当对查询报文进行回答时，这个标识会被复制到回答报文的<em>标识ID</em>字段中，DNS客户端用来区分不同的回答报文；</li>
-<li>QR：区分是请求（0）还是回答（1）报文；</li>
-<li>opcode：设置查询报文的种类，回答报文会带相同的值：标准查询（0）、反向查询（1）、服务器状态查询（2）、保留值（3-15）；</li>
-<li>rcode：响应码，在回答报文中设置，没有错误（0）、报文格式错误（1）、服务器失败（2）、名字错误（3）、没有实现（4）、拒绝（5）、保留值（6-15）。</li>
-</ul>
+<pre><code class="language-text">sudo pip install Scrapy
+</code></pre>
 
-<h2 id="toc_4">如何在DNS数据库中插入记录</h2>
+<p>3、安装成功后，在终端输入：</p>
 
-<p>下面以在DNSPod（已被腾讯收购）购买onez-gz.com域名为例。</p>
+<pre><code class="language-text">scrapy -version
+</code></pre>
 
-<p>一般域名注册商会提供两个基础的服务：1、域名注册服务本身；2、DNS服务。</p>
+<p>我Mac输出的信息：</p>
 
-<ol>
-<li>在购买域名后DNSPod会帮你在ICANN（因特网名字和地址分配机构）申报；</li>
-<li>使用DNSPod提供的DNS服务器（权威DNS服务器）：f1g1ns1.dnspod.net（14.215.155.170）、f1g1ns2.dnspod.net（14.215.155.203），通常会自动设置；</li>
-<li><p>会在TLD com服务器中插入一个类型为NS和一个类型A的记录：</p>
-<pre><code class="language-text">(onez-gz.com, f1g1ns1.dnspod.net, NS)
-(f1g1ns1.dnspod.net, 14.215.155.170, A)
-</code></pre></li>
-</ol>
+<pre><code class="language-text">Scrapy 1.7.3 - no active project
 
-<h2 id="toc_5">DNS劫持</h2>
+Usage:
+  scrapy &lt;command&gt; [options] [args]
 
-<p>DNS劫持大体分为6类：</p>
+Available commands:
+  bench         Run quick benchmark test
+  fetch         Fetch a URL using the Scrapy downloader
+  genspider     Generate new spider using pre-defined templates
+  runspider     Run a self-contained spider (without creating a project)
+  settings      Get settings values
+  shell         Interactive scraping console
+  startproject  Create new project
+  version       Print Scrapy version
+  view          Open URL in browser, as seen by Scrapy
 
-<ul>
-<li>利用DNS服务器进行DDoS（分布式拒绝服务）攻击；</li>
-<li>DNS缓存污染；</li>
-<li>DNS信息劫持；</li>
-<li>DNS重定向；</li>
-<li>ARP欺骗；</li>
-<li>本机劫持。</li>
-</ul>
+  [ more ]      More commands available when run from project directory
 
-<p>主要说下<code>DNS信息劫持</code>。</p>
+Use &quot;scrapy &lt;command&gt; -h&quot; to see more info about a command
+</code></pre>
 
-<h3 id="toc_6">DNS信息劫持</h3>
+<h3 id="toc_3">PyCharm</h3>
 
-<p>我们知道每个DNS查询报文中有16bit的标识ID，DNS服务器根据这个标识ID获取发起查询报文的源位置，入侵者通过监听DNS客户端与DNS服务器的会话，在DNS服务器发送回答报文之前将虚假的回答报文交给DNS客户端，从而欺骗客户端去访问恶意的网站。</p>
+<p>这个属于可选安装，使用IDE开发过程方便很多。</p>
+
+<p>1、下载两个文件：</p>
+
+<pre><code class="language-text">PyCharm：https://pan.baidu.com/s/1B-XwFmyrkzdYBKQfEchYQQ  密码:anlt
+破解文件（JetbrainsCrack-release-enc.jar）：https://pan.baidu.com/s/116-ClMthrzP55EzW4qMwzw  密码:1j75 
+</code></pre>
+
+<p>2、双击解压后，进入解压目录双击安装：<em>pycharm-professional-2019.1.2.dmg</em></p>
+
+<p>3、打开Finder，进入<em>应用程度</em> -&gt; 找到<em>PyCharm</em> -&gt; 右击<em>显示包内容</em> -&gt; 进入<em>Contents</em> -&gt; <em>bin</em><br/>
+<img src="media/15661470034756/15661499282007.jpg" alt="" style="width:339px;"/></p>
+
+<p>4、把下载好的<em>JetbrainsCrack-release-enc.jar</em>拖进去<br/>
+<img src="media/15661470034756/15661500763245.jpg" alt="" style="width:614px;"/></p>
+
+<p>5、 然后双击打开<em>pycharm.vmoptions</em>文件，在最后一行输入，并保存：</p>
+
+<pre><code class="language-text">-javaagent:/Applications/PyCharm.app/Contents/bin/JetbrainsCrack-release-enc.jar
+</code></pre>
+
+<p><img src="media/15661470034756/15661501440657.jpg" alt="" style="width:636px;"/></p>
+
+<p>6、打开PyCharm，选择<em>Activate</em> -&gt; <em>Activate code</em>，然后复制下面内容，点击Ok即可：</p>
+
+<pre><code class="language-text">JKHX300590-eyJsaWNlbnNlSWQiOiJKS0hYMzAwNTkwIiwibGljZW5zZWVOYW1lIjoiTmljb2xlIFBvd2VsbCIsImFzc2lnbmVlTmFtZSI6IiIsImFzc2lnbmVlRW1haWwiOiIiLCJsaWNlbnNlUmVzdHJpY3Rpb24iOiJGb3IgZWR1Y2F0aW9uYWwgdXNlIG9ubHkiLCJjaGVja0NvbmN1cnJlbnRVc2UiOmZhbHNlLCJwcm9kdWN0cyI6W3siY29kZSI6IklJIiwicGFpZFVwVG8iOiIyMDE5LTA5LTI0In0seyJjb2RlIjoiQUMiLCJwYWlkVXBUbyI6IjIwMTktMDktMjQifSx7ImNvZGUiOiJEUE4iLCJwYWlkVXBUbyI6IjIwMTktMDktMjQifSx7ImNvZGUiOiJQUyIsInBhaWRVcFRvIjoiMjAxOS0wOS0yNCJ9LHsiY29kZSI6IkdPIiwicGFpZFVwVG8iOiIyMDE5LTA5LTI0In0seyJjb2RlIjoiRE0iLCJwYWlkVXBUbyI6IjIwMTktMDktMjQifSx7ImNvZGUiOiJDTCIsInBhaWRVcFRvIjoiMjAxOS0wOS0yNCJ9LHsiY29kZSI6IlJTMCIsInBhaWRVcFRvIjoiMjAxOS0wOS0yNCJ9LHsiY29kZSI6IlJDIiwicGFpZFVwVG8iOiIyMDE5LTA5LTI0In0seyJjb2RlIjoiUkQiLCJwYWlkVXBUbyI6IjIwMTktMDktMjQifSx7ImNvZGUiOiJQQyIsInBhaWRVcFRvIjoiMjAxOS0wOS0yNCJ9LHsiY29kZSI6IlJNIiwicGFpZFVwVG8iOiIyMDE5LTA5LTI0In0seyJjb2RlIjoiV1MiLCJwYWlkVXBUbyI6IjIwMTktMDktMjQifSx7ImNvZGUiOiJEQiIsInBhaWRVcFRvIjoiMjAxOS0wOS0yNCJ9LHsiY29kZSI6IkRDIiwicGFpZFVwVG8iOiIyMDE5LTA5LTI0In0seyJjb2RlIjoiUlNVIiwicGFpZFVwVG8iOiIyMDE5LTA5LTI0In1dLCJoYXNoIjoiMTAzMTY2ODUvMCIsImdyYWNlUGVyaW9kRGF5cyI6MCwiYXV0b1Byb2xvbmdhdGVkIjpmYWxzZSwiaXNBdXRvUHJvbG9uZ2F0ZWQiOmZhbHNlfQ==-GvkOuUgCVPdyynFuSG+GNmcDZKp643apInM159fRXb69urSBIFyKO46umkRbl89lwr25SrAcl2TfRG1NMP/zPMRmGvd5VHiXDxa/xatzyPpkGf/czv0GeyuP/XhfX8332kXh9Dnowt3Z++IKUlkTjYInkpg09G9OHSwYcIcHAZ51CsqbrWIaemvDH3P9v+k6EUwwhgDZYA/TplavU/2d9J0EZg8kwzo/TK5P7Za09RFx91YBE558Ncl6VMgdhcwgF+oYHGEfs4Bez5xawJwagLymf3mLhq9acihxGnFsfqcyM/EeKDLKWOAveLQIk1NhtU7YR3fFC0EHEGwb04MavA==-MIIEPjCCAiagAwIBAgIBBTANBgkqhkiG9w0BAQsFADAYMRYwFAYDVQQDDA1KZXRQcm9maWxlIENBMB4XDTE1MTEwMjA4MjE0OFoXDTE4MTEwMTA4MjE0OFowETEPMA0GA1UEAwwGcHJvZDN5MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAxcQkq+zdxlR2mmRYBPzGbUNdMN6OaXiXzxIWtMEkrJMO/5oUfQJbLLuMSMK0QHFmaI37WShyxZcfRCidwXjot4zmNBKnlyHodDij/78TmVqFl8nOeD5+07B8VEaIu7c3E1N+e1doC6wht4I4+IEmtsPAdoaj5WCQVQbrI8KeT8M9VcBIWX7fD0fhexfg3ZRt0xqwMcXGNp3DdJHiO0rCdU+Itv7EmtnSVq9jBG1usMSFvMowR25mju2JcPFp1+I4ZI+FqgR8gyG8oiNDyNEoAbsR3lOpI7grUYSvkB/xVy/VoklPCK2h0f0GJxFjnye8NT1PAywoyl7RmiAVRE/EKwIDAQABo4GZMIGWMAkGA1UdEwQCMAAwHQYDVR0OBBYEFGEpG9oZGcfLMGNBkY7SgHiMGgTcMEgGA1UdIwRBMD+AFKOetkhnQhI2Qb1t4Lm0oFKLl/GzoRykGjAYMRYwFAYDVQQDDA1KZXRQcm9maWxlIENBggkA0myxg7KDeeEwEwYDVR0lBAwwCgYIKwYBBQUHAwEwCwYDVR0PBAQDAgWgMA0GCSqGSIb3DQEBCwUAA4ICAQC9WZuYgQedSuOc5TOUSrRigMw4/+wuC5EtZBfvdl4HT/8vzMW/oUlIP4YCvA0XKyBaCJ2iX+ZCDKoPfiYXiaSiH+HxAPV6J79vvouxKrWg2XV6ShFtPLP+0gPdGq3x9R3+kJbmAm8w+FOdlWqAfJrLvpzMGNeDU14YGXiZ9bVzmIQbwrBA+c/F4tlK/DV07dsNExihqFoibnqDiVNTGombaU2dDup2gwKdL81ua8EIcGNExHe82kjF4zwfadHk3bQVvbfdAwxcDy4xBjs3L4raPLU3yenSzr/OEur1+jfOxnQSmEcMXKXgrAQ9U55gwjcOFKrgOxEdek/Sk1VfOjvS+nuM4eyEruFMfaZHzoQiuw4IqgGc45ohFH0UUyjYcuFxxDSU9lMCv8qdHKm+wnPRb0l9l5vXsCBDuhAGYD6ss+Ga+aDY6f/qXZuUCEUOH3QUNbbCUlviSz6+GiRnt1kA9N2Qachl+2yBfaqUqr8h7Z2gsx5LcIf5kYNsqJ0GavXTVyWh7PYiKX4bs354ZQLUwwa/cG++2+wNWP+HtBhVxMRNTdVhSm38AknZlD+PTAsWGu9GyLmhti2EnVwGybSD2Dxmhxk3IPCkhKAK+pl0eWYGZWG3tJ9mZ7SowcXLWDFAk0lRJnKGFMTggrWjV8GYpw5bq23VmIqqDLgkNzuoog==
+</code></pre>
+
+<h3 id="toc_4">Firefox Developer Edition</h3>
+
+<p>火狐开发者版本有个特别好用的工具<em>Inspector</em>，可以直观的抓取网页的布局，使用：⌘（command）+ ⇪（大小写锁定）调出<em>Inspector</em>功能</p>
+
+<p><img src="media/15661470034756/15661509238075.jpg" alt="" style="width:1678px;"/></p>
+
+<p>链接:<a href="https://pan.baidu.com/s/1mL3BsGHvXNnlPysxAktVbw">https://pan.baidu.com/s/1mL3BsGHvXNnlPysxAktVbw</a>  密码:s37s</p>
 
 
 		</div>
+	
+
+ 
 	
 
  

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>
     
-  Archives - 丸子（ONEZ）
+  DNS解析方案 - 丸子（ONEZ）
   
   </title>
  <meta name="description" content="ONEZ技术累积">
@@ -176,250 +176,73 @@
             <div class="large-9 medium-9 columns">
 
  <div class="markdown-body">
-	
-		 
-		  	<h2>2019</h2>
-		
-		
-			<div>
-				<h3><a href="dns-resolution-solution.html">DNS解析方案</a></h3>
-				<p>
-					<time datetime="2019-09-03T10:04:33+08:00" pubdate><span class='month'>9月</span> <span class='day'>03</span> <span class='year'>2019</span></time>
-					&nbsp;&nbsp;
-				  <span class="categories">posted in 
-				  
-					    <a class='category' href='%E7%BD%91%E7%BB%9C.html'>网络</a>&nbsp;
-				   
-				  </span>
+<h1>DNS解析方案</h1>
 
-				</p>
-			</div>
- 	
-		
-		
-			<div>
-				<h3><a href="dns-concept.html">DNS（Domain Name System）概念</a></h3>
-				<p>
-					<time datetime="2019-09-02T10:16:07+08:00" pubdate><span class='month'>9月</span> <span class='day'>02</span> <span class='year'>2019</span></time>
-					&nbsp;&nbsp;
-				  <span class="categories">posted in 
-				  
-					    <a class='category' href='%E7%BD%91%E7%BB%9C.html'>网络</a>&nbsp;
-				   
-				  </span>
+<p>公司前些时候遇到一个问题：哈尔滨市的用户进入APP，页面数据加载不了，提示网络错误。开始以为是运营商的DNS服务器被劫持了，但细想如果是被劫持，那应该会加载劫持者指定的IP地址的数据，要不然毫无意义。<br/>
+后来和ISP联系，了解到解析哈尔滨市的权威DNS服务器物理地址迁移了（导致IP地址发生变更），但没有及时更新TLD服务器中的该台权威DNS服务器的A记录（猜测，目前不确定），在“DNS概念 - 如何在DNS数据库中插入记录”有介绍。</p>
 
-				</p>
-			</div>
- 	
-		
-		
-			<div>
-				<h3><a href="python_spider.html">Python爬虫 - 环境的搭建</a></h3>
-				<p>
-					<time datetime="2019-08-19T00:50:03+08:00" pubdate><span class='month'>8月</span> <span class='day'>19</span> <span class='year'>2019</span></time>
-					&nbsp;&nbsp;
-				  <span class="categories">posted in 
-				  
-					    <a class='category' href='Web.html'>Web</a>&nbsp;
-				   
-				  </span>
+<p>现在主流使用httpDNS来解决上面的问题，但考虑到money的问题（公司没有重视DNS解析的问题，只要确保DNS解析失败后，能切换IP直连）。因此有了这个方案（各位可以给出建议便于完善方案）。</p>
 
-				</p>
-			</div>
- 	
-		
-		
-			<div>
-				<h3><a href="ios-podsepc.html">podspec开发介绍</a></h3>
-				<p>
-					<time datetime="2019-07-12T17:53:44+08:00" pubdate><span class='month'>7月</span> <span class='day'>12</span> <span class='year'>2019</span></time>
-					&nbsp;&nbsp;
-				  <span class="categories">posted in 
-				  
-					    <a class='category' href='%E7%BB%84%E4%BB%B6%E5%8C%96.html'>组件化</a>&nbsp;
-				   
-				  </span>
+<h2 id="toc_0">Http/Https请求分析</h2>
 
-				</p>
-			</div>
- 	
-		
-		
-			<div>
-				<h3><a href="ios-pods-create.html">CocoaPods私有库</a></h3>
-				<p>
-					<time datetime="2019-07-12T17:46:08+08:00" pubdate><span class='month'>7月</span> <span class='day'>12</span> <span class='year'>2019</span></time>
-					&nbsp;&nbsp;
-				  <span class="categories">posted in 
-				  
-					    <a class='category' href='%E7%BB%84%E4%BB%B6%E5%8C%96.html'>组件化</a>&nbsp;
-				   
-				  </span>
+<p>在<em>DNS概念</em>中简单的描述了一个Http/Https请求的过程，现在给出一个稍微详细的请求过程时序图：</p>
 
-				</p>
-			</div>
- 	
-		
-		
-			<div>
-				<h3><a href="ios-module-use.html">iOS项目开发中组件化的应用</a></h3>
-				<p>
-					<time datetime="2019-07-12T17:33:34+08:00" pubdate><span class='month'>7月</span> <span class='day'>12</span> <span class='year'>2019</span></time>
-					&nbsp;&nbsp;
-				  <span class="categories">posted in 
-				  
-					    <a class='category' href='%E7%BB%84%E4%BB%B6%E5%8C%96.html'>组件化</a>&nbsp;
-				   
-				  </span>
+<p><img src="media/15674762730609/Http!Https%20Request%E8%BF%87%E7%A8%8B.jpg" alt="Http!Https Request过程"/></p>
 
-				</p>
-			</div>
- 	
-		
-		
-			<div>
-				<h3><a href="ios-block-think.html">block的思考</a></h3>
-				<p>
-					<time datetime="2019-07-12T17:27:49+08:00" pubdate><span class='month'>7月</span> <span class='day'>12</span> <span class='year'>2019</span></time>
-					&nbsp;&nbsp;
-				  <span class="categories">posted in 
-				  
-					    <a class='category' href='iOS.html'>iOS</a>&nbsp;
-				   
-				  </span>
+<p>为什么要特意说这个？我们得知道整个流程，才能确定哪个环节出问题。哈尔滨用户出现的问题可以确定是在第9、10、11步发生的，因为此时的权威DNS服务器的IP地址是错误的，所以发送的DNS查询报文是没有响应的。</p>
 
-				</p>
-			</div>
- 	
-		
-		
-			<div>
-				<h3><a href="ios-block-arc.html">ARC模式下的block</a></h3>
-				<p>
-					<time datetime="2019-07-12T17:19:52+08:00" pubdate><span class='month'>7月</span> <span class='day'>12</span> <span class='year'>2019</span></time>
-					&nbsp;&nbsp;
-				  <span class="categories">posted in 
-				  
-					    <a class='category' href='iOS.html'>iOS</a>&nbsp;
-				   
-				  </span>
+<p>如何解决这个问题呢？继续看。</p>
 
-				</p>
-			</div>
- 	
-		
-		
-			<div>
-				<h3><a href="ios-block-copy.html">Block_copy原理</a></h3>
-				<p>
-					<time datetime="2019-07-12T17:16:19+08:00" pubdate><span class='month'>7月</span> <span class='day'>12</span> <span class='year'>2019</span></time>
-					&nbsp;&nbsp;
-				  <span class="categories">posted in 
-				  
-					    <a class='category' href='iOS.html'>iOS</a>&nbsp;
-				   
-				  </span>
+<h2 id="toc_1">乞丐版httpDNS设计</h2>
 
-				</p>
-			</div>
- 	
-		
-		
-			<div>
-				<h3><a href="ios-block-changevar.html">block内修改变量的值</a></h3>
-				<p>
-					<time datetime="2019-07-12T17:09:58+08:00" pubdate><span class='month'>7月</span> <span class='day'>12</span> <span class='year'>2019</span></time>
-					&nbsp;&nbsp;
-				  <span class="categories">posted in 
-				  
-					    <a class='category' href='iOS.html'>iOS</a>&nbsp;
-				   
-				  </span>
+<p>httpDNS实际上替换了LocalDNS（本地DNS服务器）的功能，httpDNS通过IP直接请求HTTP获取服务器的A记录。如果使用第三方的httpDNS服务，上述的问题就可以解决了，因为不可抗拒因素（公司不重视），所以httpDNS提供的功能只能自己实现。</p>
 
-				</p>
-			</div>
- 	
-		
-		
-			<div>
-				<h3><a href="ios-block-type.html">block的类型</a></h3>
-				<p>
-					<time datetime="2019-07-12T17:06:45+08:00" pubdate><span class='month'>7月</span> <span class='day'>12</span> <span class='year'>2019</span></time>
-					&nbsp;&nbsp;
-				  <span class="categories">posted in 
-				  
-					    <a class='category' href='iOS.html'>iOS</a>&nbsp;
-				   
-				  </span>
+<p>先给一张图，大概描述了httpDNS的功能：<br/>
+<img src="media/15674762730609/15674914066625.jpg" alt="" style="width:861px;"/></p>
 
-				</p>
-			</div>
- 	
-		
-		
-			<div>
-				<h3><a href="ios-objc-msgsend.html">objc_msgSend分析</a></h3>
-				<p>
-					<time datetime="2019-07-12T17:01:54+08:00" pubdate><span class='month'>7月</span> <span class='day'>12</span> <span class='year'>2019</span></time>
-					&nbsp;&nbsp;
-				  <span class="categories">posted in 
-				  
-					    <a class='category' href='iOS.html'>iOS</a>&nbsp;
-				   
-				  </span>
+<p>我们知道无论使用传统的DNS还是httpDNS，最终都是将hostname（域名）对应的IP地址返回给客户端。对应公司运维来说，公网服务器的IP地址和其对应的hostname都是已知的，我们可以把这些记录保存在本地，当DNS解析失败时，使用IP直连。</p>
 
-				</p>
-			</div>
- 	
-		
-		
-			<div>
-				<h3><a href="ios-isa.html">isa指针</a></h3>
-				<p>
-					<time datetime="2019-07-12T16:49:44+08:00" pubdate><span class='month'>7月</span> <span class='day'>12</span> <span class='year'>2019</span></time>
-					&nbsp;&nbsp;
-				  <span class="categories">posted in 
-				  
-					    <a class='category' href='iOS.html'>iOS</a>&nbsp;
-				   
-				  </span>
+<p><img src="media/15674762730609/dns.jpg" alt="dns"/></p>
 
-				</p>
-			</div>
- 	
-		
-		
-			<div>
-				<h3><a href="design-pattern-bridge.html">桥接模式</a></h3>
-				<p>
-					<time datetime="2019-07-12T16:33:49+08:00" pubdate><span class='month'>7月</span> <span class='day'>12</span> <span class='year'>2019</span></time>
-					&nbsp;&nbsp;
-				  <span class="categories">posted in 
-				  
-					    <a class='category' href='%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F.html'>设计模式</a>&nbsp;
-				   
-				  </span>
 
-				</p>
-			</div>
- 	
-		
-		
-			<div>
-				<h3><a href="design-pattern-factory.html">工厂方法模式和抽象工厂方法模式的区别</a></h3>
-				<p>
-					<time datetime="2019-07-12T16:18:59+08:00" pubdate><span class='month'>7月</span> <span class='day'>12</span> <span class='year'>2019</span></time>
-					&nbsp;&nbsp;
-				  <span class="categories">posted in 
-				  
-					    <a class='category' href='%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F.html'>设计模式</a>&nbsp;
-				   
-				  </span>
+</div>
 
-				</p>
-			</div>
- 	 
-</div>  
+<br /><br />
+<hr />
+
+<div class="row clearfix">
+  <div class="large-6 columns">
+	<div class="text-left" style="padding:15px 0px;">
+		
+	        <a href="ios-podsepc.html"  title="Previous Post: podspec开发介绍">&laquo; podspec开发介绍</a>
+	    
+	</div>
+  </div>
+  <div class="large-6 columns">
+	<div class="text-right" style="padding:15px 0px;">
+		
+	        <a href="design-pattern-bridge.html" 
+	        title="Next Post: 桥接模式">桥接模式 &raquo;</a>
+	    
+	</div>
+  </div>
+</div>
+
+<div class="row">
+<div style="padding:0px 0.93em;" class="share-comments">
+
+</div>
+</div>
+<script type="text/javascript">
+	$(function(){
+		var currentURL = 'dns-resolution-solution.html';
+		$('#side-nav a').each(function(){
+			if($(this).attr('href') == currentURL){
+				$(this).parent().addClass('active');
+			}
+		});
+	});
+</script>  
 </div></div>
 
 
