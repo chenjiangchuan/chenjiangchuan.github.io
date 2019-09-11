@@ -96,6 +96,8 @@
         <li><label>网络</label></li>
 
           
+            <li><a title="HTTP的长短连接" href="http-connection.html">HTTP的长短连接</a></li>
+          
             <li><a title="DNS解析方案" href="dns-resolution-solution.html">DNS解析方案</a></li>
           
             <li><a title="DNS（Domain Name System）概念" href="dns-concept.html">DNS（Domain Name System）概念</a></li>
@@ -164,6 +166,8 @@
                     
                       <li class="side-title"><span>网络</span></li>
                         
+                          <li><a title="HTTP的长短连接" href="http-connection.html">HTTP的长短连接</a></li>
+                        
                           <li><a title="DNS解析方案" href="dns-resolution-solution.html">DNS解析方案</a></li>
                         
                           <li><a title="DNS（Domain Name System）概念" href="dns-concept.html">DNS（Domain Name System）概念</a></li>
@@ -182,36 +186,45 @@
 
 	
 		<div class="markdown-body">
-		<h1>DNS解析方案</h1>
+		<h1>HTTP的长短连接</h1>
 
-		<p>公司前些时候遇到一个问题：哈尔滨市的用户进入APP，页面数据加载不了，提示网络错误。开始以为是运营商的DNS服务器被劫持了，但细想如果是被劫持，那应该会加载劫持者指定的IP地址的数据，要不然毫无意义。<br/>
-后来和ISP联系，了解到解析哈尔滨市的权威DNS服务器物理地址迁移了（导致IP地址发生变更），但没有及时更新TLD服务器中的该台权威DNS服务器的A记录（猜测，目前不确定），在“DNS概念 - 如何在DNS数据库中插入记录”有介绍。</p>
+		<p>对HTTP有点了解的都知道从1.1开始，HTTP默认使用长连接的方式与Web服务器交互。但这个长连接指的是什么？长连接是一直持续下次吗？</p>
 
-<p>现在主流使用httpDNS来解决上面的问题，但考虑到money的问题（公司没有重视DNS解析的问题，只要确保DNS解析失败后，能切换IP直连）。因此有了这个方案（各位可以给出建议便于完善方案）。</p>
+<h2 id="toc_0">HTTP协议的Request/Response模型</h2>
 
-<h2 id="toc_0">Http/Https请求分析</h2>
+<p>HTTP是一个应用层协议，基于运输层的TCP协议。HTTP协议是一种无状态协议，即客户端和Web服务器不需要建立持续的连接。客户端和Web服务器的连接时基于请求/应答模式：1、客户端和Web服务器建立一个连接；2、客户端发送一个请求报文；3、Web服务器收到请求报文后并返回一个响应报文；4、客户端和Web服务器断开连接。</p>
 
-<p>在<em>DNS概念</em>中简单的描述了一个Http/Https请求的过程，现在给出一个稍微详细的请求过程时序图：</p>
+<p><img src="media/15678278186126/15678292899668.jpg" alt="" style="width:673px;"/><br/>
+<center>图1 非持续连接</center></p>
 
-<p><img src="media/15674762730609/Http!Https%20Request%E8%BF%87%E7%A8%8B.jpg" alt="Http!Https Request过程"/></p>
+<h2 id="toc_1">HTTP的非持续、持续连接</h2>
 
-<p>为什么要特意说这个？我们得知道整个流程，才能确定哪个环节出问题。哈尔滨用户出现的问题可以确定是在第9、10、11步发生的，因为此时的权威DNS服务器的IP地址是错误的，所以发送的DNS查询报文是没有响应的。</p>
+<p>在HTTP 1.1之前，采用的是非持续连接（见图1），它有两大缺点：</p>
 
-<p>如何解决这个问题呢？继续看。</p>
+<ol>
+<li>必须为每一个请求的对象建立和维护一个全新的连接。对于每个这样的连接，在客户和服务器中都要分配TCP的缓存区和保存TCP变量，这给Web服务器带来严重的负担（成千上万个请求）；</li>
+<li>每一个对象要经受两倍的RTT（往返时延）的交付时延。</li>
+</ol>
 
-<h2 id="toc_1">乞丐版httpDNS设计</h2>
+<p>从HTTP 1.1开始，默认使用持续连接，设置请求报文中的<em>首部行 Connection: keep-alive</em>，它的优点在于：</p>
 
-<p>httpDNS实际上替换了LocalDNS（本地DNS服务器）的功能，httpDNS通过IP直接请求HTTP获取服务器的A记录。如果使用第三方的httpDNS服务，上述的问题就可以解决了，因为不可抗拒因素（公司不重视），所以httpDNS提供的功能只能自己实现。</p>
+<ol>
+<li>客户端与Web服务器建立连接后，在相同的客户端与Web服务器之间，后续的请求和响应报文能够通过相同的连接进行传送；</li>
+<li>如果一条连接经过一定时间间隔（可配置）仍未被使用，HTTP服务器就会关闭该连接。</li>
+</ol>
 
-<p>先给一张图，大概描述了httpDNS的功能：<br/>
-<img src="media/15674762730609/15674914066625.jpg" alt="" style="width:861px;"/></p>
+<p><img src="media/15678278186126/15678304521638.jpg" alt="" style="width:670px;"/><br/>
+<center>图2 持续连接</center></p>
 
-<p>我们知道无论使用传统的DNS还是httpDNS，最终都是将hostname（域名）对应的IP地址返回给客户端。对应公司运维来说，公网服务器的IP地址和其对应的hostname都是已知的，我们可以把这些记录保存在本地，当DNS解析失败时，使用IP直连。</p>
-
-<p><img src="media/15674762730609/dns.jpg" alt="dns"/></p>
+<blockquote>
+<p>从图1、2可以看出，HTTP的长短连接的本质是对TCP连接状态的描述，HTTP并没有长短连接！</p>
+</blockquote>
 
 
 		</div>
+	
+
+ 
 	
 
  

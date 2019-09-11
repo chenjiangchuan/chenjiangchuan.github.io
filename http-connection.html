@@ -181,133 +181,78 @@
             </div>
             <div class="large-9 medium-9 columns">
 
- 
+ <div class="markdown-body">
+<h1>HTTP的长短连接</h1>
+
+<p>对HTTP有点了解的都知道从1.1开始，HTTP默认使用长连接的方式与Web服务器交互。但这个长连接指的是什么？长连接是一直持续下次吗？</p>
+
+<h2 id="toc_0">HTTP协议的Request/Response模型</h2>
+
+<p>HTTP是一个应用层协议，基于运输层的TCP协议。HTTP协议是一种无状态协议，即客户端和Web服务器不需要建立持续的连接。客户端和Web服务器的连接时基于请求/应答模式：1、客户端和Web服务器建立一个连接；2、客户端发送一个请求报文；3、Web服务器收到请求报文后并返回一个响应报文；4、客户端和Web服务器断开连接。</p>
+
+<p><img src="media/15678278186126/15678292899668.jpg" alt="" style="width:673px;"/><br/>
+<center>图1 非持续连接</center></p>
+
+<h2 id="toc_1">HTTP的非持续、持续连接</h2>
+
+<p>在HTTP 1.1之前，采用的是非持续连接（见图1），它有两大缺点：</p>
+
+<ol>
+<li>必须为每一个请求的对象建立和维护一个全新的连接。对于每个这样的连接，在客户和服务器中都要分配TCP的缓存区和保存TCP变量，这给Web服务器带来严重的负担（成千上万个请求）；</li>
+<li>每一个对象要经受两倍的RTT（往返时延）的交付时延。</li>
+</ol>
+
+<p>从HTTP 1.1开始，默认使用持续连接，设置请求报文中的<em>首部行 Connection: keep-alive</em>，它的优点在于：</p>
+
+<ol>
+<li>客户端与Web服务器建立连接后，在相同的客户端与Web服务器之间，后续的请求和响应报文能够通过相同的连接进行传送；</li>
+<li>如果一条连接经过一定时间间隔（可配置）仍未被使用，HTTP服务器就会关闭该连接。</li>
+</ol>
+
+<p><img src="media/15678278186126/15678304521638.jpg" alt="" style="width:670px;"/><br/>
+<center>图2 持续连接</center></p>
+
+<blockquote>
+<p>从图1、2可以看出，HTTP的长短连接的本质是对TCP连接状态的描述，HTTP并没有长短连接！</p>
+</blockquote>
 
 
-	
-		<div class="markdown-body">
-		<h1>CocoaPods私有库</h1>
+</div>
 
-		<h3 id="toc_0">私有库的创建</h3>
+<br /><br />
+<hr />
 
-<p>前提：需要创建一个仓库作为私有的Spec Repo，可以在gitLab上创建一个私有的Spec Repo。</p>
+<div class="row clearfix">
+  <div class="large-6 columns">
+	<div class="text-left" style="padding:15px 0px;">
+		
+	</div>
+  </div>
+  <div class="large-6 columns">
+	<div class="text-right" style="padding:15px 0px;">
+		
+	        <a href="python_spider.html" 
+	        title="Next Post: Python爬虫 - 环境的搭建">Python爬虫 - 环境的搭建 &raquo;</a>
+	    
+	</div>
+  </div>
+</div>
 
-<p>1、在gitlab上创建完项目后，执行下面命令，把自己的Spec Repo添加到~/.cocoapods/repos目录下</p>
+<div class="row">
+<div style="padding:0px 0.93em;" class="share-comments">
 
-<pre><code class="language-text">pod repo add 本地仓库名称 gitlab仓库https地址
-// 如下
-pod repo add gitlab-specs https://chenjiangchuan@gitlab.com/chenjiangchuan/YLBSpecs.git
-</code></pre>
-
-<p>2、创建Pod项目</p>
-
-<pre><code class="language-text">pod lib create 项目名称   // 之后会有4步让你选，根据实际需要选择
-</code></pre>
-
-<p>3、修改Pod项目</p>
-
-<ul>
-<li>Assets：存放资源</li>
-<li><p>Classes：存放源码，把代码都放在这个文件夹中</p>
-<p>修改完后，再Example目录中执行：pod update，就会更新修改的文件。</p></li>
-</ul>
-
-<p>4、修改.podspec文件</p>
-
-<pre><code class="language-text">Pod::Spec.new do |s|
-s.name             = &#39;HoriFindModule&#39;
-s.version          = &#39;0.1.0&#39; #每次更新模块版本后，这里也要修改成对应的版本号
-s.summary          = &#39;A short description of HoriFindModule.&#39; #这里需要修改
-s.homepage         = &#39;https://github.com/chenjiangchuan/HoriFindModule&#39;
-
-// 剩下的就不贴出来了...
-</code></pre>
-
-<p>修改完后，执行：pod lib lint，如果成功如下所示：</p>
-
-<pre><code class="language-text">-&gt; HoriFindModule (0.1.0)
-
-HoriFindModule passed validation.
-</code></pre>
-
-<p>如果报错，根据对应的提示进行修改。</p>
-
-<p>5、确定达到自己需求后，我们就把项目上传到仓库，这里也需要在创建一个仓库：</p>
-
-<pre><code class="language-text">1. git add .
-2. git commit -m &quot;提交版本描述&quot;
-3. git remote add origin 项目仓库地址 // 注意，这不是Spec Repo私有库的仓库地址！！
-4. git push origin master
-5. git tag -m &quot;标签描述&quot; 标签名
-6. git push --tags
-7. pod repo push 本地仓库名称 xxx.podspec
-</code></pre>
-
-<p>6、测试，新建一个项目后执行：</p>
-
-<pre><code class="language-text">pod init
-</code></pre>
-
-<p>再修改Podfile文件，这里要注意，需要在Podfile文件的最前面添加：</p>
-
-<pre><code class="language-text">source &#39;https://github.com/CocoaPods/Specs.git&#39; #官方仓库地址       
-source &#39;https://chenjiangchuan@gitlab.com/chenjiangchuan/YLBSpecs.git&#39; #自己的仓库地址
-
-pod &#39;HoriFindModule&#39;
-</code></pre>
-
-<p>最后执行：pod install</p>
-
-<h3 id="toc_1">私有库的更新</h3>
-
-<p>1、在Classes文件夹修改代码：</p>
-
-<p><img src="media/15629247680057/15629250740393.jpg" alt=""/></p>
-
-<p>2、修改完后，在对.podspec文件里面的版本进行修改</p>
-
-<p><img src="media/15629247680057/15629250861981.jpg" alt=""/></p>
-
-<p><img src="media/15629247680057/15629250905751.jpg" alt=""/></p>
-
-<p>3、执行命令</p>
-
-<pre><code class="language-text">pod lib lint
-</code></pre>
-
-<p>4、在Example目录下执行：</p>
-
-<pre><code class="language-text">pod update
-</code></pre>
-
-<p>5、回到上一级目录执行：</p>
-
-<pre><code class="language-text">git add 修改的文件
-git commit -m &quot;本次提交的描述&quot;
-git push origin master
-git tag -m &quot;标签描述&quot; 标签名
-git push --tags
-</code></pre>
-
-<p>6、把本地的Sepc更新到远程仓库</p>
-
-<pre><code class="language-text">pod repo push 本地Spec xxx.podspec
-</code></pre>
-
-<p>7、在对应的项目中使用：pod install进行更新，如果还是下载之前的版本，删除Podfile.lock文件后，再执行pod install。</p>
-
-
-		</div>
-	
-
- 
-	
-
- 
-	
-
-  
-  
+</div>
+</div>
+<script type="text/javascript">
+	$(function(){
+		var currentURL = 'http-connection.html';
+		$('#side-nav a').each(function(){
+			if($(this).attr('href') == currentURL){
+				$(this).parent().addClass('active');
+			}
+		});
+	});
+</script>  
 </div></div>
 
 

@@ -96,6 +96,8 @@
         <li><label>网络</label></li>
 
           
+            <li><a title="HTTP的长短连接" href="http-connection.html">HTTP的长短连接</a></li>
+          
             <li><a title="DNS解析方案" href="dns-resolution-solution.html">DNS解析方案</a></li>
           
             <li><a title="DNS（Domain Name System）概念" href="dns-concept.html">DNS（Domain Name System）概念</a></li>
@@ -164,6 +166,8 @@
                     
                       <li class="side-title"><span>网络</span></li>
                         
+                          <li><a title="HTTP的长短连接" href="http-connection.html">HTTP的长短连接</a></li>
+                        
                           <li><a title="DNS解析方案" href="dns-resolution-solution.html">DNS解析方案</a></li>
                         
                           <li><a title="DNS（Domain Name System）概念" href="dns-concept.html">DNS（Domain Name System）概念</a></li>
@@ -182,144 +186,45 @@
 
 	
 		<div class="markdown-body">
-		<h1>Python爬虫 - 环境的搭建</h1>
+		<h1>HTTP的长短连接</h1>
 
-		<p>本文主要介绍工具使用（MacOS 系统），如何快速入手，Python和Web前端的知识不会介绍。</p>
+		<p>对HTTP有点了解的都知道从1.1开始，HTTP默认使用长连接的方式与Web服务器交互。但这个长连接指的是什么？长连接是一直持续下次吗？</p>
 
-<h2 id="toc_0">软件安装</h2>
+<h2 id="toc_0">HTTP协议的Request/Response模型</h2>
 
-<p>Python 3.7、Scrapy、PyCharm、Firefox Developer Edition</p>
+<p>HTTP是一个应用层协议，基于运输层的TCP协议。HTTP协议是一种无状态协议，即客户端和Web服务器不需要建立持续的连接。客户端和Web服务器的连接时基于请求/应答模式：1、客户端和Web服务器建立一个连接；2、客户端发送一个请求报文；3、Web服务器收到请求报文后并返回一个响应报文；4、客户端和Web服务器断开连接。</p>
 
-<h3 id="toc_1">Python 3.7</h3>
+<p><img src="media/15678278186126/15678292899668.jpg" alt="" style="width:673px;"/><br/>
+<center>图1 非持续连接</center></p>
 
-<p>1、MacOS 10.15之前系统自带的都是Python 2.7，先查看系统Python版本，打开终端输入：</p>
+<h2 id="toc_1">HTTP的非持续、持续连接</h2>
 
-<pre><code class="language-text">python -V
-</code></pre>
+<p>在HTTP 1.1之前，采用的是非持续连接（见图1），它有两大缺点：</p>
 
-<p>如果输出的版本号是Python 3，可以跳过这一步。</p>
+<ol>
+<li>必须为每一个请求的对象建立和维护一个全新的连接。对于每个这样的连接，在客户和服务器中都要分配TCP的缓存区和保存TCP变量，这给Web服务器带来严重的负担（成千上万个请求）；</li>
+<li>每一个对象要经受两倍的RTT（往返时延）的交付时延。</li>
+</ol>
 
-<p>2、下载Python 3.7</p>
+<p>从HTTP 1.1开始，默认使用持续连接，设置请求报文中的<em>首部行 Connection: keep-alive</em>，它的优点在于：</p>
 
-<p>官网地址：<a href="https://www.python.org/downloads/">https://www.python.org/downloads/</a></p>
+<ol>
+<li>客户端与Web服务器建立连接后，在相同的客户端与Web服务器之间，后续的请求和响应报文能够通过相同的连接进行传送；</li>
+<li>如果一条连接经过一定时间间隔（可配置）仍未被使用，HTTP服务器就会关闭该连接。</li>
+</ol>
 
-<p>3、双击安装后，Python 3.7的默认安装路径为：<em>/Library/Frameworks/Python.framework/Versions/3.7</em></p>
+<p><img src="media/15678278186126/15678304521638.jpg" alt="" style="width:670px;"/><br/>
+<center>图2 持续连接</center></p>
 
-<p>4、修改<em>~/.bash_profile</em>文件（如果你使用了zsh，修改<em>~/.zshrc</em>是一样的），在终端输入：</p>
-
-<pre><code class="language-text">open ~/.bash_profile 
-</code></pre>
-
-<p>如果没有这个文件，那就先创建，还是在终端输入：</p>
-
-<pre><code class="language-text">touch ~/.bash_profile
-</code></pre>
-
-<p>在文件最后一行添加，并保存：</p>
-
-<pre><code class="language-text"># python
-export PATH=&quot;/Library/Frameworks/Python.framework/Versions/3.7/bin:$PATH&quot;
-alias python=&quot;/Library/Frameworks/Python.framework/Versions/3.7/bin/python3.7&quot;
-alias pip=&quot;/Library/Frameworks/Python.framework/Versions/3.7/bin/pip3&quot;
-</code></pre>
-
-<p>继续在终端输入（或者退出终端再打开）：</p>
-
-<pre><code class="language-text">source ~/.bash_profile
-</code></pre>
-
-<p>5、验证Python版本，在终端输入：</p>
-
-<pre><code class="language-text">python -V
-</code></pre>
-
-<p>我Mac上输出信息：</p>
-
-<pre><code class="language-text">Python 3.7.4
-</code></pre>
-
-<h3 id="toc_2">Scrapy</h3>
-
-<p>Scrapy 是用Python实现的一个为了爬取网站数据、提取结构性数据而编写的应用框架</p>
-
-<p>1、先确保Mac安装了Homebrew，如果安装了，直接跳到第二步。打开终端输入：</p>
-
-<pre><code class="language-text">/usr/bin/ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;
-</code></pre>
-
-<p>2、安装Scrapy，在终端输入：</p>
-
-<pre><code class="language-text">sudo pip install Scrapy
-</code></pre>
-
-<p>3、安装成功后，在终端输入：</p>
-
-<pre><code class="language-text">scrapy -version
-</code></pre>
-
-<p>我Mac输出的信息：</p>
-
-<pre><code class="language-text">Scrapy 1.7.3 - no active project
-
-Usage:
-  scrapy &lt;command&gt; [options] [args]
-
-Available commands:
-  bench         Run quick benchmark test
-  fetch         Fetch a URL using the Scrapy downloader
-  genspider     Generate new spider using pre-defined templates
-  runspider     Run a self-contained spider (without creating a project)
-  settings      Get settings values
-  shell         Interactive scraping console
-  startproject  Create new project
-  version       Print Scrapy version
-  view          Open URL in browser, as seen by Scrapy
-
-  [ more ]      More commands available when run from project directory
-
-Use &quot;scrapy &lt;command&gt; -h&quot; to see more info about a command
-</code></pre>
-
-<h3 id="toc_3">PyCharm</h3>
-
-<p>这个属于可选安装，使用IDE开发过程方便很多。</p>
-
-<p>1、下载两个文件：</p>
-
-<pre><code class="language-text">PyCharm：https://pan.baidu.com/s/1B-XwFmyrkzdYBKQfEchYQQ  密码:anlt
-破解文件（JetbrainsCrack-release-enc.jar）：https://pan.baidu.com/s/116-ClMthrzP55EzW4qMwzw  密码:1j75 
-</code></pre>
-
-<p>2、双击解压后，进入解压目录双击安装：<em>pycharm-professional-2019.1.2.dmg</em></p>
-
-<p>3、打开Finder，进入<em>应用程度</em> -&gt; 找到<em>PyCharm</em> -&gt; 右击<em>显示包内容</em> -&gt; 进入<em>Contents</em> -&gt; <em>bin</em><br/>
-<img src="media/15661470034756/15661499282007.jpg" alt="" style="width:339px;"/></p>
-
-<p>4、把下载好的<em>JetbrainsCrack-release-enc.jar</em>拖进去<br/>
-<img src="media/15661470034756/15661500763245.jpg" alt="" style="width:614px;"/></p>
-
-<p>5、 然后双击打开<em>pycharm.vmoptions</em>文件，在最后一行输入，并保存：</p>
-
-<pre><code class="language-text">-javaagent:/Applications/PyCharm.app/Contents/bin/JetbrainsCrack-release-enc.jar
-</code></pre>
-
-<p><img src="media/15661470034756/15661501440657.jpg" alt="" style="width:636px;"/></p>
-
-<p>6、打开PyCharm，选择<em>Activate</em> -&gt; <em>Activate code</em>，然后复制下面内容，点击Ok即可：</p>
-
-<pre><code class="language-text">JKHX300590-eyJsaWNlbnNlSWQiOiJKS0hYMzAwNTkwIiwibGljZW5zZWVOYW1lIjoiTmljb2xlIFBvd2VsbCIsImFzc2lnbmVlTmFtZSI6IiIsImFzc2lnbmVlRW1haWwiOiIiLCJsaWNlbnNlUmVzdHJpY3Rpb24iOiJGb3IgZWR1Y2F0aW9uYWwgdXNlIG9ubHkiLCJjaGVja0NvbmN1cnJlbnRVc2UiOmZhbHNlLCJwcm9kdWN0cyI6W3siY29kZSI6IklJIiwicGFpZFVwVG8iOiIyMDE5LTA5LTI0In0seyJjb2RlIjoiQUMiLCJwYWlkVXBUbyI6IjIwMTktMDktMjQifSx7ImNvZGUiOiJEUE4iLCJwYWlkVXBUbyI6IjIwMTktMDktMjQifSx7ImNvZGUiOiJQUyIsInBhaWRVcFRvIjoiMjAxOS0wOS0yNCJ9LHsiY29kZSI6IkdPIiwicGFpZFVwVG8iOiIyMDE5LTA5LTI0In0seyJjb2RlIjoiRE0iLCJwYWlkVXBUbyI6IjIwMTktMDktMjQifSx7ImNvZGUiOiJDTCIsInBhaWRVcFRvIjoiMjAxOS0wOS0yNCJ9LHsiY29kZSI6IlJTMCIsInBhaWRVcFRvIjoiMjAxOS0wOS0yNCJ9LHsiY29kZSI6IlJDIiwicGFpZFVwVG8iOiIyMDE5LTA5LTI0In0seyJjb2RlIjoiUkQiLCJwYWlkVXBUbyI6IjIwMTktMDktMjQifSx7ImNvZGUiOiJQQyIsInBhaWRVcFRvIjoiMjAxOS0wOS0yNCJ9LHsiY29kZSI6IlJNIiwicGFpZFVwVG8iOiIyMDE5LTA5LTI0In0seyJjb2RlIjoiV1MiLCJwYWlkVXBUbyI6IjIwMTktMDktMjQifSx7ImNvZGUiOiJEQiIsInBhaWRVcFRvIjoiMjAxOS0wOS0yNCJ9LHsiY29kZSI6IkRDIiwicGFpZFVwVG8iOiIyMDE5LTA5LTI0In0seyJjb2RlIjoiUlNVIiwicGFpZFVwVG8iOiIyMDE5LTA5LTI0In1dLCJoYXNoIjoiMTAzMTY2ODUvMCIsImdyYWNlUGVyaW9kRGF5cyI6MCwiYXV0b1Byb2xvbmdhdGVkIjpmYWxzZSwiaXNBdXRvUHJvbG9uZ2F0ZWQiOmZhbHNlfQ==-GvkOuUgCVPdyynFuSG+GNmcDZKp643apInM159fRXb69urSBIFyKO46umkRbl89lwr25SrAcl2TfRG1NMP/zPMRmGvd5VHiXDxa/xatzyPpkGf/czv0GeyuP/XhfX8332kXh9Dnowt3Z++IKUlkTjYInkpg09G9OHSwYcIcHAZ51CsqbrWIaemvDH3P9v+k6EUwwhgDZYA/TplavU/2d9J0EZg8kwzo/TK5P7Za09RFx91YBE558Ncl6VMgdhcwgF+oYHGEfs4Bez5xawJwagLymf3mLhq9acihxGnFsfqcyM/EeKDLKWOAveLQIk1NhtU7YR3fFC0EHEGwb04MavA==-MIIEPjCCAiagAwIBAgIBBTANBgkqhkiG9w0BAQsFADAYMRYwFAYDVQQDDA1KZXRQcm9maWxlIENBMB4XDTE1MTEwMjA4MjE0OFoXDTE4MTEwMTA4MjE0OFowETEPMA0GA1UEAwwGcHJvZDN5MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAxcQkq+zdxlR2mmRYBPzGbUNdMN6OaXiXzxIWtMEkrJMO/5oUfQJbLLuMSMK0QHFmaI37WShyxZcfRCidwXjot4zmNBKnlyHodDij/78TmVqFl8nOeD5+07B8VEaIu7c3E1N+e1doC6wht4I4+IEmtsPAdoaj5WCQVQbrI8KeT8M9VcBIWX7fD0fhexfg3ZRt0xqwMcXGNp3DdJHiO0rCdU+Itv7EmtnSVq9jBG1usMSFvMowR25mju2JcPFp1+I4ZI+FqgR8gyG8oiNDyNEoAbsR3lOpI7grUYSvkB/xVy/VoklPCK2h0f0GJxFjnye8NT1PAywoyl7RmiAVRE/EKwIDAQABo4GZMIGWMAkGA1UdEwQCMAAwHQYDVR0OBBYEFGEpG9oZGcfLMGNBkY7SgHiMGgTcMEgGA1UdIwRBMD+AFKOetkhnQhI2Qb1t4Lm0oFKLl/GzoRykGjAYMRYwFAYDVQQDDA1KZXRQcm9maWxlIENBggkA0myxg7KDeeEwEwYDVR0lBAwwCgYIKwYBBQUHAwEwCwYDVR0PBAQDAgWgMA0GCSqGSIb3DQEBCwUAA4ICAQC9WZuYgQedSuOc5TOUSrRigMw4/+wuC5EtZBfvdl4HT/8vzMW/oUlIP4YCvA0XKyBaCJ2iX+ZCDKoPfiYXiaSiH+HxAPV6J79vvouxKrWg2XV6ShFtPLP+0gPdGq3x9R3+kJbmAm8w+FOdlWqAfJrLvpzMGNeDU14YGXiZ9bVzmIQbwrBA+c/F4tlK/DV07dsNExihqFoibnqDiVNTGombaU2dDup2gwKdL81ua8EIcGNExHe82kjF4zwfadHk3bQVvbfdAwxcDy4xBjs3L4raPLU3yenSzr/OEur1+jfOxnQSmEcMXKXgrAQ9U55gwjcOFKrgOxEdek/Sk1VfOjvS+nuM4eyEruFMfaZHzoQiuw4IqgGc45ohFH0UUyjYcuFxxDSU9lMCv8qdHKm+wnPRb0l9l5vXsCBDuhAGYD6ss+Ga+aDY6f/qXZuUCEUOH3QUNbbCUlviSz6+GiRnt1kA9N2Qachl+2yBfaqUqr8h7Z2gsx5LcIf5kYNsqJ0GavXTVyWh7PYiKX4bs354ZQLUwwa/cG++2+wNWP+HtBhVxMRNTdVhSm38AknZlD+PTAsWGu9GyLmhti2EnVwGybSD2Dxmhxk3IPCkhKAK+pl0eWYGZWG3tJ9mZ7SowcXLWDFAk0lRJnKGFMTggrWjV8GYpw5bq23VmIqqDLgkNzuoog==
-</code></pre>
-
-<h3 id="toc_4">Firefox Developer Edition</h3>
-
-<p>火狐开发者版本有个特别好用的工具<em>Inspector</em>，可以直观的抓取网页的布局，使用：⌘（command）+ ⇪（大小写锁定）调出<em>Inspector</em>功能</p>
-
-<p><img src="media/15661470034756/15661509238075.jpg" alt="" style="width:1678px;"/></p>
-
-<p>链接:<a href="https://pan.baidu.com/s/1mL3BsGHvXNnlPysxAktVbw">https://pan.baidu.com/s/1mL3BsGHvXNnlPysxAktVbw</a>  密码:s37s</p>
+<blockquote>
+<p>从图1、2可以看出，HTTP的长短连接的本质是对TCP连接状态的描述，HTTP并没有长短连接！</p>
+</blockquote>
 
 
 		</div>
+	
+
+ 
 	
 
  

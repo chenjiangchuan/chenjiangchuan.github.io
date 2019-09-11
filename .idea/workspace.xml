@@ -1,34 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a3c56e2a-f132-494c-8307-49da136af9f8" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Web.html" beforeDir="false" afterPath="$PROJECT_DIR$/Web.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/all.html" beforeDir="false" afterPath="$PROJECT_DIR$/all.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/archives.html" beforeDir="false" afterPath="$PROJECT_DIR$/archives.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/atom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/atom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/design-pattern-bridge.html" beforeDir="false" afterPath="$PROJECT_DIR$/design-pattern-bridge.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/design-pattern-factory.html" beforeDir="false" afterPath="$PROJECT_DIR$/design-pattern-factory.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dns-concept.html" beforeDir="false" afterPath="$PROJECT_DIR$/dns-concept.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dns-resolution-solution.html" beforeDir="false" afterPath="$PROJECT_DIR$/dns-resolution-solution.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/iOS.html" beforeDir="false" afterPath="$PROJECT_DIR$/iOS.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios-block-arc.html" beforeDir="false" afterPath="$PROJECT_DIR$/ios-block-arc.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios-block-changevar.html" beforeDir="false" afterPath="$PROJECT_DIR$/ios-block-changevar.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios-block-copy.html" beforeDir="false" afterPath="$PROJECT_DIR$/ios-block-copy.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios-block-think.html" beforeDir="false" afterPath="$PROJECT_DIR$/ios-block-think.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios-block-type.html" beforeDir="false" afterPath="$PROJECT_DIR$/ios-block-type.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios-isa.html" beforeDir="false" afterPath="$PROJECT_DIR$/ios-isa.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios-module-use.html" beforeDir="false" afterPath="$PROJECT_DIR$/ios-module-use.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios-objc-msgsend.html" beforeDir="false" afterPath="$PROJECT_DIR$/ios-objc-msgsend.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios-pods-create.html" beforeDir="false" afterPath="$PROJECT_DIR$/ios-pods-create.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios-podsepc.html" beforeDir="false" afterPath="$PROJECT_DIR$/ios-podsepc.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/python_spider.html" beforeDir="false" afterPath="$PROJECT_DIR$/python_spider.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sitemap.xml" beforeDir="false" afterPath="$PROJECT_DIR$/sitemap.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/组件化.html" beforeDir="false" afterPath="$PROJECT_DIR$/组件化.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/网络.html" beforeDir="false" afterPath="$PROJECT_DIR$/网络.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/设计模式.html" beforeDir="false" afterPath="$PROJECT_DIR$/设计模式.html" afterDir="false" />
-    </list>
+    <list default="true" id="a3c56e2a-f132-494c-8307-49da136af9f8" name="Default Changelist" comment="" />
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
     <ignored path="$PROJECT_DIR$/tmp/" />
@@ -40,7 +13,7 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/index.html">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="105">
@@ -58,11 +31,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/../../SiteThemes/MWeb-Foundation-Book/header.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="135">
-              <caret line="9" column="49" selection-start-line="9" selection-start-column="49" selection-end-line="9" selection-end-column="49" />
+            <state relative-caret-position="105">
+              <caret line="7" column="10" lean-forward="true" selection-start-line="7" selection-start-column="10" selection-end-line="7" selection-end-column="10" />
             </state>
           </provider>
         </entry>
@@ -87,8 +60,8 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="114" />
-    <option name="y" value="298" />
+    <option name="x" value="19" />
+    <option name="y" value="29" />
     <option name="width" value="1680" />
     <option name="height" value="1027" />
   </component>
@@ -182,15 +155,15 @@
       <option name="presentableId" value="Default" />
       <updated>1567515911199</updated>
       <workItem from="1567515913897" duration="6936000" />
-      <workItem from="1567558867281" duration="225000" />
+      <workItem from="1567558867281" duration="502000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="7161000" />
+    <option name="totallyTimeSpent" value="7438000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="51" y="185" width="1680" height="1027" extended-state="0" />
+    <frame x="19" y="29" width="1680" height="1027" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.18565401" />
@@ -235,13 +208,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="8" column="10" selection-start-line="8" selection-start-column="10" selection-end-line="8" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/asset/css/docs.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="125">
@@ -251,8 +217,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/../../SiteThemes/MWeb-Foundation-Book/header.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="9" column="49" selection-start-line="9" selection-start-column="49" selection-end-line="9" selection-end-column="49" />
+        <state relative-caret-position="105">
+          <caret line="7" column="10" lean-forward="true" selection-start-line="7" selection-start-column="10" selection-end-line="7" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="8" column="10" selection-start-line="8" selection-start-column="10" selection-end-line="8" selection-end-column="10" />
         </state>
       </provider>
     </entry>

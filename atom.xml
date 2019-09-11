@@ -4,7 +4,7 @@
   <title><![CDATA[丸子（ONEZ）]]></title>
   <link href="http://blog.onez-gz.com/atom.xml" rel="self"/>
   <link href="http://blog.onez-gz.com/"/>
-  <updated>2019-09-04T09:03:28+08:00</updated>
+  <updated>2019-09-11T14:59:34+08:00</updated>
   <id>http://blog.onez-gz.com/</id>
   <author>
     <name><![CDATA[]]></name>
@@ -12,6 +12,47 @@
   </author>
   <generator uri="http://www.mweb.im">MWeb</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[HTTP的长短连接]]></title>
+    <link href="http://blog.onez-gz.com/http-connection.html"/>
+    <updated>2019-09-07T11:43:38+08:00</updated>
+    <id>http://blog.onez-gz.com/http-connection.html</id>
+    <content type="html"><![CDATA[
+<p>对HTTP有点了解的都知道从1.1开始，HTTP默认使用长连接的方式与Web服务器交互。但这个长连接指的是什么？长连接是一直持续下次吗？</p>
+
+<h2 id="toc_0">HTTP协议的Request/Response模型</h2>
+
+<p>HTTP是一个应用层协议，基于运输层的TCP协议。HTTP协议是一种无状态协议，即客户端和Web服务器不需要建立持续的连接。客户端和Web服务器的连接时基于请求/应答模式：1、客户端和Web服务器建立一个连接；2、客户端发送一个请求报文；3、Web服务器收到请求报文后并返回一个响应报文；4、客户端和Web服务器断开连接。</p>
+
+<p><img src="media/15678278186126/15678292899668.jpg" alt="" style="width:673px;"/><br/>
+<center>图1 非持续连接</center></p>
+
+<h2 id="toc_1">HTTP的非持续、持续连接</h2>
+
+<p>在HTTP 1.1之前，采用的是非持续连接（见图1），它有两大缺点：</p>
+
+<ol>
+<li>必须为每一个请求的对象建立和维护一个全新的连接。对于每个这样的连接，在客户和服务器中都要分配TCP的缓存区和保存TCP变量，这给Web服务器带来严重的负担（成千上万个请求）；</li>
+<li>每一个对象要经受两倍的RTT（往返时延）的交付时延。</li>
+</ol>
+
+<p>从HTTP 1.1开始，默认使用持续连接，设置请求报文中的<em>首部行 Connection: keep-alive</em>，它的优点在于：</p>
+
+<ol>
+<li>客户端与Web服务器建立连接后，在相同的客户端与Web服务器之间，后续的请求和响应报文能够通过相同的连接进行传送；</li>
+<li>如果一条连接经过一定时间间隔（可配置）仍未被使用，HTTP服务器就会关闭该连接。</li>
+</ol>
+
+<p><img src="media/15678278186126/15678304521638.jpg" alt="" style="width:670px;"/><br/>
+<center>图2 持续连接</center></p>
+
+<blockquote>
+<p>从图1、2可以看出，HTTP的长短连接的本质是对TCP连接状态的描述，HTTP并没有长短连接！</p>
+</blockquote>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Python爬虫 - 环境的搭建]]></title>
